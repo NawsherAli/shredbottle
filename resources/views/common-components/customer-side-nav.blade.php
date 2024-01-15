@@ -8,7 +8,7 @@
     </div>
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
-            <li class="nav-item active ">
+            <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('customer.dashboard')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-appstore"></i>
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="pickup-request.html">
+                <a class="dropdown-toggle" href="{{url('/pickup/request')}}">
                     <span class="icon-holder">
                         <i class="fas fa-taxi"></i>
                     </span>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="donations.html">
+                <a class="dropdown-toggle" href="{{url('donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="chat.html">
+                <a class="dropdown-toggle" href="{{url('/chat')}}">
                     <span class="icon-holder">
                         <i class="far fa-comment-alt"></i>
                     </span>
@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="fundraising.html">
+                <a class="dropdown-toggle" href="{{url('/fundraiser')}}">
                     <span class="icon-holder">
                         <i class="fab fa-keycdn"></i>
                     </span>
