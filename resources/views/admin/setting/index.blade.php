@@ -1,4 +1,4 @@
-@extends('customer.layouts.layout')
+@extends('admin.layouts.layout')
 @section('contents')
 <div class="col-12">
     <div class=" ">
@@ -40,13 +40,7 @@
                                 </p>
                                 <p class="col font-weight-semibold text-black">{{$user->id}}</p>
                             </li>
-                            <li class="row">
-                                <p class="col-3 font-weight-semibold text-dark m-b-5">
-                                    <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
-                                    <span class="text-primary">Address: </span> 
-                                </p>
-                                <p class="col-6 font-weight-semibold text-black"> {{$user->customer->address}}</p>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -63,7 +57,7 @@
 	    <h3 class="title-with-line title-responsive">Information&nbsp;</h3><button class="btn btn-primary" id="editButton"><i class="fas fa-pencil-alt"></i> Edit</button>
 	</div>
 </div>
-<form method="post" action="{{ route('customer.profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+<form method="post" action="{{ route('admin.profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -82,23 +76,12 @@
     <label for="contact" class="text-primary">Phone Number</label>
     <input type="text" class="form-control" id="contact"  name="contact" value="{{$user->contact}}">
 </div>
-<div class="form-group col-md-6  ">
-    <label for="e_transfer_no" class="text-primary">E Transfer Number</label>
-    <input type="text" class="form-control" id="e_transfer_no"  name="e_transfer_no" value="{{$user->e_transfer_no}}">
-    <input type="file" name="image" hidden id="image">
-</div>
+
 </div>
 <div class="form-row">
-<!-- <div class="form-group col-md-6  ">
-    <label for="driver-phone" class="text-primary">E Transfer Number</label>
-    <input type="number" class="form-control" id="driver-phone" placeholder="E Transfer Number" name="driver-phone">
-</div> -->
-	<div class="form-group col-md-12  ">
-	    <label for="driver-phone" class="text-primary">Address</label>
-	    <textarea class="form-control" aria-label="With textarea" name="address">{{$user->customer->address}}</textarea>
-	</div>
 </div>
 <div class="form-row">
+<input type="file" name="image" hidden id="image">
 <div class="form-group col-md-6  ">
                             </div>
 <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">

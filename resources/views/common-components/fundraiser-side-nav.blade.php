@@ -8,8 +8,8 @@
     </div>
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
-            <li class="nav-item active ">
-                <a class="dropdown-toggle" href="index.html">
+            <li class="nav-item">
+                <a class="dropdown-toggle" href="{{route('fundraiser.dashboard')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-appstore"></i>
                     </span>
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="donations.html">
+                <a class="dropdown-toggle" href="{{url('fundraiser/donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="chat.html">
+                <a class="dropdown-toggle" href="{{route('fundraiser.chat')}}">
                     <span class="icon-holder">
                         <i class="far fa-comment-alt"></i>
                     </span>
@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="setting.html">
+                <a class="dropdown-toggle" href="{{route('fundraiser.profile.edit')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-setting"></i>
                     </span>

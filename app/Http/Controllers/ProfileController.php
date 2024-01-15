@@ -9,48 +9,79 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Customer;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Display the admin's profile form.
+     */
+    public function adminEdit(Request $request): View
+    {   
+            return view('admin.setting.index', [
+            'user' => $request->user(),
+            ]);
+    }
+    /**
+     * Display the customer's profile form.
      */
     public function customerEdit(Request $request): View
     {   
+
+        $userWithCustomer = User::with('customer')->find(auth()->id());
         return view('customer.setting.index', [
-            'user' => $request->user() ,
+            'user' => $userWithCustomer,
         ]);
-
-        // $role = Auth::user()->role;
-
-        // if($role == 'admin'){
-        //      return view('admin.profile.edit', [
-        //     'user' => $request->user(),
-        // ]);
-             
-        // }if($role == 'fundraiser'){
-
-        // }else{
-        //      return view('customer.setting.index', [
-        //     'user' => $request->user(),
-        //     ]);
-        // }
     }
 
+    /**
+     * Display the customer's profile form.
+     */
+    public function fundraiserEdit(Request $request): View
+    {   
+
+        $userWithFundraiser = User::with('fundraiser')->find(auth()->id());
+        return view('fundraiser.setting.index', [
+            'user' => $userWithFundraiser,
+        ]);
+    }
+    /**
+     * Update the admin's profile information.
+     */
+    public function adminUpdate(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'contact' => 'nullable|numeric|digits:11',
+        ]);
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+
+        // Handle image upload if a new image is provided
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/avatars'), $imageName);
+            $user->profile_image = $imageName;
+        }
+
+        // Update other user information
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->contact = $request->input('contact');
+        $user->save();
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+        
+    }
     /**
      * Update the user's profile information.
      */
     public function customerUpdate(ProfileUpdateRequest $request): RedirectResponse
     {
-        // $request->user()->fill($request->validated());
-
-        // if ($request->user()->isDirty('email')) {
-        //     $request->user()->email_verified_at = null;
-        // }
-
-        // $request->user()->save();
-
-        // return Redirect::route('profile.edit')->with('status', 'profile-updated');
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules
             'name' => 'required|string',
