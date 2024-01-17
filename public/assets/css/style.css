@@ -459,3 +459,33 @@
  .center-tabs .nav-tabs>li{float:none;display:inline-block}
  .justified-tabs .nav-tabs{width:100%}
  .justified-tabs .nav-tabs>li{display:table-cell;width:1%;text-align:center;float:none}
+
+ .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+    }
+
+    .pagination li {
+        margin-right: 5px;
+        background-color: red;
+    }
+
+    .pagination a,
+    .pagination span {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #3490dc;
+        color: #fff;
+        border: 1px solid #3490dc;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .pagination a:hover {
+        background-color: #1d68a7;
+        border-color: #1d68a7;
+    }
+    .w-5{
+        width: 50px;
+    }
