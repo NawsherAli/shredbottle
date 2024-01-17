@@ -55,13 +55,13 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{route('admin.profiles')}}">Driver Profiles</a>
+                        <a href="{{route('drivers.index')}}">Driver Profiles</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.create.profile')}}">Create Driver Profile</a>
+                        <a href="{{route('drivers.create')}}">Create Driver Profile</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.customers')}}">Customers</a>
+                        <a href="{{route('customer.index')}}">Customers</a>
                     </li>
                 </ul>
             </li>

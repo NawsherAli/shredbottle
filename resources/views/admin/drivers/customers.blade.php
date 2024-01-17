@@ -5,10 +5,13 @@
         <h1>Customers</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
-        <div class="input-affix m-b-10">
-            <input type="text" class="form-control" placeholder="Search">
-            <i class="suffix-icon anticon anticon-search"></i>
-        </div>
+        <form id="searchForm" method="GET" action="{{ route('customer.search') }}">
+            <div class="input-affix  ">
+            <input type="text" class="form-control" placeholder="Search by name" name="search">
+                <i class="suffix-icon anticon anticon-search" id="searchIcon"></i>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+        </form>
     </div>
     <div class="col-md-2 order-sm-3 order-2 col-4 ">
         <div class="dropdown dropdown-animated scale-left">
@@ -35,156 +38,95 @@
                             <th scope="col" class="text-white">Phone Number</th>
                             <th scope="col" class="text-white">Email</th>
                             <th scope="col" class="text-white">Status</th>
+                            <th scope="col" class="text-white">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @if(count($customers) > 0)
+                        @foreach($customers as $customer)
+
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
+                            <th scope="row">{{$customer->id}}</th>
+                            <td>{{$customer->name}}</td>
+                            <td>+{{$customer->contact}}</td>
+                            <td>{{$customer->email}}</td>
+                            <td>
+                               @if($customer->status == 'active')
+                                 <span class="badge badge-pill badge-success mr-3">{{$customer->status}}</span>
+                                @endif
+                                @if($customer->status == 'in-active')
+                                 <span class="badge badge-pill badge-pending mr-3">{{$customer->status}}</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('customer.edit', ['id' => $customer->id]) }}" class="badge badge-pill badge-blue"><i class="fas fa-edit    br-100"></i></a>
+                                <a href="#" onclick="deleteCustomer({{ $customer->id }})" class="badge badge-pill badge-red"><i class="fas fa-trash-alt   br-100"></i></a>
+                                <a href="{{ route('view.customer', ['id' => $customer->id]) }}" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
+                            </td>
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-pending mr-3">In-active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Benjamin Parker</td>
-                            <td>+123 456 7890</td>
-                            <td>benparker@mail.com</td>
-                            <td><span class="badge badge-pill badge-pending mr-3">In-active</span><a href="donor-details.html"><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></a></td>
-                        </tr>
+                        @endforeach
+                        @else
+                           <td>No record found</td>
+                        @endif
                     </tbody>
         </table>
     </div>
-    <div class="m-t-20 d-flex justify-content-center ">
-        <ul class="pagination justify-content-end">
-            <li class="page-item previous"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item"><a class="page-link" href="#">7</a></li>
-            <li class="page-item"><a class="page-link" href="#">8</a></li>
-            <li class="page-item"><a class="page-link" href="#">9</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item next"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </div>
+
 </div>
 <div class="">
-    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
+    @foreach($customers as $customer)
+        <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> 432</p>
+             <p class="text-black"><b>ID:</b> {{$customer->id}}</p>
              
          </div>
          <div class="d-flex justify-content-between" >
-             <h3 class="text-primary">Benjamin Parkar</h3>
+             <h3 class="text-primary">{{$customer->name}}</h3>
          </div>
          <div class="d-flex justify-content-between" >
              <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>benparker@mail.com</p>
+             <p class="text-black"><b>Email:</b>{{$customer->email}}</p>
          </div>
          <div class="d-flex justify-content-end align-items-center" >
-             <span class="badge badge-pill badge-success mr-3">Active</span>
-              <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
+            @if($customer->status == 'active')
+             <span class="badge badge-pill badge-success mr-3">{{$customer->status}}</span>
+            @endif
+            @if($customer->status == 'in-active')
+             <span class="badge badge-pill badge-pending mr-3">{{$customer->status}}</span>
+            @endif
+               <a href="{{ route('customer.edit', ['id' => $customer->id]) }}" class="badge badge-pill badge-blue"><i class="fas fa-edit    br-100"></i></a>
+               <a href="#" onclick="deleteCustomer({{ $customer->id }})" class="badge badge-pill badge-red"><i class="fas fa-trash-alt   br-100"></i></a>
+               <a href="{{ route('view.customer', ['id' => $customer->id]) }}" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
          </div>
-    </div>
-    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> 432</p>
-             
-         </div>
-         <div class="d-flex justify-content-between" >
-             <h3 class="text-primary">Benjamin Parkar</h3>
-         </div>
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>benparker@mail.com</p>
-         </div>
-         <div class="d-flex justify-content-end align-items-center" >
-             <span class="badge badge-pill badge-success mr-3">Active</span>
-              <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-         </div>
-    </div>
-    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> 432</p>
-             
-         </div>
-         <div class="d-flex justify-content-between" >
-             <h3 class="text-primary">Benjamin Parkar</h3>
-         </div>
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>benparker@mail.com</p>
-         </div>
-         <div class="d-flex justify-content-end align-items-center" >
-             <span class="badge badge-pill badge-success mr-3">Active</span>
-              <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-         </div>
-    </div>
-    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> 432</p>
-             
-         </div>
-         <div class="d-flex justify-content-between" >
-             <h3 class="text-primary">Benjamin Parkar</h3>
-         </div>
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>benparker@mail.com</p>
-         </div>
-         <div class="d-flex justify-content-end align-items-center" >
-             <span class="badge badge-pill badge-success mr-3">Active</span>
-              <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-         </div>
-    </div>
-    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> 432</p>
-             
-         </div>
-         <div class="d-flex justify-content-between" >
-             <h3 class="text-primary">Benjamin Parkar</h3>
-         </div>
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>benparker@mail.com</p>
-         </div>
-         <div class="d-flex justify-content-end align-items-center" >
-             <span class="badge badge-pill badge-success mr-3">Active</span>
-              <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-         </div>
-    </div>
+        </div>
+    @endforeach
 </div>
+{{ $customers->links('vendor.pagination.default') }}
+
+@if(isset($customer->id))
+<form id="delete-form-{{ $customer->id }}" action="{{ route('customer.destroy', ['id' => $customer->id]) }}" method="post" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
+@endif
+<script>
+    function deleteCustomer(customerId) {
+        if (confirm('Are you sure you want to delete this Customer Record?')) {
+            document.getElementById('delete-form-' + customerId).submit();
+        }
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the search form and search icon elements
+        var searchForm = document.getElementById('searchForm');
+        var searchIcon = document.getElementById('searchIcon');
+
+        // Add a click event listener to the search icon
+        searchIcon.addEventListener('click', function() {
+            // Submit the search form when the search icon is clicked
+            searchForm.submit();
+        });
+    });
+</script> 
 @endsection
