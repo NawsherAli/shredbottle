@@ -39,7 +39,7 @@
                         <a href="{{route('admin.fundraiser.donations')}}">Fundraising Donation</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.charities')}}">Charities</a>
+                        <a href="{{route('admin.fundraiser.index')}}">Charities</a>
                     </li>
                 </ul>
             </li>
@@ -74,7 +74,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="{{route('admin.chat')}}">
+                <a class="dropdown-toggle" href="{{url('/chatify')}}">
                     <span class="icon-holder">
                         <i class="far fa-comment-alt"></i>
                     </span>

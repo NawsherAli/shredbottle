@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="{{url('/chat')}}">
+                <a class="dropdown-toggle" href="{{url('/chatify')}}">
                     <span class="icon-holder">
                         <i class="far fa-comment-alt"></i>
                     </span>
@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="{{url('/fundraiser')}}">
+                <a class="dropdown-toggle" href="{{route('customer.fundraiser.index')}}">
                     <span class="icon-holder">
                         <i class="fab fa-keycdn"></i>
                     </span>

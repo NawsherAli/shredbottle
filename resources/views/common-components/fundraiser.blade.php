@@ -6,10 +6,13 @@
         <h1 class="text-white">Fundraisers</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
-        <div class="input-affix m-b-10">
-            <input type="text" class="form-control" placeholder="Search">
-            <i class="suffix-icon anticon anticon-search"></i>
-        </div>
+        <form id="searchForm" method="GET" action='{{ route("$role.fundraiser.search") }}'>
+            <div class="input-affix  ">
+            <input type="text" class="form-control" placeholder="Search" name="search">
+                <i class="suffix-icon anticon anticon-search" id="searchIcon"></i>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+        </form>
     </div>
     <div class="col-md-2 order-sm-3 order-2 col-4 ">
         <div class="dropdown dropdown-animated scale-left">
@@ -26,6 +29,7 @@
     </div>
 </div>
 <div class="row " id="card-view">
+    @foreach($fundraisers as $fundraiser)
     <div class="col-md-4 col-6">
         <div class="card bg-primary-light">
             <div class="card-body">
@@ -33,111 +37,30 @@
                     <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
                         <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
                     </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
+                    <h4 class="m-t-30">{{$fundraiser->fundraiser->company_name}}</h4>
                     <p>Charity Goal: $1000 <br>
                        Charity Type: school</p>
                 </div>
                 <div class="text-center m-t-30">
-                    <a href='{{route("$role.view.fundraiser")}}' class="btn btn-primary">
+                    <a href='{{ route("$role.fundraiser.view", ["id" => $fundraiser->id]) }}' class="btn btn-primary">
                         <span class="m-l-5">View Charity</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-6">
-        <div class="card bg-primary-light">
-            <div class="card-body">
-                <div class="m-t-20 text-center">
-                    <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
-                        <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
-                    </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
-                    <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
-                </div>
-                <div class="text-center m-t-30">
-                    <a href="profile.html" class="btn btn-primary">
-                        <span class="m-l-5">View Charity</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-6">
-        <div class="card bg-primary-light">
-            <div class="card-body">
-                <div class="m-t-20 text-center">
-                    <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
-                        <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
-                    </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
-                    <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
-                </div>
-                <div class="text-center m-t-30">
-                    <a href="profile.html" class="btn btn-primary">
-                        <span class="m-l-5">View Charity</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-6">
-        <div class="card bg-primary-light">
-            <div class="card-body">
-                <div class="m-t-20 text-center">
-                    <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
-                        <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
-                    </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
-                    <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
-                </div>
-                <div class="text-center m-t-30">
-                    <a href="profile.html" class="btn btn-primary">
-                        <span class="m-l-5">View Charity</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-6">
-        <div class="card bg-primary-light">
-            <div class="card-body">
-                <div class="m-t-20 text-center">
-                    <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
-                        <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
-                    </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
-                    <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
-                </div>
-                <div class="text-center m-t-30">
-                    <a href="profile.html" class="btn btn-primary">
-                        <span class="m-l-5">View Charity</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div> 
-    <div class="col-md-4 col-6">
-        <div class="card bg-primary-light">
-            <div class="card-body">
-                <div class="m-t-20 text-center">
-                    <div class="avatar avatar-image bg-primary-light" style="height: 100px; width: 100px;">
-                        <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
-                    </div>
-                    <h4 class="m-t-30">Personal Fundraising</h4>
-                    <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
-                </div>
-                <div class="text-center m-t-30">
-                    <a href="profile.html" class="btn btn-primary">
-                        <span class="m-l-5">View Charity</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the search form and search icon elements
+        var searchForm = document.getElementById('searchForm');
+        var searchIcon = document.getElementById('searchIcon');
+
+        // Add a click event listener to the search icon
+        searchIcon.addEventListener('click', function() {
+            // Submit the search form when the search icon is clicked
+            searchForm.submit();
+        });
+    });
+</script>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FundraiserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,15 +66,15 @@ Route::get('/pickup/request', function () {
 Route::get('/donations', function () {
     return view('customer.donations.index');
 });
-Route::get('/chat', function () {
-    return view('customer.chat.index');
-});
-Route::get('/fundraiser', function () {
-    return view('customer.fundraiser.index');
-});
-Route::get('/fundraiser/details', function () {
-    return view('customer.fundraiser.fundraiser-details');
-})->name('customer.view.fundraiser');
+
+Route::get('/customer/fundraisers', [FundraiserController::class, 'customerIndex'])->name('customer.fundraiser.index');
+//Customer view charity
+Route::get('/customer/fundraisers/view/{id}', [FundraiserController::class, 'customerFundraiserView'])->name('customer.fundraiser.view');
+//search fundraiser
+Route::get('customer/fundraiser/search', [FundraiserController::class, 'customerFundraiserSearch'])->name('customer.fundraiser.search');
+
+
+
 
 Route::get('/donate', function () {
     return view('customer.fundraiser.donate-now');
@@ -82,7 +83,7 @@ Route::get('customer/view/donor', function () {
     return view('customer.donations.donar-details');
 })->name('customer.donor-view');
 
-
+////////////////////////////////////Admin Routes//////////////////////////////
 //Admin Driver Routes 
 Route::get('/drivers', [DriverController::class, 'index'])->name('drivers.index');
 Route::get('/drivers/create', [DriverController::class, 'create'])->name('drivers.create');
@@ -96,7 +97,6 @@ Route::get('/view-driver/{id}',[DriverController::class, 'viewDriver'])->name('v
 //search driver
 Route::get('/drivers/search', [DriverController::class, 'search'])->name('drivers.search');
 
-
 //Admin customer routes
 Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
 Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
@@ -105,6 +105,13 @@ Route::get('/view-customer/{id}',[CustomerController::class, 'viewCustomer'])->n
 Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 //search driver
 Route::get('/customer/search', [CustomerController::class, 'search'])->name('customer.search');
+
+//Admin charities/fundraisers routes
+Route::get('/admin/fundraisers', [FundraiserController::class, 'adminIndex'])->name('admin.fundraiser.index');
+//Admin view charity
+Route::get('/admin/fundraisers/view/{id}', [FundraiserController::class, 'adminFundraiserView'])->name('admin.fundraiser.view');
+//admin search fundraiser
+Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
 
 
 
@@ -119,23 +126,12 @@ Route::get('admin/fundraiser/donation', function () {
     return view('admin.fundraiser-donation.index');
 })->name('admin.fundraiser.donations');
 
-Route::get('admin/charities', function () {
-    return view('admin.fundraiser-donation.view-charity');
-})->name('admin.view.fundraiser');
-
-Route::get('admin/view/charities', function () {
-    return view('admin.fundraiser-donation.charities');
-})->name('admin.charities');
-
-
 
 Route::get('admin/pickup/list', function () {
     return view('admin.pickup-request.index');
 })->name('admin.pickup');
 
-Route::get('admin/chat', function () {
-    return view('admin.chat.index');
-})->name('admin.chat');
+
 
 
 //Fundraiser
