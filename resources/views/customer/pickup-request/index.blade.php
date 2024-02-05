@@ -1,5 +1,11 @@
 @extends('customer.layouts.layout')
 @section('contents')
+<style>
+    .radio input[type=radio]:checked+label:before{color:red;border-color:red)}
+    .radio input[type=radio]:checked+label:after{background-color:red)}
+
+    }
+</style>
 <div class="row mb-3 bg-primary br-10" style="border-bottom: 2px solid #219653">
     <div class="col-md-12 order-sm-1 order-1 col-8 ">
         <h1 class="text-white title-responsive">Pickup Request</h1>
@@ -172,12 +178,15 @@
     </div>
     <div class="form-group col-md-3 ">
         <div class="radio">
-            <input id="radio5" name="role" type="radio" checked="">
+            <input id="radio5" name="role" type="radio" >
             <label for="radio5">Donate</label>
          </div>
     </div>
 </div>
 
+
+<div id="select-charity">
+    
 
 <div class="row">
     <div class="col-md-12">
@@ -202,7 +211,8 @@
             <option>Xyz</option>
         </select>
     </div>
-</div>        
+</div> 
+</div>       
 <div class="form-row">
     <div class="form-group col-md-6 bg-primary-light br-5">
         <div class="d-flex align-items-center p">
@@ -223,3 +233,16 @@
     </div>
 </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('input[name="role"]').change(function () {
+            if ($('#radio5').is(':checked')) {
+                $('#select-charity').show();
+            } else {
+                $('#select-charity').hide();
+            }
+        });
+    });
+</script>
