@@ -1,14 +1,19 @@
 @extends('admin.layouts.layout')
+@php
+   $role = Auth::user()->role;
+@endphp 
 @section('contents')
 <div class="row mb-3" style="border-bottom: 2px solid #219653">
     <div class="col-md-6 order-sm-1 order-1 col-8">
         <h1>Pickup List</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
-        <div class="input-affix m-b-10">
-            <input type="text" class="form-control" placeholder="Search">
-            <i class="suffix-icon anticon anticon-search"></i>
-        </div>
+        <form id="searchForm" method="GET" action="{{ route('pickup.search') }}">
+            <div class="input-affix m-b-10">
+                <input type="text" class="form-control" placeholder="Search" name="search">
+                <i class="suffix-icon anticon anticon-search" id="searchIcon"></i>
+            </div>
+        </form>
     </div>
     <div class="col-md-2 order-sm-3 order-2 col-4 ">
         <div class="dropdown dropdown-animated scale-left">
@@ -18,9 +23,10 @@
             <span>Filter</span>
             </button>
             <div class="dropdown-menu">
-                <button class="dropdown-item" type="button">Sort By Latest Pickups</button>
-                <button class="dropdown-item" type="button">Sort By Completed Pickups</button>
-                <button class="dropdown-item" type="button">Sort By Pending Pickups</button>
+                  <a class="dropdown-item" href="{{ route('pickups.filter', ['sort' => 'latest']) }}">Latest Pickups</a>
+                  <a class="dropdown-item" href="{{ route('pickups.filter', ['sort' => 'completed']) }}">Completed Pickups</a>
+                  <a class="dropdown-item" href="{{ route('pickups.filter', ['sort' => 'pending']) }}">Pending Pickups</a>
+    
             </div>
         </div>
     </div>
@@ -40,178 +46,72 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Banjamin Parkar</td>
-                            <td>+123 456 789</td>
-                            <td>1Box-3Bags</td>
-                            <td>10/10/24</td>
-                            <td><span class="badge badge-pill badge-success mr-3">Active</span><i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i></td>
-                        </tr>
+                        @if(count($pickups) > 0)
+                        @foreach($pickups as $pickup)
+                            <tr>
+                                <th scope="row"> {{$loop->iteration}}</th>
+                                <td>{{$pickup->customer->user->name}}</td>
+                                <td>{{$pickup->pickup_contact}}</td>
+                                <td>{{$pickup->total_items}}</td>
+                                <td>{{$pickup->pickup_date}}</td>
+                                <td>
+                                @if($pickup->status == 'Completed')
+                                <span class="badge badge-pill badge-success mr-3">Completed</span>
+                                @else
+                                <span class="badge badge-pill badge-pending mr-3">Pending</span>
+                                @endif
+                                <a href='{{route("$role.pickup.view",["id"=>$pickup->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a></td>
+                            </tr>
+                            @endforeach
+                            @else
+                                <td>No record found</td>
+                            @endif
                     </tbody>
                 </table>
             </div>
     </div>
-    <div class="m-t-20 d-flex justify-content-center ">
-        <ul class="pagination justify-content-end">
-            <li class="page-item previous"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item"><a class="page-link" href="#">7</a></li>
-            <li class="page-item"><a class="page-link" href="#">8</a></li>
-            <li class="page-item"><a class="page-link" href="#">9</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item next"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </div>
 </div>
 <div class="">
-                <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>ID:</b> 432</p>
-                         <p class="text-black"><i class="far fa-calendar-alt"></i> 10/10/2023</p>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <h3 class="text-primary">Benjamin Parkar</h3>
-                         <h3 class="text-primary">1 Box - 3 Bags</h3>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><i class="anticon anticon-phone text-primary"></i> +123 456 789</p>
-                         <div class="" >
-                            <span class="badge badge-pill badge-success mr-3">Active</span>
-                          <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-                         </div>
-                     </div>
-                </div>
-                <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>ID:</b> 432</p>
-                         <p class="text-black"><i class="far fa-calendar-alt"></i> 10/10/2023</p>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <h3 class="text-primary">Benjamin Parkar</h3>
-                         <h3 class="text-primary">$10</h3>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>Charity Type:</b> School</p>
-                         <p class="text-black"><b>Charity Name:</b> School</p>
-                     </div>
-                     <div class="d-flex justify-content-end align-items-center" >
-                         <span class="badge badge-pill badge-success mr-3">Active</span>
-                          <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-                     </div>
-                </div>
-                <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>ID:</b> 432</p>
-                         <p class="text-black"><i class="far fa-calendar-alt"></i> 10/10/2023</p>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <h3 class="text-primary">Benjamin Parkar</h3>
-                         <h3 class="text-primary">$10</h3>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>Charity Type:</b> School</p>
-                         <p class="text-black"><b>Charity Name:</b> School</p>
-                     </div>
-                     <div class="d-flex justify-content-end align-items-center" >
-                         <span class="badge badge-pill badge-success mr-3">Active</span>
-                          <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-                     </div>
-                </div>
-                <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>ID:</b> 432</p>
-                         <p class="text-black"><i class="far fa-calendar-alt"></i> 10/10/2023</p>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <h3 class="text-primary">Benjamin Parkar</h3>
-                         <h3 class="text-primary">$10</h3>
-                     </div>
-                     <div class="d-flex justify-content-between" >
-                         <p class="text-black"><b>Charity Type:</b> School</p>
-                         <p class="text-black"><b>Charity Name:</b> School</p>
-                     </div>
-                     <div class="d-flex justify-content-end align-items-center" >
-                         <span class="badge badge-pill badge-success mr-3">Active</span>
-                          <i class="fas fa-external-link-alt table-view-icon p-5 badge-success-lighter br-100"></i> 
-                     </div>
-                </div>
+@if(count($pickups) > 0)
+@foreach($pickups as $pickup)
+<div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
+     <div class="d-flex justify-content-between" >
+         <p class="text-black"><b>ID: </b>{{$pickup->id}}</p>
+         <p class="text-black"><i class="far fa-calendar-alt"></i> {{$pickup->pickup_date}}</p>
+     </div>
+     <div class="d-flex justify-content-between" >
+         <h5 class="text-primary">{{$pickup->customer->user->name}}</h5>
+         <h5 class="text-primary">{{$pickup->total_items}}</h5>
+     </div>
+     <div class="d-flex justify-content-between" >
+         <p class="text-black"><i class="anticon anticon-phone text-primary"></i>{{$pickup->pickup_contact}}</p>
+         <div class="" >
+            @if($pickup->status == 'Completed')
+            <span class="badge badge-pill badge-success mr-3">Completed</span>
+            @else
+            <span class="badge badge-pill badge-pending mr-3">Pending</span>
+            @endif
+          <a href="#" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
+         </div>
+     </div>
+</div>
+@endforeach
+{{ $pickups->links('vendor.pagination.default') }}
+@else
+ <p>No record found</p>
+@endif
 </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the search form and search icon elements
+        var searchForm = document.getElementById('searchForm');
+        var searchIcon = document.getElementById('searchIcon');
+
+        // Add a click event listener to the search icon
+        searchIcon.addEventListener('click', function() {
+            // Submit the search form when the search icon is clicked
+            searchForm.submit();
+        });
+    });
+</script> 

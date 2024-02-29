@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Fundraiser;
 use App\Models\User;
+use App\Models\Donation;
 class FundraiserController extends Controller
 {
 	//view all fundraiser for admin
@@ -77,5 +78,47 @@ class FundraiserController extends Controller
 					    ->paginate(10);
 
         return view('customer.fundraiser.index', compact('fundraisers'));
+    }
+
+    //admin fundraiser donations
+    public function fundraiserDonations()
+    {
+        $donations = Donation::with('donor.user','charity')->paginate(10);
+        return view('admin.fundraiser-donation.index',compact('donations'));
+    }
+
+        //Search Donations
+    //Search fundraiser Donation for admin
+    public function adminDonationSearch(Request $request){
+        $search = $request->input('search');
+        
+        $donations = Donation::with('donor.user', 'charity')
+        ->whereHas('charity', function ($query) use ($search) {
+            $query->where('company_name', 'like', '%' . $search . '%');
+        })
+        ->orWhereHas('donor.user', function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        })
+        ->paginate(2);
+
+        // dd($pickups->all());
+        return view('admin.fundraiser-donation.index', compact('donations'));
+    }
+
+
+
+    //Filter fundraiser Donations for admin
+     public function adminSortByLatest()
+    {
+        $donations = Donation::orderBy('created_at', 'desc')->paginate(2);
+
+        return view('admin.fundraiser-donation.index', compact('donations'));
+    }
+
+    public function adminSortByHighest()
+    {
+        $donations = Donation::orderBy('amount', 'desc')->paginate(2);
+
+        return view('admin.fundraiser-donation.index', compact('donations'));
     }
 }

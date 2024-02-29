@@ -9,13 +9,13 @@
                         <div class="d-flex align-items-center">
                             <div class="text-center text-sm-left ">
                                 <div class="avatar avatar-image" style="width: 150px; height:150px">
-                                    <img src="../assets/images/avatars/donor-1.png" alt="">
+                                    <img src="{{asset('assets/images/avatars/'.Auth::user()->profile_image)}}" alt="">
                                 </div>
                             </div>
                             <div class="text-center text-sm-left m-v-15 p-l-30">
-                                <h2 class="m-b-5 title-responsive">Hello, Benjamin Parker!</h2>
-                                <p class="text-dark m-b-20">Customer</p>
-                                <button class="btn btn-primary">View Profile</button>
+                                <h2 class="m-b-5 title-responsive">Hello, {{ Auth::user()->name }}!</h2>
+                                <p class="text-dark m-b-20">{{ Auth::user()->role }}</p>
+                                <a href="{{route('customer.profile.edit')}}" class="btn btn-primary">View Profile</a>
                             </div>
                         </div>
                     </div>
@@ -31,21 +31,21 @@
                                             <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
                                             <span class="text-primary">Location: </span> 
                                         </p>
-                                        <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                        <p class="col font-weight-semibold text-black">{{ Auth::user()->name }}</p>
                                     </li>
                                     <li class="row">
                                         <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                             <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                             <span class="text-primary">User ID: </span> 
                                         </p>
-                                        <p class="col font-weight-semibold text-black"> 1234</p>
+                                        <p class="col font-weight-semibold text-black"> {{ Auth::user()->id }}</p>
                                     </li>
                                     <li class="row">
                                         <p class="col-3 font-weight-semibold text-dark m-b-5">
                                             <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
                                             <span class="text-primary">Address: </span> 
                                         </p>
-                                        <p class="col-6 font-weight-semibold text-black"> Los Angeles, CA</p>
+                                        <p class="col-6 font-weight-semibold text-black"> {{ optional($customer)->address}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -85,9 +85,9 @@
                         <p class="m-b-0 text-primary" style="font-size: 10px">Total Donated </p>
                     
                         <h2 class="m-b-0 text-primary">
-                            <span>$43 </span>
+                            <span>${{$userTotalDonation}}</span>
                         </h2>
-                        <p class="text-primary" style="font-size: 10px">+10$ this week</p>
+                        <p class="text-primary" style="font-size: 10px">+{{$thisweekdonation}}$ this week</p>
                     </div>    
                 </div>
             </div>
@@ -102,9 +102,9 @@
                         <p class="m-b-0 text-primary" style="font-size: 10px">Total Balance</p>
                     
                         <h2 class="m-b-0 text-primary">
-                            <span>$32.50 </span>
+                            <span>${{ optional($customer)->current_balance}} </span>
                         </h2>
-                        <p class="text-primary" style="font-size: 10px">+2.24$ this week</p>
+                        <p class="text-primary" style="font-size: 10px">+{{$thisweektotalAmount}} $ this week</p>
                     </div>    
                 </div>
             </div>
@@ -120,7 +120,7 @@
                             <button class="btn btn-primary btn-responsive-text">Claim Balance </button>
                          </div> 
                         <div class="p-5 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
+                            <a href="{{route('customer.fundraiser.index')}}" class="btn btn-primary btn-responsive-text">View Fundraisers</a>
                          </div> 
                          <p></p>
                     </div>    

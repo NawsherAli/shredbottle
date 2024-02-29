@@ -39,7 +39,7 @@
 
  	/*Text Classes*/
  	.text-primary{color:var(--light-green) !important}
-	.text-primary:hover{color:white !important}
+	.text-primary:hover{color:var(--light-green)!important}
  	.text-secondary{color:#886cff !important}
  	.text-black{color:var(--black);}
 

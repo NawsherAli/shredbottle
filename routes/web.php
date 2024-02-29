@@ -6,6 +6,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FundraiserController;
+use App\Http\Controllers\PickupController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\ProfileRequestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,19 +26,18 @@ Route::get('/', function () {
 });
 
 //Admin dashboard route
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
+// Route::get('/dashboard', function () {
+//     return view('admin.dashboard');
+// })->middleware(['auth', 'verified'])->name('admin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 //Fundraiser dashboard route
-Route::get('/fundraiser/dashboard', function () {
-    return view('fundraiser.dashboard');
-})->middleware(['auth', 'verified'])->name('fundraiser.dashboard');
+Route::get('/fundraiser/dashboard', [DashboardController::class, 'fundraiserDashboard'])->middleware(['auth', 'verified'])->name('fundraiser.dashboard');
+
 
 //Customer dashboard route
-Route::get('/customer/dashboard', function () {
-    return view('customer.dashboard');
-})->middleware(['auth', 'verified'])->name('customer.dashboard');
+Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboard'])->middleware(['auth', 'verified'])->name('customer.dashboard');
+
 
 //Customer setting route
 
@@ -54,31 +57,82 @@ Route::middleware('auth')->group(function () {
     Route::patch('/admin/profile', [ProfileController::class, 'adminUpdate'])->name('admin.profile.update');
     Route::patch('/customer/profile', [ProfileController::class, 'customerUpdate'])->name('customer.profile.update');
 
+    //Fundraiser profile image update
+    Route::post('/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
+
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-// Customer Routes
-Route::get('/pickup/request', function () {
-    return view('customer.pickup-request.index');
-});
-Route::get('/donations', function () {
-    return view('customer.donations.index');
-});
-
-Route::get('/customer/fundraisers', [FundraiserController::class, 'customerIndex'])->name('customer.fundraiser.index');
-//Customer view charity
-Route::get('/customer/fundraisers/view/{id}', [FundraiserController::class, 'customerFundraiserView'])->name('customer.fundraiser.view');
-//search fundraiser
-Route::get('customer/fundraiser/search', [FundraiserController::class, 'customerFundraiserSearch'])->name('customer.fundraiser.search');
+//////////////////////// Admin Routes ////////////////////////////////////
+    Route::get('/admin/pickup-request', [PickupController::class, 'adminPickupIndex'])->name('admin.pickup');
+    Route::get('admin/pickup-request/search', [PickupController::class, 'pickupSearch'])->name('pickup.search');
+    Route::get('/pickup-request/filter', [PickupController::class, 'pickupFilter'])->name('pickups.filter');
+    Route::get('admin/pickup-request/view/{id}',[PickupController::class, 'adminViewPickup'])->name('admin.pickup.view');
+    Route::put('admin/pickup-request/update/{id}', [PickupController::class, 'pickupUpdate'])->name('pickup.update');
 
 
+    //Admin all donations route
+    Route::get('/admin/donations', [DonationController::class, 'adminIndex'])->name('admin.donations');
+     //search donation
+    Route::get('admin/donations/search', [DonationController::class, 'adminDonationSearch'])->name('admin.donation.search');
+
+    //Filter Donations
+    Route::get('admin/donations/sort/latest', [DonationController::class, 'adminSortByLatest'])->name('admin.donations.sort.latest');
+    Route::get('admin/donations/sort/highest', [DonationController::class, 'adminSortByHighest'])->name('admin.donations.sort.highest');
+
+    //View Donationation Donor
+    Route::get('admin/donations/donor/view/{id}', [DonationController::class, 'adminDonorView'])->name('admin.donations.donor.view');
 
 
-Route::get('/donate', function () {
-    return view('customer.fundraiser.donate-now');
-});
+    //fundraiser donations
+    Route::get('/admin/fundraisers/donations', [FundraiserController::class, 'fundraiserDonations'])->name('admin.fundraiser.donations');
+    //search fundraising donation
+    Route::get('admin/fundraising/donations/search', [FundraiserController::class, 'adminDonationSearch'])->name('admin.fundraising.donation.search');
+
+    //Filter Donations
+    Route::get('admin/fundraising/sort/latest', [FundraiserController::class, 'adminSortByLatest'])->name('admin.fundraising.donations.sort.latest');
+    Route::get('admin/fundraising/donations/sort/highest', [FundraiserController::class, 'adminSortByHighest'])->name('admin.fundraising.donations.sort.highest');
+
+
+    //Profile Requests
+    Route::get('/profile/requests', [ProfileRequestController::class, 'index'])->name('profile.request.index');
+    Route::get('profile/requests/search', [ProfileRequestController::class, 'requestSearch'])->name('profile.request.search');
+    Route::get('profile/requests/filter', [ProfileRequestController::class, 'requestFilter'])->name('requests.filter');
+    Route::get('profile/request/view/{id}',[ProfileRequestController::class, 'profileRequestView'])->name('profile.request.view');
+    Route::put('profile/request/update/{id}', [ProfileRequestController::class, 'requestUpdate'])->name('request.update');
+
+//////////////////////// Customer Routes /////////////////////////////////
+    // customer create pickup request route
+    Route::get('/customer/create/pickup-request', [PickupController::class, 'create'])->name('pickup.create');
+
+    //customer store pickup request route
+    Route::post('/customer/store/pickup-request', [PickupController::class, 'store'])->name('pickup.store');
+    //customer view pickup request
+    Route::get('customer/pickup-request/view/{id}',[PickupController::class, 'customerViewPickup'])->name('customer.pickup.view');
+
+    //customer all donations route
+    Route::get('/customer/donations', [DonationController::class, 'customerIndex'])->name('customer.donations');
+    //search donation
+    Route::get('customer/donations/search', [DonationController::class, 'customerDonationSearch'])->name('customer.donation.search');
+
+    //Filter Donations
+    Route::get('customer/donations/sort/latest', [DonationController::class, 'customerSortByLatest'])->name('customer.donations.sort.latest');
+    Route::get('customer/donations/sort/highest', [DonationController::class, 'customerSortByHighest'])->name('customer.donations.sort.highest');
+
+
+    Route::get('/customer/fundraisers', [FundraiserController::class, 'customerIndex'])->name('customer.fundraiser.index');
+    //Customer view charity
+    Route::get('/customer/fundraisers/view/{id}', [FundraiserController::class, 'customerFundraiserView'])->name('customer.fundraiser.view');
+    //search fundraiser
+    Route::get('customer/fundraiser/search', [FundraiserController::class, 'customerFundraiserSearch'])->name('customer.fundraiser.search');
+
+    //Customer Donation 
+    Route::get('/customer/donate/now', [DonationController::class, 'donateNow'])->name('donate.now');
+
+
+
+
 Route::get('customer/view/donor', function () {
     return view('customer.donations.donar-details');
 })->name('customer.donor-view');
@@ -114,30 +168,35 @@ Route::get('/admin/fundraisers/view/{id}', [FundraiserController::class, 'adminF
 Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
 
 
+////////////////////////////////// Fundraiser Routes /////////////////////////////////////
+    //fundraiser all donations route
+    Route::get('/fundraiser/donations', [DonationController::class, 'fundraiserIndex'])->name('fundraiser.donations');
+    //search donation
+    Route::get('fundraiser/donations/search', [DonationController::class, 'fundraiserDonationSearch'])->name('fundraiser.donation.search');
 
-Route::get('/admin/donations', function () {
-    return view('admin.donations.index');
-});
+    //Filter Donations
+    Route::get('fundraiser/donations/sort/latest', [DonationController::class, 'fundraiserSortByLatest'])->name('fundraiser.donations.sort.latest');
+    Route::get('fundraiser/donations/sort/highest', [DonationController::class, 'fundraiserSortByHighest'])->name('fundraiser.donations.sort.highest');
+
+
+    //Fundraiser profile request
+    Route::post('/profile/requests/store', [ProfileRequestController::class, 'store'])->name('store.profile.request');
+
 Route::get('admin/view/donor', function () {
     return view('admin.donations.donar-details');
 })->name('admin.donor-view');
 
-Route::get('admin/fundraiser/donation', function () {
-    return view('admin.fundraiser-donation.index');
-})->name('admin.fundraiser.donations');
 
 
-Route::get('admin/pickup/list', function () {
-    return view('admin.pickup-request.index');
-})->name('admin.pickup');
+
 
 
 
 
 //Fundraiser
-Route::get('/fundraiser/donations', function () {
-    return view('fundraiser.donations.index');
-});
+// Route::get('/fundraiser/donations', function () {
+//     return view('fundraiser.donations.index');
+// });
 
 Route::get('fundraiser/view/donor', function () {
     return view('fundraiser.donations.donar-details');

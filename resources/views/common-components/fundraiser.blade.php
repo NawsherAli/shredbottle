@@ -39,7 +39,7 @@
                     </div>
                     <h4 class="m-t-30">{{$fundraiser->fundraiser->company_name}}</h4>
                     <p>Charity Goal: $1000 <br>
-                       Charity Type: school</p>
+                       Charity Type: {{$fundraiser->fundraiser->charity_type}}</p>
                 </div>
                 <div class="text-center m-t-30">
                     <a href='{{ route("$role.fundraiser.view", ["id" => $fundraiser->id]) }}' class="btn btn-primary">

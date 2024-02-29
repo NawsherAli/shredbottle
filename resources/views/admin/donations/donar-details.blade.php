@@ -2,13 +2,13 @@
 @section('contents')
  <div class="row mb-3" style="border-bottom: 2px solid #219653">
     <div class="col-md-9 order-sm-1 order-1 col-6 ">
-        <h3 class="title-responsive"> <i class="anticon anticon-left text-primary "></i> Donor Details </h3>
+        <h3 class="title-responsive"> <a href="{{route('admin.donations')}}"> <i class="anticon anticon-left text-primary "></i> </a> Donor Details </h3>
     </div>
     <div class="col-md-3 order-sm-3 order-2 col-6 ">
         <div class="dropdown dropdown-animated scale-left">
-            <button type="button" class="btn badge-pending br-50" data-toggle="dropdown">
+            <!-- <button type="button" class="btn badge-pending br-50" data-toggle="dropdown">
              <span>Status: Pending</span>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
@@ -21,13 +21,13 @@
                     <div class="d-flex align-items-center">
                         <div class="text-center text-sm-left ">
                             <div class="avatar avatar-image" style="width: 150px; height:150px">
-                                <img src="assets/images/avatars/donor-1.png" alt="">
+                                <img src="{{asset('assets/images/avatars/'.$donor_user->profile_image)}}" alt="">
                             </div>
                         </div>
                         <div class="text-center text-sm-left m-v-15 p-l-30">
-                            <h2 class="m-b-5 title-responsive">Hello, Benjamin Parker!</h2>
-                            <p class="text-dark m-b-20">Customer</p>
-                            <button class="btn btn-primary">View Profile</button>
+                            <h2 class="m-b-5 title-responsive">{{$donor_user->name}}!</h2>
+                            <p class="text-dark m-b-20">{{$donor_user->role}}</p>
+                            <!-- <button class="btn btn-primary">View Profile</button> -->
                         </div>
                     </div>
                 </div>
@@ -41,23 +41,23 @@
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                        <span class="text-primary">Location: </span> 
+                                        <span class="text-primary">Contact: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                    <p class="col font-weight-semibold text-black">{{$donor_user->contact}}</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
-                                        <span class="text-primary">User ID: </span> 
+                                        <span class="text-primary">Email: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black"> 1234</p>
+                                    <p class="col font-weight-semibold text-black"> {{$donor_user->email}}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
                                         <span class="text-primary">Address: </span> 
                                     </p>
-                                    <p class="col-6 font-weight-semibold text-black"> Los Angeles, CA</p>
+                                    <p class="col font-weight-semibold text-black"> {{$donor_user->customer->address}}</p>
                                 </li>
                             </ul>
                         </div>

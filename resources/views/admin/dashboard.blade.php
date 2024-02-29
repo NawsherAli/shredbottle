@@ -7,11 +7,11 @@
                 <p class="m-b-0 text-white">Total Donations Collected</p>
                 <div class="d-flex   align-items-center">
                     <h2 class="m-b-0 text-white">
-                        <span>$227.99 </span>
+                        <span>${{$totalAmount}}</span>
                     </h2>
-                    <p class="text-white pt-3 ml-1"> Updated 30m ago</p>
+                    <p class="text-white pt-3 ml-1"> Updated {{substr($donationtimeElapsed, 0, 6) }} ago</p>
                 </div>    
-                <p class="text-white">+50$ this week</p>
+                <p class="text-white">+{{$thisweektotalAmount}} $ this week</p>
             </div>
         </div>
     </div>
@@ -24,12 +24,12 @@
                         <p class="m-b-0 text-white">Total Pickups</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="m-b-0 text-white mr-2">
-                            <span>12</span>
+                            <span>{{$totalRequests}}</span>
                         </h2>
-                        <p class="text-white pt-3"> Updated 30m ago</p>
+                        <p class="text-white pt-3"> Updated {{substr($pickupstimeElapsed, 0, 6) }} ago</p>
                     </div>    
                         
-                        <p class="text-white">4 this week</p>
+                        <p class="text-white">{{$thisweektotalPickups}} this week</p>
                     </div>
                 </div>
             </div>

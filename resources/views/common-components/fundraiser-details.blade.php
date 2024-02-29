@@ -8,7 +8,7 @@
     <div class="col-md-2 order-sm-3 order-2 col-2 ">
         @if($role == 'customer')
         <div class="dropdown dropdown-animated scale-left">
-            <a href="{{url('/donate')}}" class="btn btn-default  " >
+            <a href="{{route('donate.now')}}" class="btn btn-default  " >
                 <i class="fas fa-bars"></i>
             <!-- <img src="assets/icons/filter-icon.png"> -->
             <span class="hide-xs">Donate Now</span>

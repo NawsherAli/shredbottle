@@ -147,11 +147,11 @@
                     </form>
                 </div>
             </li>
-            <li>
+            <!-- <li>
                 <a href="javascript:void(0);" >
                     <i class="fas fa-ellipsis-v"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>    
