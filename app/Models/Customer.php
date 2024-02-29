@@ -9,5 +9,16 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','address'];
+    protected $fillable = ['user_id','address','total_balance','current_balance'];
+
+    public function pickups()
+	{
+	    return $this->hasMany(Pickup::class);
+	}
+
+	public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

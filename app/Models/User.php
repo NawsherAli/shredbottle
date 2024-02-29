@@ -25,7 +25,8 @@ class User extends Authenticatable
         'e_transfer_no',
         'status',
         'role',
-        'is_online' 
+        'is_online',
+        'profile_image'
     ];
 
     /**

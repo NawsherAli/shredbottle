@@ -25,9 +25,9 @@
     <div class="form-group col-md-6">
         <label for="driver-vehical" class="text-primary">Organization Name</label>
         <select id="driver-vehical" class="form-control" name="driver-vehical">
-            <option selected>Select Charity Organization</option>
-            <option>Abc</option>
-            <option>Xyz</option>
+            @foreach($fundraisers as $fundraiser)
+            <option value="{{$fundraiser->id}}">{{$fundraiser->company_name}}</option>
+            @endforeach
         </select>
     </div>
 </div>

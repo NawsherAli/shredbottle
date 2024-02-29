@@ -45,7 +45,7 @@
                                     <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
                                     <span class="text-primary">Address: </span> 
                                 </p>
-                                <p class="col-6 font-weight-semibold text-black"> {{$user->customer->address}}</p>
+                                <p class="col-9 font-weight-semibold text-black"> {{optional($user->customer)->address}}</p>
                             </li>
                         </ul>
                     </div>
@@ -95,7 +95,7 @@
 </div> -->
 	<div class="form-group col-md-12  ">
 	    <label for="driver-phone" class="text-primary">Address</label>
-	    <textarea class="form-control" aria-label="With textarea" name="address">{{$user->customer->address}}</textarea>
+	    <textarea class="form-control" aria-label="With textarea" name="address">{{optional($user->customer)->address}}</textarea>
 	</div>
 </div>
 <div class="form-row">

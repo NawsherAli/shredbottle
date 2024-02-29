@@ -8,7 +8,7 @@
         <div class="main-content">
         	<div class="container">
 			@if(session('error'))
-			    <div class="message-container bg-red-200 border-red-500 border-t-4 p-4 mb-4 rounded-lg">
+			    <div class="alert alert-danger rounded-lg">
 			        <p class="text-red-700">{{ session('error') }}</p>
 			    </div>
 			@endif

@@ -141,4 +141,35 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    //funcdraiser profile image update code
+    public function updateProfilePicture(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // adjust the validation rules as needed
+        ]);
+
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Delete old profile picture if exists
+        if ($user->profile_image != 'no-profile.png') {
+            // Delete the old profile picture
+            $oldImagePath = public_path('assets/images/avatars/' . $user->profile_image);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+        }
+
+        // Store the new profile picture
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('assets/images/avatars'), $imageName);
+        // dd($imageName);
+        // Update the user's profile picture path in the database
+        $user->update(['profile_image' => $imageName]);
+
+        return redirect()->back()->with('success', 'Profile picture updated successfully.');
+    }
 }

@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="{{url('admin/donations')}}">
+                <a class="dropdown-toggle" href="{{route('admin.donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
@@ -79,6 +79,13 @@
                         <i class="far fa-comment-alt"></i>
                     </span>
                     <span class="title">Chats</span></a>
+            </li>
+            <li class="nav-item  ">
+                <a class="dropdown-toggle" href="{{route('profile.request.index')}}">
+                    <span class="icon-holder">
+                        <i class="far fa-user"></i>
+                    </span>
+                    <span class="title">Profile Requests</span></a>
             </li>
             <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('admin.profile.edit')}}">

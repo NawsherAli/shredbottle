@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="{{url('/pickup/request')}}">
+                <a class="dropdown-toggle" href="{{route('pickup.create')}}">
                     <span class="icon-holder">
                         <i class="fas fa-taxi"></i>
                     </span>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="{{url('donations')}}">
+                <a class="dropdown-toggle" href="{{route('customer.donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Fundraiser;
+use App\Models\Customer;
 
 class RegisteredUserController extends Controller
 {
@@ -50,6 +51,10 @@ class RegisteredUserController extends Controller
             'is_online' => 'true',
             'password' => Hash::make($request->password),
         ]);
+
+        $customer = Customer::create([
+            'user_id'=>$user->id,
+            ]);
 
         event(new Registered($user));
 

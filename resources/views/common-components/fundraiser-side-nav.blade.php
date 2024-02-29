@@ -2,7 +2,7 @@
 <div class="side-nav">
      <div class="logo logo-dark">
         <a href="index.html" class="d-flex justify-content-center">
-            <img src="../assets/images/logo/logo.png" alt="Logo" width="70%" height="75%">
+            <img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" width="70%" height="75%">
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>
     </div>
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="{{url('fundraiser/donations')}}">
+                <a class="dropdown-toggle" href="{{route('fundraiser.donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item  ">
-                <a class="dropdown-toggle" href="{{route('fundraiser.chat')}}">
+                <a class="dropdown-toggle" href="{{url('/chatify')}}">
                     <span class="icon-holder">
                         <i class="far fa-comment-alt"></i>
                     </span>
