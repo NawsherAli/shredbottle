@@ -49,7 +49,9 @@ class DashboardController extends Controller
         if ($latestPickup) {
             $latestPickupTime = $latestPickup->created_at;
             $pickupstimeElapsed = Carbon::now()->diffForHumans($latestPickupTime);
-        }
+        }else{
+			$pickupstimeElapsed=0;
+		}
 
 	    $pickups = Pickup::with('customer.user')->orderBy('created_at', 'desc')->paginate(5);
 	    $donations = Donation::with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(2);
