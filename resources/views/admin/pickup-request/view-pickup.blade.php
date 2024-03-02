@@ -7,13 +7,13 @@
     <div class="col-md-3 order-sm-3 order-2 col-6 ">
         <div class="dropdown dropdown-animated scale-left">
             @if($pickup->status == 'Completed')
-            <button type="button" class="btn badge-success br-50" data-toggle="dropdown">
+            <span type="button" class=" badge-success br-50 px-4 py-2" data-toggle="dropdown">
                 <span>Status: Completed</span>
-            </button>
+            </span>
             @else
-            <button type="button" class="btn badge-pending br-50" data-toggle="dropdown">
+            <span type="button" class=" badge-pending br-50 px-4 py-2" data-toggle="dropdown">
                 <span>Status: Pending</span>
-            </button>
+            </span>
             @endif
         </div>
     </div>

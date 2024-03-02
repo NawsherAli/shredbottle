@@ -61,37 +61,35 @@
         @csrf
         @method('patch')
 
-<div class="form-row">
-<div class="form-group col-md-6  ">
-    <label for="driver-phone" class="text-primary">User Name</label>
-    <input type="text" class="form-control" id="driver-phone" name="name" value="{{$user->name}}">
-</div>
-<div class="form-group col-md-6  ">
-    <label for="email" class="text-primary">User Email</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{$user->email}}">
-</div>
-</div>
-<div class="form-row">
-<div class="form-group col-md-6  ">
-    <label for="contact" class="text-primary">Phone Number</label>
-    <input type="text" class="form-control" id="contact"  name="contact" value="{{$user->contact}}">
-</div>
+    <div class="form-row">
+    <div class="form-group col-md-6  ">
+        <label for="driver-phone" class="text-primary">User Name</label>
+        <input type="text" class="form-control" id="driver-phone" name="name" value="{{$user->name}}">
+    </div>
+    <div class="form-group col-md-6  ">
+        <label for="email" class="text-primary">User Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{$user->email}}">
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-6  ">
+        <label for="contact" class="text-primary">Phone Number</label>
+        <input type="text" class="form-control" id="contact"  name="contact" value="{{$user->contact}}">
+    </div>
 
-</div>
-<div class="form-row">
-</div>
-<div class="form-row">
-<input type="file" name="image" hidden id="image">
-<div class="form-group col-md-6  ">
-                            </div>
-<div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
-    <button type="reset" class="btn  border-primary1 showbtn" id="cancelButton" style="width: 200px; display: none">Cancel</button>
-</div>
-<div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
-    <button type="save" class="btn  btn-primary showbtn"  style="width: 200px; display: none">Save</button>
-</div>
-</div>
-</div>
+    </div>
+    <div class="form-row">
+    <input type="file" name="image" hidden id="image">
+    <div class="form-group col-md-6  ">
+                                </div>
+    <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
+        <button type="reset" class="btn  border-primary1 showbtn" id="cancelButton" style="width: 200px; display: none">Cancel</button>
+    </div>
+    <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
+        <button type="save" class="btn  btn-primary showbtn"  style="width: 200px; display: none">Save</button>
+    </div>
+    </div>
+
 </form>
 
 <div class="row">

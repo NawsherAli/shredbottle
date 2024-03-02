@@ -34,7 +34,7 @@
                         <h3>Make a Difference</h3>
                     </div>
             </div>
-                <p class="text-dark">When you recycle with us, you're not just being kind to the planet; you're also making a real impact by supporting a cause that matters</p>
+                <p class="text-dark">{{$user->fundraiser->vision_mission}}</p>
         </div>
     </div>    
     <div class="col-md-4 d-flex align-items-center justify-content-center">
@@ -59,7 +59,7 @@
                         <h3>Address</h3>
                     </div>
             </div>
-                <p class="text-dark">When you recycle with us, you're not just being kind to the planet; you're also making a real impact by supporting a cause that matters</p>
+                <p class="text-dark">{{$user->fundraiser->address}}</p>
         </div>
     </div>
 </div>
