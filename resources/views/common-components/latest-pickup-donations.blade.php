@@ -3,13 +3,13 @@
 @endphp  
     <div class="row">
         <div class="col-lg-12">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" style="padding: 0px">
                <ul class="nav nav-tabs" id="myTab" role="tablist" >
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Latest Pickups</a>
+                    <li class="nav-item" style="margin-right: 10px">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="padding: 0px">Latest Pickups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Latest Donations</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="padding: 0px;">Latest Donations</a>
                     </li>
                 </ul>
             <a href='{{route("$role.donations")}}' class="btn btn-primary ">View All Donations</a> 

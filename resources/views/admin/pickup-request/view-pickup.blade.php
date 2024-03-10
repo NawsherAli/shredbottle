@@ -171,6 +171,8 @@
             </div>
     </div>
 </div>
+
+@if($pickup->status == 'Pending')
 <form method="POST" action="{{route('pickup.update', ['id' => $pickup->id])}}"  enctype="multipart/form-data" class="mt-5">
  @csrf
  @method('PUT')
@@ -209,4 +211,5 @@
     </div>
 </div>
 </form>
+@endif
 @endsection

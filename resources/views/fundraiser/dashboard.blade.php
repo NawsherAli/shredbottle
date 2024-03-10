@@ -33,21 +33,21 @@
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                        <span class="text-primary">Location: </span> 
+                                        <span class="text-dark">Location: </span> 
                                     </p>
                                     <p class="col font-weight-semibold text-black">Northwest Area</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
-                                        <span class="text-primary">User ID: </span> 
+                                        <span class="text-dark">User ID: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black"> {{ Auth::user()->id }}</p>
+                                    <p class="col font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
-                                        <span class="text-primary">Address: </span> 
+                                        <span class="text-dark">Address: </span> 
                                     </p>
                                     <p class="col-9 font-weight-semibold text-black"> {{ optional($fundraiser)->address}}</p>
                                 </li>
@@ -71,9 +71,9 @@
                     <p class="m-b-0 text-primary" style="font-size: 10px">Goal</p>
                 
                     <h2 class="m-b-0 text-primary">
-                        <span>$2300 </span>
+                        <span>${{$fundraiser->goal}} </span>
                     </h2>
-                    <p class="text-primary" style="font-size: 10px">$21068.50</p>
+                    <p class="text-primary" style="font-size: 10px">${{$fundraiser->current_balance}}</p>
                 </div>    
             </div>
         </div>
@@ -85,10 +85,10 @@
                     <div class="bg-primary p-5 d-flex justify-content-center align-items-center br-tl-br-20 icon-box">
                         <img src="../assets/icons/donate.png">
                     </div>
-                    <p class="m-b-0 text-primary" style="font-size: 10px">Total Donated </p>
+                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donation</p>
                 
                     <h2 class="m-b-0 text-primary">
-                        <span>$43 </span>
+                        <span>${{$pending_donations}} </span>
                     </h2>
                     <p class="text-primary" style="font-size: 10px">+10$ this week</p>
                 </div>    
@@ -113,7 +113,7 @@
         </div>
     </div>
      <div class="col-md-6 col-lg-6 col-6">
-        <div class="card border-primary1 br-tl-br-50">
+        <div class="card border-primary1 br-tl-br-50 ">
             <div class="card-body flex-column align-items-center justify-content-center">
                 <div class="">
                     <div class="p-5 d-flex justify-content-center align-items-center">
@@ -133,10 +133,10 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" style="padding: 0px">
            <ul class="nav nav-tabs" id="myTab" role="tablist" >
                 <li class="nav-item">
-                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Latest Donations</a>
+                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="padding: 0px">Latest Donations</a>
                 </li>
             </ul>
         <a href="{{route('fundraiser.donations')}}" class="btn btn-primary">View All Donations</a> 

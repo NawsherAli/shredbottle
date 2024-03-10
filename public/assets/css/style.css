@@ -492,3 +492,7 @@
     .w-5{
         width: 50px;
     }
+
+    .page-container,.card{
+    	background-color: #F1FFFA;
+    }

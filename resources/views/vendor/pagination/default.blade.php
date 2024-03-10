@@ -9,7 +9,7 @@
         <ul class="pagination justify-content-end">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <li class="page-item previous" style="background-color: white; border: 1px solid #219653 " aria-disabled="true" aria-label="@lang('pagination.previous')"><a class=" " href="#" style="background-color: white ; border: none; color: #219653 ">Previous</a></li>
+                <li class="page-item previous" style="background-color: #F1FFFA; border: 1px solid #219653 " aria-disabled="true" aria-label="@lang('pagination.previous')"><a class=" " href="#" style="background-color: #F1FFFA ; border: none; color: #219653 ">Previous</a></li>
                 <!-- <li class="page-item disabled " aria-disabled="true" aria-label="@lang('pagination.previous')">
                     <span aria-hidden="true">Previous</span>
                 </li> -->
@@ -18,7 +18,7 @@
                     <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" class="page-link">Previous</a>
                 </li> -->
                 <li class="page-item previous" style="background-color: #219653 ;" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" style="background-color: #219653 ; border: none; color: white">Previous</a>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')" style="background-color: #219653 ; border: none; color: #F1FFFA">Previous</a>
                 </li>
             @endif
 
@@ -33,9 +33,9 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li class="active page-item" aria-current="page" style="background-color: white; width: 40px; height: 40px"><span style="background-color: #219653;border-radius: 100%; border: none">{{ $page }}</span></li>
+                            <li class="active page-item" aria-current="page" style="background-color: #F1FFFA; width: 40px; height: 40px"><span style="background-color: #219653;border-radius: 100%; border: none">{{ $page }}</span></li>
                         @else
-                            <li style="background-color: white; border: none;"><a href="{{ $url }}" style="background-color: white; border: none; color: #219653" >{{ $page }}</a></li>
+                            <li style="background-color: #F1FFFA; border: none;"><a href="{{ $url }}" style="background-color: #F1FFFA; border: none; color: #219653" >{{ $page }}</a></li>
                         @endif
                     @endforeach
                 @endif

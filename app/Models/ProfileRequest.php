@@ -22,6 +22,7 @@ class ProfileRequest extends Model
         'e_transfer_no',
         'vission_mission', // Typo: 'vission_mission' should be 'vision_mission'
         'is_read',
+        'goal',
     ];
 
     public function user()

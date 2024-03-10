@@ -38,7 +38,7 @@
                                             <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                             <span class="text-primary">User ID: </span> 
                                         </p>
-                                        <p class="col font-weight-semibold text-black"> {{ Auth::user()->id }}</p>
+                                        <p class="col font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
                                     </li>
                                     <li class="row">
                                         <p class="col-3 font-weight-semibold text-dark m-b-5">
