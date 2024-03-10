@@ -42,7 +42,7 @@
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                         <span class="text-primary">User ID: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black"> 432</p>
+                                    <p class="col font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
@@ -91,7 +91,7 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="charity_type" class="text-primary">Charity Type</label>
             <select id="charity_type" class="form-control" name="charity_type">
                 <option value="NL" {{ $user->fundraiser->charity_type == 'NL' ? 'selected' : '' }}>Nails</option>
@@ -99,9 +99,13 @@
                 <option value="HL" {{ $user->fundraiser->charity_type == 'HL' ? 'selected' : '' }}>Helicopters</option>
             </select>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="e_transfer_no" class="text-primary">E-Transfer Number</label>
             <input type="text" class="form-control" name="e_transfer_no" id="e_transfer_no" placeholder="E-Transfer Number"  value="{{ $user->e_transfer_no }}">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="e_transfer_no" class="text-primary">Goal</label>
+            <input type="number" class="form-control" name="goal" id="goal" placeholder="Goal Amount"  value="{{ $user->fundraiser->goal }}">
         </div>
     </div>    
     <div class="form-row">

@@ -3,7 +3,7 @@
 @endphp
 <div class="row mb-3 bg-primary pt-2 br-5 " style="border-bottom: 2px solid #219653">
     <div class="col-md-10 order-sm-1 order-1 col-10">
-        <h1 class="text-white title-responsive"><a href='{{route("$role.fundraiser.index")}}' class="text-white"><i class="fas fa-arrow-alt-circle-left mr-3"></i></a>School Charity</h1>
+        <h1 class="text-white title-responsive"><a href='#' onclick="goBack()" class="text-white"><i class="fas fa-arrow-alt-circle-left mr-3"></i></a>School Charity</h1>
     </div>
     <div class="col-md-2 order-sm-3 order-2 col-2 ">
         @if($role == 'customer')
@@ -63,3 +63,4 @@
         </div>
     </div>
 </div>
+

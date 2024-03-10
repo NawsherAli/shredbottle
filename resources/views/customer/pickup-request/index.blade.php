@@ -22,7 +22,7 @@
         <div class="form-group col-md-8">
             <div class="d-flex justify-content-between">
                 <label for="pickup_location" class="text-primary">Pickup Location </label>
-                <button type="button" class="" data-container="body" data-toggle="popover" data-placement="left" data-content="If you want to call the pickup for someone else enter the address otherwise your default address will be used" style="background-color: #fff; border: none"><img src="{{asset('assets/icons/info.png')}}"></button>
+                <button type="button" class="" data-container="body" data-toggle="popover" data-placement="left" data-content="If you want to call the pickup for someone else enter the address otherwise your default address will be used" style="background-color: #F1FFFA; border: none"><img src="{{asset('assets/icons/info.png')}}"></button>
             </div>
             
            <!--  <i style="width: 40px; height:40px; border-radius: 100%; background-color: red">!</i> -->
@@ -38,7 +38,7 @@
         <div class="form-group col-md-8">
             <div class="d-flex justify-content-between">
                 <label for="pickup_contact" class="text-primary">Contact </label>
-                <button type="button" class="" data-container="body" data-toggle="popover" data-placement="left" data-content="If you want to call the pickup for someone else enter the phone number for contacting the person otherwise your number will be  used" style="background-color: #fff; border: none"> <img src="{{asset('assets/icons/info.png')}}"></button>
+                <button type="button" class="" data-container="body" data-toggle="popover" data-placement="left" data-content="If you want to call the pickup for someone else enter the phone number for contacting the person otherwise your number will be  used" style="background-color: #F1FFFA; border: none"> <img src="{{asset('assets/icons/info.png')}}"></button>
             </div>
             <input type="number" class="form-control" id="pickup_contact" placeholder="Enter Contact Number" name="pickup_contact">
         </div>

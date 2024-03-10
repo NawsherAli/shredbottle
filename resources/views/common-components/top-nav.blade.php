@@ -1,10 +1,12 @@
 @php
     $image = Auth::user()->profile_image;
     $role = Auth::user()->role;
+
+    $border = ($role == 'admin' ? 'header-border' : '');
 @endphp
 
 <!-- TOP NAVIGATION -->
-<div class="header">
+<div class="header {{$border}}">
     <div class="logo logo-dark">
         <!-- <a href="index.html">
             <img src="assets/images/logo/logo.png" alt="Logo">
@@ -111,7 +113,9 @@
                     <div class="avatar avatar-image  m-h-10 m-r-15">
                         <img src='{{asset("assets/images/avatars/$image")}}'  alt="">
                     </div>
+                    <i class="fas fa-ellipsis-v" style="font-size: 25px"></i>
                 </div>
+
                 <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
                     <div class="p-h-20 p-b-15 m-b-10 border-bottom">
                         <div class="d-flex m-r-50">

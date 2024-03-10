@@ -42,6 +42,7 @@ class ProfileRequestController extends Controller
             'e_transfer_no' => 'required|string',
             'address' => 'required|string',
             'vission_mission' => 'nullable|string',
+            'goal' => 'nullable',
         ]);
         // dd($request->all());
         // Create a new profile request
@@ -99,7 +100,7 @@ class ProfileRequestController extends Controller
         $request_data->update(['is_read' => 'yes']);
         $old_data = User::with('fundraiser')->findOrFail($request_data->user_id);
 
-        // dd($old_data);
+        // dd($request_data);
         return view('admin.profile-requests.view-request',compact('request_data','old_data'));
     }
 
@@ -123,6 +124,7 @@ class ProfileRequestController extends Controller
         'vision_mission'=>$request_data->vission_mission,
         'charity_type'=>$request_data->charity_type,
         'address'=>$request_data->address,
+        'goal'=>$request_data->goal,
          ]);
 
         // dd($fundraiser);

@@ -115,6 +115,11 @@
                             <td>{{$request_data->e_transfer_no}}</td>
                         </tr>
                         <tr>
+                            <th>Goal</th>
+                            <td>{{$old_data->fundraiser->goal}}</td>
+                            <td>{{$request_data->goal}}</td>
+                        </tr>
+                        <tr>
                             <th>Address</th>
                             <td>{{$old_data->fundraiser->address}}</td>
                             <td>{{$request_data->address}}</td>
