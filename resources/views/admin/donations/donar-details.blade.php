@@ -2,7 +2,7 @@
 @section('contents')
  <div class="row mb-3" style="border-bottom: 2px solid #219653">
     <div class="col-md-9 order-sm-1 order-1 col-6 ">
-        <h3 class="title-responsive"> <a href="{{route('admin.donations')}}"> <i class="anticon anticon-left text-primary "></i> </a> Donor Details </h3>
+        <h3 class="title-responsive"> <a href="#" onclick="goBack()"> <i class="anticon anticon-left text-primary "></i> </a> Donor Details </h3>
     </div>
     <div class="col-md-3 order-sm-3 order-2 col-6 ">
         <div class="dropdown dropdown-animated scale-left">

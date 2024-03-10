@@ -9,7 +9,7 @@ class Fundraiser extends Model
 {
     use HasFactory;
 
-     protected $fillable = ['user_id','company_name','address','vision_mission','total_balance','current_balance'];
+     protected $fillable = ['user_id','company_name','address','vision_mission','total_balance','current_balance','goal'];
 
     public function user()
     {

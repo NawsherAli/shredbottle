@@ -45,7 +45,7 @@ class DashboardController extends Controller
         
         //pickups time calculation
         $latestPickup = Pickup::latest()->first();
-
+        $pickupstimeElapsed = '';
         if ($latestPickup) {
             $latestPickupTime = $latestPickup->created_at;
             $pickupstimeElapsed = Carbon::now()->diffForHumans($latestPickupTime);
@@ -95,12 +95,15 @@ class DashboardController extends Controller
 
 	    $startDate = Carbon::now()->startOfWeek();
         $endDate = Carbon::now()->endOfWeek();
+        //Pending Donation
+
+        $pending_donations = Donation::where('charity_id','=',$fundraiser->id)->where('status','=','Pending')->sum('amount');
 	    //this week donation
 	    $thisweekdonation = Donation::where('charity_id','=',$fundraiser->id)->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 
 	    //latest donations
 	    $donations = Donation::where('charity_id','=',$fundraiser->id)->with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(5);
 
-		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations'));
+		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations','pending_donations'));
 	}
 }

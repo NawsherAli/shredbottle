@@ -28,8 +28,8 @@ class FundraiserController extends Controller
     public function adminFundraiserView($id)
     {
         $user = User::with('fundraiser')->findOrFail($id);
-       
-        return view('admin.fundraiser-donation.view-charity', ['user' => $user]);
+       $donations = Donation::with('donor.user','charity')->where('charity_id','=',$user->fundraiser->id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.fundraiser-donation.view-charity', ['user' => $user,'donations'=> $donations]);
     }
 
     //View single fundraiser details for customer

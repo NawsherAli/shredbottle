@@ -38,7 +38,7 @@
                         <img src="{{asset('assets/icons/personal-trainer.png')}}" alt="">
                     </div>
                     <h4 class="m-t-30">{{$fundraiser->fundraiser->company_name}}</h4>
-                    <p>Charity Goal: $1000 <br>
+                    <p>Charity Goal: ${{$fundraiser->fundraiser->goal}} <br>
                        Charity Type: {{$fundraiser->fundraiser->charity_type}}</p>
                 </div>
                 <div class="text-center m-t-30">
