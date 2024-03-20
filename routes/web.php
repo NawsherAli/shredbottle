@@ -70,6 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pickup-request/filter', [PickupController::class, 'pickupFilter'])->name('pickups.filter');
     Route::get('admin/pickup-request/view/{id}',[PickupController::class, 'adminViewPickup'])->name('admin.pickup.view');
     Route::put('admin/pickup-request/update/{id}', [PickupController::class, 'pickupUpdate'])->name('pickup.update');
+    Route::put('admin/pickup/status/update/{id}', [PickupController::class, 'pickupStatusUpdate'])->name('pickup.status.update');
+    //admin delete items details
+    Route::delete('/items/details/{id}',[PickupController::class, 'itemDetailsDestroy'])->name('item.details.destroy');
+    //admin edit items details
+    Route::get('/items/details/{id}/edit', [PickupController::class, 'itemDetailsEdit'])->name('item.details.edit');
 
 
     //Admin all donations route
@@ -130,7 +135,8 @@ Route::middleware('auth')->group(function () {
     //Customer Donation 
     Route::get('/customer/donate/now', [DonationController::class, 'donateNow'])->name('donate.now');
 
-
+    //Store donated money
+    Route::post('/customer/donate/money', [DonationController::class, 'donateMoney'])->name('donate.money');
 
 
 Route::get('customer/view/donor', function () {
@@ -166,6 +172,8 @@ Route::get('/admin/fundraisers', [FundraiserController::class, 'adminIndex'])->n
 Route::get('/admin/fundraisers/view/{id}', [FundraiserController::class, 'adminFundraiserView'])->name('admin.fundraiser.view');
 //admin search fundraiser
 Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
+
+
 
 
 ////////////////////////////////// Fundraiser Routes /////////////////////////////////////

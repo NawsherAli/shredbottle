@@ -107,7 +107,7 @@
                                 <td>{{$donate->amount}}</td>
                                 <td>{{$donate->charity_type}}</td>
                                 <td>{{$donate->charity->company_name}}</td>
-                                <td>{{$donate->no_of_items}}</td>
+                                <td>{{$donate->no_of_items}} </td>
                                 <td>
                                 @if($donate->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -137,6 +137,7 @@
                          </div>
                          <div class="d-flex justify-content-between" >
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
+                             
                              <h3 class="text-primary">${{$donate->amount}}</h3>
                          </div>
                          <div class="d-flex justify-content-between" >
@@ -156,7 +157,7 @@
                         </div>
                     </div>
                     @endforeach
-                    {{ $pickups->links('vendor.pagination.default') }}
+                    {{ $donations->links('vendor.pagination.default') }}
                     @endif
                 </div>
             </div>

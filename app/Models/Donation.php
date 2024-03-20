@@ -25,5 +25,10 @@ class Donation extends Model
     {
         return $this->belongsTo(Fundraiser::class, 'charity_id');
     }
+
+    public function pickup()
+    {
+        return $this->belongsTo(Pickup::class, 'pickup_id');
+    }
 }
 

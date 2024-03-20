@@ -64,7 +64,7 @@
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                         <span class="text-primary">User ID: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">{{$pickup->id}}</p>
+                                    <p class="col font-weight-semibold text-black">STB00{{$pickup->id}}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
@@ -117,6 +117,7 @@
                             <th scope="col" class="text-primary">Payment Option</th>
                             <td scope="col" class="">{{$pickup->payment_option}}</td>
                         </tr>
+                        @if($pickup->payment_option == 'Donate')
                         <tr class="">
                             <th scope="col" class="text-primary">Charity Type Option</th>
                             <td scope="col" class="">{{$pickup->charity_type}}</td>
@@ -125,13 +126,27 @@
                             <th scope="col" class="text-primary">Charity Organization</th>
                             <td scope="col" class="">{{$pickup->fundraiser->company_name}}</td>
                         </tr>
+                        @endif
                         <tr class="">
                             <th scope="col" class="text-primary">Total Items</th>
                             <td scope="col" class="">{{$pickup->total_items}}</td>
                         </tr>
                         <tr class="">
                             <th scope="col" class="text-primary">Amount</th>
-                            <td scope="col" class="">{{$pickup->amount}}</td>
+                            @php
+                                $quantity  = 0;
+                                $amount = 0 ;
+                            @endphp
+                            @foreach($pickup->items as $item)
+                               
+                               @foreach($item->itemDetails as $item)
+                                    @php
+                                        $quantity +=$item->item_quantity; 
+                                        $amount +=$item->item_amount; 
+                                    @endphp
+                                @endforeach
+                            @endforeach
+                            <td scope="col" class="">{{$amount }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -158,14 +173,24 @@
                             <th scope="col" class="text-white">Amount</th>
                        </tr>
                        @foreach($pickup->items as $item)
+                       @php
+                        $quantity  = 0;
+                        $amount = 0 ;
+                       @endphp
                         <tr class="">
-                           <td scope="col" class="">{{ $item->id }}</td>
+                           <td scope="col" class="">{{$loop->iteration}}</td>
                             <td scope="col" class="">{{ $item->items_type }}</td>
                             <td scope="col" class="">{{ $item->no_of_bags }}</td>
                             <td scope="col" class="">{{ $item->no_of_boxes }}</td>
                             <td scope="col" class="">{{ $item->req_no_boxes }}</td>
-                            <td scope="col" class="">{{ $item->quantity }}</td>
-                            <td scope="col" class="">{{ $item->amount }}</td>
+                            @foreach($item->itemDetails as $item)
+                                @php
+                                    $quantity +=$item->item_quantity; 
+                                    $amount +=$item->item_amount; 
+                                @endphp
+                            @endforeach
+                            <td scope="col" class="">{{ $quantity }}</td>
+                            <td scope="col" class="">{{ $amount }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -173,5 +198,41 @@
             </div>
     </div>
 </div>
-
+<div class="row mb-3" style="border-bottom: 2px solid #219653">
+    <div class="col-md-9 order-sm-1 order-1 col-6 ">
+        <h4 class="title-responsive">Bottles Details</h4>
+    </div>
+</div> 
+<div class="row flex-column  ">
+    <div class="table-responsive">
+        <div class="table-responsive  ">
+                <table class="table table-sm ">
+                    <tbody>
+                       <tr class="bg-primary">
+                            <th scope="col" class="text-white">ID</th>
+                            <th scope="col" class="text-white">Type</th>
+                            <th scope="col" class="text-white">Size</th>
+                            <th scope="col" class="text-white">Quantity</th>
+                            <th scope="col" class="text-white">Amount</th>
+                        </tr>
+                       @foreach($pickup->items as $item)
+                           @foreach($item->itemDetails as $item)
+                            <tr class="">
+                               <td scope="col" class="">{{$loop->iteration}}</td>
+                                <td scope="col" class="">{{ $item->item_type }}</td>
+                                @if($item->item_size == '7')
+                                <td scope="col" class=""> Under 1L</td>
+                                @else
+                                <td scope="col" class="">  Over 1L</td>
+                                @endif
+                                <td scope="col" class="">{{ $item->item_quantity }}</td>
+                                <td scope="col" class="">{{ $item->item_amount }}</td>
+                             </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
 @endsection

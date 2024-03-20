@@ -11,29 +11,30 @@ use App\Models\PickupItem;
 use App\Models\Fundraiser;
 use App\Models\Donation;
 use Carbon\Carbon;
+use App\Models\ItemDetail;
 class DashboardController extends Controller
 {
     //Admin Dashboard
 	public function adminDashboard()
 	{ 
-		//Total donation amount 
-		$totalAmount = Donation::sum('amount');
-
-		//Total pickup requests
-		$totalRequests = Pickup::count();
-
-		//Total Items
-		$totalQuantity = PickupItem::sum('quantity');
-
-		//this week amount
+		//////////////////Donation Card Data & Shred Items Card //////////////////
+		
+		//total donation & donated items
+		$total_donations = Donation::where('status','=','Completed')->sum('amount');
+		$donated_items_quantity =PickupItem::sum('quantity');
+		
+		//this week donation & donated items
 		$startDate = Carbon::now()->startOfWeek();
         $endDate = Carbon::now()->endOfWeek();
+        
+        $this_week_donation = Donation::where('status','=','Completed')
+        					  ->whereBetween('created_at', [$startDate, $endDate])
+        					  ->sum('amount');
 
-        $thisweektotalAmount = Donation::whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-
-         $thisweektotalPickups = Pickup::whereBetween('created_at', [$startDate, $endDate])->count();
-         $thisweektotalQuantity = PickupItem::whereBetween('created_at', [$startDate, $endDate])->sum('quantity');
-        //Donation Time Calculation
+        $this_week_donated_items_quantity =PickupItem::whereBetween('created_at', 								[$startDate, $endDate])
+        					  			  ->sum('quantity');
+		
+		//Donation Time Calculation
          $latestDonation = Donation::latest()->first();
          // dd($latestDonation);
         if ($latestDonation) {
@@ -42,49 +43,71 @@ class DashboardController extends Controller
         }else{
         	$donationtimeElapsed = 0;
         }
-        
-        //pickups time calculation
+
+	       
+        ////////////////////////Donation Card End/////////////////////////////////
+        //////////////////////// Pickup Card /////////////////////////////////////
+
+        //Total pickup requests
+		$totalRequests = Pickup::count();
+
+		$thisweektotalPickups = Pickup::whereBetween('created_at', [$startDate, $endDate])->count();
+
+		//pickups time calculation
         $latestPickup = Pickup::latest()->first();
         $pickupstimeElapsed = '';
         if ($latestPickup) {
             $latestPickupTime = $latestPickup->created_at;
             $pickupstimeElapsed = Carbon::now()->diffForHumans($latestPickupTime);
         }
-
+        //////////////////////// Pickup Card End ///////////////////////////////
+       
+        
+        /////////////////////// Latest pickup and donations ///////////////////
 	    $pickups = Pickup::with('customer.user')->orderBy('created_at', 'desc')->paginate(5);
-	    $donations = Donation::with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(2);
+	    $donations = Donation::with('donor.user','charity','pickup.items.itemDetails')->orderBy('created_at', 'desc')->paginate(5);
 
-		return view('admin.dashboard',compact('pickups','donations','totalAmount','thisweektotalAmount','totalRequests','thisweektotalPickups','totalQuantity','thisweektotalQuantity','donationtimeElapsed','pickupstimeElapsed'));
+	    // dd($donations->all());
+	    /////////////////////// End Latest pickup and donations //////////////////
+		
+		return view('admin.dashboard',compact('pickups','donations','totalRequests','thisweektotalPickups','donationtimeElapsed','pickupstimeElapsed','donated_items_quantity','total_donations','this_week_donation','this_week_donated_items_quantity' ));
 	}
 
     //Customer Dashboard
 	public function customerDashboard()
 	{
 	    $user = Auth::user();
-	    $user_name = $user->name;
+	    // $user_name = $user->name;
 	    $customer = Customer::where('user_id',$user->id)->first();
 
-	    $userTotalDonation = Donation::where('donor_id','=',$customer->id)->sum('amount');
-	    //this week amount
+	    //calculate user donated amount
+	    $user_donated_amount = Donation::where('donor_id','=',$customer->id)->sum('amount');
+		
+		 
+
+	    //this week amounts
 		$startDate = Carbon::now()->startOfWeek();
         $endDate = Carbon::now()->endOfWeek();
 
-        $thisweektotalAmount = Pickup::where('customer_id','=',$customer->id)->where('status','=','Completed')->where('payment_option','=','Cashout')->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+        $this_week_donation = Donation::where('donor_id','=',$customer->id)->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 
-         $thisweekdonation = Donation::where('donor_id','=',$customer->id)->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
-
+        $this_week_total_cashout_amount  = Pickup::where('customer_id','=',$customer->id)
+        ->where('payment_option','=','Cashout')
+        ->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
 		// Ensure the user is authenticated and the customer is found
 	    if ($user && $customer) {
-	        $pickups = Pickup::with('customer.user')->where('customer_id','=',$customer->id)->orderBy('created_at', 'desc')->paginate(2);
-	        $donations = Donation::with('donor.user','charity')->where('donor_id','=',$customer->id)->orderBy('created_at', 'desc')->paginate(2);
-	        // dd($donations->all());
-	    }else{
+	        $pickups = Pickup::with('customer.user','items.itemDetails')->where('customer_id','=',$customer->id)->orderBy('created_at', 'desc')->paginate(5);
+
+
+	        $donations = Donation::with('donor.user','charity','pickup.items.itemDetails')->where('donor_id','=',$customer->id)->orderBy('created_at', 'desc')->paginate(5);
+	   
+	   }else{
 	    	$pickups =[];
 	    	$donations=[];
 	    }
 
 	    //
-		return view('customer.dashboard',compact('pickups','donations','customer','thisweektotalAmount','userTotalDonation','thisweekdonation'));
+		return view('customer.dashboard',compact('pickups','donations','customer','user_donated_amount','this_week_donation','this_week_total_cashout_amount'));
 	}
 
 	//Fundraiser Dashboard
@@ -99,11 +122,12 @@ class DashboardController extends Controller
 
         $pending_donations = Donation::where('charity_id','=',$fundraiser->id)->where('status','=','Pending')->sum('amount');
 	    //this week donation
-	    $thisweekdonation = Donation::where('charity_id','=',$fundraiser->id)->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+	    $thisweekdonation = Donation::where('charity_id','=',$fundraiser->id)->whereBetween('created_at', [$startDate, $endDate])->where('status','=','Completed')->sum('amount');
+	    $thisweekpendingdonation = Donation::where('charity_id','=',$fundraiser->id)->whereBetween('created_at', [$startDate, $endDate])->where('status','=','Pending')->sum('amount');
 
 	    //latest donations
 	    $donations = Donation::where('charity_id','=',$fundraiser->id)->with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(5);
 
-		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations','pending_donations'));
+		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations','pending_donations','thisweekpendingdonation'));
 	}
 }

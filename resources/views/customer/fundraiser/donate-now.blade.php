@@ -12,19 +12,20 @@
         <h3 class="title-with-line title-responsive">Select Charity &nbsp;</h3>
    </div>
 </div>
-
+<form method="post" action="{{ route('donate.money') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+        @csrf
+        @method('post')
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="driver-vehical" class="text-primary">Charity Type</label>
-        <select id="driver-vehical" class="form-control" name="driver-vehical">
-            <option selected>Select Charity Type</option>
-            <option>Abc</option>
-            <option>Xyz</option>
+        <label for="charity_type" class="text-primary">Charity Type</label>
+        <select id="charity_type" class="form-control" name="charity_type">
+            <option value="Abc">Abc</option>
+            <option value="Xyz">Xyz</option>
         </select>
     </div>
     <div class="form-group col-md-6">
-        <label for="driver-vehical" class="text-primary">Organization Name</label>
-        <select id="driver-vehical" class="form-control" name="driver-vehical">
+        <label for="charity_name" class="text-primary">Organization Name</label>
+        <select id="charity_name" class="form-control" name="charity_name">
             @foreach($fundraisers as $fundraiser)
             <option value="{{$fundraiser->id}}">{{$fundraiser->company_name}}</option>
             @endforeach
@@ -33,14 +34,16 @@
 </div>
 <div class="form-row">
     <div class="form-group col-md-6  ">
-        <label for="driver-phone" class="text-primary">Enter Amount</label>
-        <input type="number" class="form-control" id="driver-phone" placeholder="$10.00" name="driver-phone">
+        <label for="amount" class="text-primary">Enter Amount</label>
+        <input type="number" class="form-control" id="amount" placeholder="$10.00" name="amount" required="required">
     </div>
     <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
         <button class="btn  border-primary1" style="width: 200px">Cancel</button>
     </div>
     <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
-        <button class="btn  btn-primary"  style="width: 200px">Create</button>
+        <button type="submit" class="btn  btn-primary"  style="width: 200px">Send</button>
     </div>
 </div>
+</form>
+
 @endsection

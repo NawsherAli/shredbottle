@@ -33,10 +33,28 @@
                             <tr>
                                 <th scope="row"> {{$loop->iteration}}</th>
                                 <td>{{$donate->donor->user->name}}</td>
-                                <td>{{$donate->amount}}</td>
+                                <?php
+                                      $pickup = $donate->pickup;
+                                      $total_donated_items = 0;
+                                      $total_donated_amount = 0;
+                                      foreach ($pickup->items as $pickupItem) {
+                                          $donated_items_quantity = 0;
+                                          $donated_amount = 0;
+                                          foreach ($pickupItem->itemDetails as $item) {
+                                            
+                                              $donated_items_quantity += $item->item_quantity; 
+                                              $donated_amount += $item->item_amount;
+                                          }
+
+                                          $total_donated_items += $donated_items_quantity;
+                                          $total_donated_amount +=$donated_amount;
+                                      }
+                                    
+                                 ?>
+                                <td>{{$total_donated_items}}</td>
                                 <td>{{$donate->charity_type}}</td>
                                 <td>{{$donate->charity->company_name}}</td>
-                                <td>{{$donate->no_of_items}}</td>
+                                <td>{{$total_donated_amount}}</td>
                                 <td>
                                 @if($donate->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -66,7 +84,25 @@
                          </div>
                          <div class="d-flex justify-content-between" >
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
-                             <h3 class="text-primary">${{$donate->amount}}</h3>
+                             <?php
+                                      $pickup = $donate->pickup;
+                                      $total_donated_items = 0;
+                                      $total_donated_amount = 0;
+                                      foreach ($pickup->items as $pickupItem) {
+                                          $donated_items_quantity = 0;
+                                          $donated_amount = 0;
+                                          foreach ($pickupItem->itemDetails as $item) {
+                                            
+                                              $donated_items_quantity += $item->item_quantity; 
+                                              $donated_amount += $item->item_amount;
+                                          }
+
+                                          $total_donated_items += $donated_items_quantity;
+                                          $total_donated_amount +=$donated_amount;
+                                      }
+                                    
+                                 ?>
+                             <h3 class="text-primary">${{$total_donated_amount}}</h3>
                          </div>
                          <div class="d-flex justify-content-between" >
                              <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
