@@ -124,17 +124,17 @@
 		<div class="form-group col-md-4 ">
 		    <label for="current_password" class="text-primary">Current Password</label>
 		    <input type="password" class="form-control" id="current_password" placeholder="Enter Current Password" name="current_password">
-		    <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+		    <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2 text-danger" />
 		</div>
 		<div class="form-group col-md-4  ">
 		    <label for="password" class="text-primary">New Password</label>
 		    <input type="password" class="form-control" id="password" placeholder="Enter New Password" name="password">
-		    <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+		    <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 text-danger" />
 		</div>
 		<div class="form-group col-md-4  ">
 		    <label for="password_confirmation" class="text-primary">Confirm Password</label>
 		    <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" name="password_confirmation">
-		    <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+		    <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2 text-danger" />
 		</div>
 
 	</div>

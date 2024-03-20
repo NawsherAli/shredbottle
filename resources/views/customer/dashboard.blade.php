@@ -29,23 +29,23 @@
                                     <li class="row">
                                         <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                             <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                            <span class="text-primary">Location: </span> 
+                                            <span class="text-primary">User ID: </span> 
                                         </p>
-                                        <p class="col font-weight-semibold text-black">{{ Auth::user()->name }}</p>
+                                        <p class="col font-weight-semibold text-black">STB00{{ Auth::user()->id }}</p>
                                     </li>
                                     <li class="row">
                                         <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                             <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
-                                            <span class="text-primary">User ID: </span> 
+                                            <span class="text-primary">Email: </span> 
                                         </p>
-                                        <p class="col font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
+                                        <p class="col font-weight-semibold text-black"> {{ Auth::user()->email }}</p>
                                     </li>
                                     <li class="row">
                                         <p class="col-3 font-weight-semibold text-dark m-b-5">
                                             <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
                                             <span class="text-primary">Address: </span> 
                                         </p>
-                                        <p class="col-6 font-weight-semibold text-black"> {{ optional($customer)->address}}</p>
+                                        <p class="col-9 font-weight-semibold text-black"> {{ optional($customer)->address}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -85,9 +85,9 @@
                         <p class="m-b-0 text-primary" style="font-size: 10px">Total Donated </p>
                     
                         <h2 class="m-b-0 text-primary">
-                            <span>${{$userTotalDonation}}</span>
+                            <span>${{$user_donated_amount}}</span>
                         </h2>
-                        <p class="text-primary" style="font-size: 10px">+{{$thisweekdonation}}$ this week</p>
+                        <p class="text-primary" style="font-size: 10px">+{{$this_week_donation}}$ this week</p>
                     </div>    
                 </div>
             </div>
@@ -102,9 +102,9 @@
                         <p class="m-b-0 text-primary" style="font-size: 10px">Total Balance</p>
                     
                         <h2 class="m-b-0 text-primary">
-                            <span>${{ optional($customer)->current_balance}} </span>
+                            <span>${{ $customer->current_balance }}</span>
                         </h2>
-                        <p class="text-primary" style="font-size: 10px">+{{$thisweektotalAmount}} $ this week</p>
+                        <p class="text-primary" style="font-size: 10px">+{{$this_week_total_cashout_amount}} $ this week</p>
                     </div>    
                 </div>
             </div>

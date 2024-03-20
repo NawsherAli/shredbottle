@@ -10,7 +10,7 @@
     <div class="col-md-4 order-sm-2 order-3 ">
         <form id="searchForm" method="GET" action="{{ route('pickup.search') }}">
             <div class="input-affix m-b-10">
-                <input type="text" class="form-control" placeholder="Search" name="search">
+                <input type="text" class="form-control" placeholder="Search by name" name="search">
                 <i class="suffix-icon anticon anticon-search" id="searchIcon"></i>
             </div>
         </form>

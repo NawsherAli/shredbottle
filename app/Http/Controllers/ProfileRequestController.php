@@ -107,26 +107,33 @@ class ProfileRequestController extends Controller
     //Update Profile Request 
     public function requestUpdate(Request $request, $id)
     {
+        // dd($request->all());
         $request_data = ProfileRequest::findOrFail($id);
         $user = User::findOrFail($request_data->user_id);
 
         $user->update([
-        'name' =>$request_data->name,
-        'email'=>$request_data->email,
-        'contact'=>$request_data->contact,
-        'e_transfer_no'=>$request_data->e_transfer_no,
+        'name' =>$request->name,
+        'email'=>$request->email,
+        'contact'=>$request->contact,
+        'e_transfer_no'=>$request->e_transfer_no,
          ]);
 
 
         $fundraiser =Fundraiser::where('user_id','=',$user->id)->first();
         $fundraiser->update([
-        'company_name' =>$request_data->company_name,
-        'vision_mission'=>$request_data->vission_mission,
-        'charity_type'=>$request_data->charity_type,
-        'address'=>$request_data->address,
-        'goal'=>$request_data->goal,
+        'company_name' =>$request->company_name,
+        'vision_mission'=>$request->vission_mission,
+        'charity_type'=>$request->charity_type,
+        'address'=>$request->address,
+        'goal'=>$request->goal,
          ]);
 
+        if($user && $fundraiser){
+          $request_data->update([
+            'status' =>'Completed',
+           
+         ]);  
+        }
         // dd($fundraiser);
         return redirect()->back()->with('success', 'Profile updated successfully!');
         

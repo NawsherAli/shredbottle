@@ -90,7 +90,7 @@
                     <h2 class="m-b-0 text-primary">
                         <span>${{$pending_donations}} </span>
                     </h2>
-                    <p class="text-primary" style="font-size: 10px">+10$ this week</p>
+                    <p class="text-primary" style="font-size: 10px">+{{$thisweekpendingdonation}}$ this week</p>
                 </div>    
             </div>
         </div>
@@ -122,10 +122,10 @@
                     <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">Claim Balance </button>
                      </div> 
-                    <div class="p-5 d-flex justify-content-center align-items-center">
+                    <!-- <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
                      </div> 
-                     <p></p>
+                     <p></p> -->
                 </div>    
             </div>
         </div>
