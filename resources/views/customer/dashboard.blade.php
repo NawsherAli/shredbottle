@@ -68,9 +68,9 @@
                         <p class="m-b-0 text-primary" style="font-size: 10px">Total Cashed Out</p>
                     
                         <h2 class="m-b-0 text-primary">
-                            <span>$227.99 </span>
+                            <span>${{$user_cashout_amount}} </span>
                         </h2>
-                        <p class="text-primary" style="font-size: 10px">+50$ this week</p>
+                        <p class="text-primary" style="font-size: 10px">+{{$this_week_total_cashout}}$ this week</p>
                     </div>    
                 </div>
             </div>
@@ -117,7 +117,11 @@
                             <h2 class="title-responsive">Quick Actions</h2>
                          </div> 
                         <div class="p-5 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary btn-responsive-text">Claim Balance </button>
+                            @if($customer->current_balance >= 3)
+                                <a href="#" onclick="customerClaimBalance({{ $customer->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                                @else
+                                <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>
+                            @endif
                          </div> 
                         <div class="p-5 d-flex justify-content-center align-items-center">
                             <a href="{{route('customer.fundraiser.index')}}" class="btn btn-primary btn-responsive-text">View Fundraisers</a>
@@ -130,5 +134,17 @@
     </div>
 <!-- Latest Pickups and donations -->
 @include('common-components.latest-pickup-donations')
+<form id="claim-balace-form-{{ $customer->id }}" action="{{ route('admin.claim.balance.request', ['id' => $customer->id]) }}" method="post" style="display: none;">
+    @csrf
+    @method('POST')
+    <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
+</form>
 
+<script>
+    function customerClaimBalance(customerId) {
+        if (confirm('Are you sure to submit claim balance request!')) {
+            document.getElementById('claim-balace-form-' + customerId).submit();
+        }
+    }
+</script>
 @endsection

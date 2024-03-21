@@ -10,6 +10,9 @@ use App\Http\Controllers\PickupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileRequestController;
+use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\TransactionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,6 +110,38 @@ Route::middleware('auth')->group(function () {
     Route::get('profile/request/view/{id}',[ProfileRequestController::class, 'profileRequestView'])->name('profile.request.view');
     Route::put('profile/request/update/{id}', [ProfileRequestController::class, 'requestUpdate'])->name('request.update');
 
+
+
+    //accounts routes
+    Route::get('/customer/accounts/', [AccountsController::class, 'customerIndex'])->name('admin.accounts.customer.index');
+    Route::get('/fundraiser/accounts/', [AccountsController::class, 'fundraiserIndex'])->name('admin.accounts.fundraiser.index');
+
+    //accounts search
+    Route::get('/customer/accounts/search', [AccountsController::class, 'customerAccountSearch'])->name('accounts.customer.search');
+    Route::get('/fundraiser/accounts/search', [AccountsController::class, 'fundraiserAccountSearch'])->name('accounts.fundraiser.search');
+
+    //accounts filters
+    Route::get('/customer/accounts/sort/highest', [AccountsController::class, 'customerAccountsSortByHighest'])->name('accounts.customer.sort.higestbalance');
+    Route::get('/customer/accounts/sort/lowest', [AccountsController::class, 'customerAccountsSortByLowest'])->name('accounts.customer.sort.lowestbalance');
+
+    //admin create claim balance request
+    Route::post('admin/claim/balance/request/{id}', [AccountsController::class, 'adminClaimBalance'])->name('admin.claim.balance.request');
+
+    //Transactions 
+    Route::get('/transactions/', [TransactionController::class, 'index'])->name('transactions.index');
+
+    //Transaction search
+    Route::get('/transactions/search', [TransactionController::class, 'transactionsSearch'])->name('transaction.search');
+
+    //Filters Transactions
+    Route::get('/transactions/filter', [TransactionController::class, 'transactionFilter'])->name('transaction.filter');
+
+    //admin view transaction
+    Route::get('admin/transaction/view/{id}',[TransactionController::class, 'adminViewTransaction'])->name('admin.transaction.view');
+
+    //admin transaction update
+    Route::put('admin/transaction/update/{id}', [TransactionController::class, 'transactionUpdate'])->name('admin.transaction.update');
+
 //////////////////////// Customer Routes /////////////////////////////////
     // customer create pickup request route
     Route::get('/customer/create/pickup-request', [PickupController::class, 'create'])->name('pickup.create');
@@ -137,6 +172,16 @@ Route::middleware('auth')->group(function () {
 
     //Store donated money
     Route::post('/customer/donate/money', [DonationController::class, 'donateMoney'])->name('donate.money');
+
+
+    //Customer Transactions 
+    Route::get('/customer/transactions/', [TransactionController::class, 'customerIndex'])->name('customer.transactions.index');
+
+    //Customer Transaction search
+    Route::get('/customer/transactions/search', [TransactionController::class, 'customerTransactionsSearch'])->name('customer.transaction.search');
+
+    //Customer Filters Transactions
+    Route::get('/customer/transactions/filter', [TransactionController::class, 'customerTransactionFilter'])->name('customer.transaction.filter');
 
 
 Route::get('customer/view/donor', function () {
@@ -189,6 +234,18 @@ Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundra
 
     //Fundraiser profile request
     Route::post('/profile/requests/store', [ProfileRequestController::class, 'store'])->name('store.profile.request');
+
+    //Fundraiser Transactions 
+    Route::get('/fundraiser/transactions/', [TransactionController::class, 'fundraiserIndex'])->name('fundraiser.transactions.index');
+
+    //Fundraiser Transaction search
+    Route::get('/fundraiser/transactions/search', [TransactionController::class, 'fundraiserTransactionsSearch'])->name('fundraiser.transaction.search');
+
+    //Fundraiser Filters Transactions
+    Route::get('/fundraiser/transactions/filter', [TransactionController::class, 'fundraiserTransactionFilter'])->name('fundraiser.transaction.filter');
+
+
+
 
 Route::get('admin/view/donor', function () {
     return view('admin.donations.donar-details');

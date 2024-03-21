@@ -12,6 +12,7 @@ use App\Models\Fundraiser;
 use App\Models\Donation;
 use Carbon\Carbon;
 use App\Models\ItemDetail;
+use App\Models\Transaction;
 class DashboardController extends Controller
 {
     //Admin Dashboard
@@ -82,7 +83,7 @@ class DashboardController extends Controller
 
 	    //calculate user donated amount
 	    $user_donated_amount = Donation::where('donor_id','=',$customer->id)->sum('amount');
-		
+		$user_cashout_amount = Transaction::where('customer_id','=',$customer->id)->where('status','Completed')->sum('amount');
 		 
 
 	    //this week amounts
@@ -94,6 +95,10 @@ class DashboardController extends Controller
         $this_week_total_cashout_amount  = Pickup::where('customer_id','=',$customer->id)
         ->where('payment_option','=','Cashout')
         ->whereBetween('created_at', [$startDate, $endDate])->sum('amount');
+
+
+        $this_week_total_cashout = Transaction::where('customer_id','=',$customer->id) ->whereBetween('created_at', [$startDate, $endDate])->where('status','Completed')->sum('amount');
+
 		// Ensure the user is authenticated and the customer is found
 	    if ($user && $customer) {
 	        $pickups = Pickup::with('customer.user','items.itemDetails')->where('customer_id','=',$customer->id)->orderBy('created_at', 'desc')->paginate(5);
@@ -107,7 +112,7 @@ class DashboardController extends Controller
 	    }
 
 	    //
-		return view('customer.dashboard',compact('pickups','donations','customer','user_donated_amount','this_week_donation','this_week_total_cashout_amount'));
+		return view('customer.dashboard',compact('pickups','donations','customer','user_donated_amount','this_week_total_cashout','this_week_donation','user_cashout_amount','this_week_total_cashout_amount'));
 	}
 
 	//Fundraiser Dashboard
@@ -115,6 +120,9 @@ class DashboardController extends Controller
 	{
 		$user = Auth::user();
 	    $fundraiser = Fundraiser::where('user_id',$user->id)->first();
+
+
+	    $user_cashout_amount = Transaction::where('fundraiser_id','=',$fundraiser->id)->where('status','Completed')->sum('amount');
 
 	    $startDate = Carbon::now()->startOfWeek();
         $endDate = Carbon::now()->endOfWeek();
@@ -128,6 +136,6 @@ class DashboardController extends Controller
 	    //latest donations
 	    $donations = Donation::where('charity_id','=',$fundraiser->id)->with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(5);
 
-		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations','pending_donations','thisweekpendingdonation'));
+		return view('fundraiser.dashboard',compact('fundraiser','thisweekdonation','donations','pending_donations','thisweekpendingdonation','user_cashout_amount'));
 	}
 }

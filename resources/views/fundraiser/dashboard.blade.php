@@ -73,7 +73,7 @@
                     <h2 class="m-b-0 text-primary">
                         <span>${{$fundraiser->goal}} </span>
                     </h2>
-                    <p class="text-primary" style="font-size: 10px">${{$fundraiser->current_balance}}</p>
+                    <p class="text-primary" style="font-size: 10px">${{$user_cashout_amount}} cashout</p>
                 </div>    
             </div>
         </div>
@@ -85,7 +85,7 @@
                     <div class="bg-primary p-5 d-flex justify-content-center align-items-center br-tl-br-20 icon-box">
                         <img src="../assets/icons/donate.png">
                     </div>
-                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donation</p>
+                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donations</p>
                 
                     <h2 class="m-b-0 text-primary">
                         <span>${{$pending_donations}} </span>
@@ -120,8 +120,14 @@
                         <h2 class="title-responsive">Quick Actions</h2>
                      </div> 
                     <div class="p-5 d-flex justify-content-center align-items-center">
-                        <button class="btn btn-primary btn-responsive-text">Claim Balance </button>
+                        @if($fundraiser->current_balance >= 30)
+                        <a href="#" onclick="fundraiserClaimBalance({{ $fundraiser->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                        @else
+                        <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>
+                        @endif
+
                      </div> 
+                     <p>You can claim your balance when your amount is 150 dollers</p>
                     <!-- <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
                      </div> 
@@ -224,5 +230,17 @@
     </div>
     
 </div>
+<form id="claim-balace-form-{{ $fundraiser->id }}" action="{{ route('admin.claim.balance.request', ['id' => $fundraiser->id]) }}" method="post" style="display: none;">
+    @csrf
+    @method('POST')
+    <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
+</form>
 
+<script>
+    function fundraiserClaimBalance(customerId) {
+        if (confirm('Are you sure to submit claim balance request!')) {
+            document.getElementById('claim-balace-form-' + customerId).submit();
+        }
+    }
+</script>
 @endsection
