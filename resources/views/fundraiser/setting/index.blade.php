@@ -33,9 +33,9 @@
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                        <span class="text-primary">Location: </span> 
+                                        <span class="text-primary">Contact: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                    <p class="col font-weight-semibold text-black">+{{ Auth::user()->contact }}</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">

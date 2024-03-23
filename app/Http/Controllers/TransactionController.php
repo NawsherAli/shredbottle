@@ -9,7 +9,12 @@ use App\Models\Donation;
 use App\Models\Customer;
 use App\Models\Fundraiser;
 use App\Models\Pickup;
+use App\Models\User;
 use Carbon\Carbon;
+
+
+use App\Notifications\ClaimBalanceRequestCompletedNotification;
+
 class TransactionController extends Controller
 {
 	//All transactions on admin side
@@ -263,6 +268,21 @@ class TransactionController extends Controller
                     $customer->current_balance = $customer->current_balance - $transaction->amount;
 
                     if($customer->save()){
+                        // Notify user ////////////////////
+                   $user = User::findOrFail($customer->user_id);
+
+                    $usercustomData = [
+                        'name'=>$user->name,
+                        'message' => 'Claim balance request has been completed',
+                        'request_id' => $transaction->request_id,
+                        'amount' => $transaction->amount,
+                        'transaction_no'=> $transaction->transaction_no,
+                        'date'=> $transaction->transaction_date,
+                        'e_transfer_no'=> $user->e_transfer_no,
+                    ];
+                    $user->notify(new ClaimBalanceRequestCompletedNotification($usercustomData));
+                    /////////////////////////////
+
                         return redirect()->back()->with('success', 'Amount request updated successfully!');
                     }
                 }
@@ -287,6 +307,21 @@ class TransactionController extends Controller
                     $fundraiser->current_balance = $fundraiser->current_balance - $transaction->amount;
 
                     if($fundraiser->save()){
+
+                    // Notify user ////////////////////
+                   $user = User::findOrFail($fundraiser->user_id);
+
+                    $usercustomData = [
+                        'name'=> $user->name,
+                        'message' => 'Claim balance request has been completed',
+                        'request_id' => $transaction->request_id,
+                        'amount' => $transaction->amount,
+                        'transaction_no'=> $transaction->transaction_no,
+                        'date'=> $transaction->transaction_date,
+                        'e_transfer_no'=> $user->e_transfer_no,
+                    ];
+                    $user->notify(new ClaimBalanceRequestCompletedNotification($usercustomData));
+                    /////////////////////////////
                         return redirect()->back()->with('success', 'Amount request updated successfully!');
                     }
                 }

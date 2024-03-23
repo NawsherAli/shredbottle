@@ -65,4 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
     // {
     //     return $this->hasMany(Transaction::class);
     // }
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
 }

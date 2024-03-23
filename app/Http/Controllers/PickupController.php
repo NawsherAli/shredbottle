@@ -11,6 +11,13 @@ use App\Models\PickupItem;
 use App\Models\Fundraiser;
 use App\Models\Donation;
 use App\Models\ItemDetail;
+
+use App\Notifications\PickupRequestReceivedNotification;
+use App\Notifications\PickupRequestNotification;
+use App\Notifications\PickupRequestReviewedNotification;
+use App\Notifications\PickupRequestCompletedNotification;
+use App\Notifications\DonationNotification;
+
 class PickupController extends Controller
 {
     //Create Pickup Request
@@ -95,7 +102,25 @@ class PickupController extends Controller
 
 		    }
 
-	    // Redirect or return a response
+            //Notify admin
+            $admin = User::where('role', 'admin')->first();
+            $admincustomData = [
+                'message' => 'New Pickup request received successfully',
+                'name' => $admin->name,
+            ];
+
+            $admin->notify(new PickupRequestReceivedNotification($admincustomData));
+
+            // Notify user
+            $user = Auth::user(); // Assuming the user is authenticated
+            $usercustomData = [
+                'message' => 'Your pickup received successfully',
+                'name' => $user->name,
+            ];
+            $user->notify(new PickupRequestNotification($usercustomData));
+	    
+
+        // Redirect or return a response
 	    return redirect()->route('pickup.create')->with('success', 'Pickup created successfully');
 	}
 
@@ -212,39 +237,39 @@ class PickupController extends Controller
             if($pickup_items->save()){
                $pickup=Pickup::find($pickup_items->pickup_id);
                $pickup->amount =  $pickup_items->amount;
-
                if($pickup->save()){
+                   
+                    // Notify donor user ////////////////////
+                    $customer = Customer::findOrFail($pickup->customer_id);
+                    $donor_user = User::findOrFail($customer->user_id);
+
+                    $usercustomData = [
+                        'message' => 'Pickup request reviewed successfully.',
+                        'name' => $donor_user->name,
+                        'items' => $pickup_items->quantity,
+                        'amount'=> $pickup->amount,
+                        'payment_option'=> $pickup->payment_option
+                    ];
+                    $donor_user->notify(new PickupRequestReviewedNotification($usercustomData));
+                    /////////////////////////////
+
                     if ($pickup->payment_option == 'Donate') {
                             $donation = Donation::where('pickup_id','=',$pickup->id)->first();
                             $donation->amount = $pickup->amount;
                             $donation->no_of_items = $pickup_items->quantity;
                             if ($donation->save()) {
-                                return redirect()->route('admin.pickup.view',['id'=>$id])->with('success', 'Pickup details updated successfully');
+
+                                return redirect()->back()->with('success', 'Pickup details updated successfully!');
+                                // return redirect()->route('admin.pickup.view',['id'=>$id])->with('success', 'Pickup details updated successfully');
                             }
                     }else{
-                    return redirect()->route('admin.pickup.view',['id'=>$id])->with('success', 'Pickup details updated successfully');
+                        return redirect()->back()->with('success', 'Pickup details updated successfully!');
+                    // return redirect()->route('admin.pickup.view',['id'=>$id])->with('success', 'Pickup details updated successfully');
                 }
 
 
                }
             }
-            // dd($items_quantity);
-            // $pickup=Pickup::find($id);
-            // $pickup->status = 'Completed';
-
-            // if ($pickup->save()){
-
-            //     if ($pickup->payment_option == 'Donate') {
-
-            //         $donation = Donation::where('pickup_id','=',$pickup->id)->first();
-            //         $donation->status = 'Completed';
-            //         if ($donation->save()) {
-            //             return redirect()->route('admin.pickup.view',['id'=>$id])->with('success', 'Pickup details updated successfully');
-            //         }
-            //     }else{
-            //         return redirect()->route('admin.pickup.view')->with('success', 'Pickup details updated successfully');
-            //     }
-            // }
         }
            
                                 
@@ -314,15 +339,46 @@ class PickupController extends Controller
             if ($pickup->save()) {
                 if ($pickup->payment_option == 'Donate') {
                     
-                    $fundraiser = Fundraiser::findOrFail($pickup->charity_organization);
+                   $fundraiser = Fundraiser::findOrFail($pickup->charity_organization);
                     // dd($pickup->payment_option);
-                    
+                   
+                    // Notify user ////////////////////
+                    $customer = Customer::findOrFail($pickup->customer_id);
+                    $user = User::findOrFail($customer->user_id);
+
+                    $usercustomData = [
+                        'message' => 'We are excited to inform you that your pickup request has been completed successfully, and the amount is sent to the '.$fundraiser->company_name.' organization.',
+                        'name' => $user->name,
+                        'items' => $pickup->total_items,
+                        'amount'=> $pickup->amount,
+                        'payment_option'=> $pickup->payment_option,
+                        'organization'=> $fundraiser->company_name,
+                    ];
+                    $user->notify(new PickupRequestCompletedNotification($usercustomData));
+                    /////////////////////////////
+
                     $fundraiser->total_balance += $pickup->amount;
                     $fundraiser->current_balance += $pickup->amount;
                     if ($fundraiser->save()) {
                         $donation = Donation::where('pickup_id', '=', $id)->first();
                         $donation->status = 'Completed';
                         if ($donation->save()) {
+
+
+                            // Notify donor organiztion ////////////////////
+                            $fundraiser = Fundraiser::findOrFail($pickup->charity_organization);
+                            $fund_user = User::findOrFail($fundraiser->user_id);
+
+                            $usercustomData = [
+                                'message' => 'We are excited to inform you a new donation has been done by '.$user->name.', and the amount is add to your account.',
+                                'name' => $fund_user->name,
+                                'items' => $pickup->total_items,
+                                'amount'=> $pickup->amount,
+                                'donor_user'=> $user->name,
+                            ];
+                            $fund_user->notify(new DonationNotification($usercustomData));
+                            /////////////////////////////
+
                             return redirect()->route('admin.pickup.view', ['id' => $id])->with('success', 'Pickup status updated, and the amount sent to the charity account!');
                         }
                     }
@@ -331,6 +387,24 @@ class PickupController extends Controller
                     $customer->total_balance += $pickup->amount;
                     $customer->current_balance += $pickup->amount;
                     if ($customer->save()) {
+
+                    // Notify user ////////////////////
+                    $customer = Customer::findOrFail($pickup->customer_id);
+                    $user = User::findOrFail($customer->user_id);
+                    $msg = 'We are excited to inform you that your pickup request has been completed successfully, and the amount is add to your account.';
+
+                    $usercustomData = [
+                        'message' => $msg,
+                        'name' => $user->name,
+                        'items' => $pickup->total_items,
+                        'amount'=> $pickup->amount,
+                        'payment_option'=> $pickup->payment_option,
+                        'organization'=> '',
+                    ];
+                    $user->notify(new PickupRequestCompletedNotification($usercustomData));
+                    /////////////////////////////
+
+
                         return redirect()->route('admin.pickup.view', ['id' => $id])->with('success', 'Pickup status updated, and the amount sent to the customer account!');
                     }
                 }
