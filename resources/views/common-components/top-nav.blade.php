@@ -34,11 +34,11 @@
         </ul>
         <ul class="nav-right">
             <li class="dropdown dropdown-animated scale-left">
-                <a href="javascript:void(0);" data-toggle="dropdown">
+                <a href="{{url('/chatify')}}"  >
                     <i class="anticon anticon-message"></i>
                 </a>
             </li>
-            <li class="dropdown dropdown-animated scale-left">
+            <!-- <li class="dropdown dropdown-animated scale-left">
                 <a href="javascript:void(0);" data-toggle="dropdown">
                     <i class="anticon anticon-bell notification-badge"></i>
                 </a>
@@ -101,7 +101,71 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
+           <li class="dropdown dropdown-animated scale-left">
+    <a href="javascript:void(0);" data-toggle="dropdown">
+        <div class="avatar avatar-text avatar-badge  " style="background-color: white; padding: 0px">
+           <i class="anticon anticon-bell text-dark" style="font-size: 20px"></i>
+           @if(auth()->user()->unreadNotifications->count() > 0)
+            <span class="badge badge-indicator badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+           @endif
+        </div>
+    </a>
+    <!-- <a href="javascript:void(0);" data-toggle="dropdown">
+        <i class="anticon anticon-bell notification-badge avatar avatar-text avatar-badge">
+        @if(auth()->user()->unreadNotifications->count() > 0)
+            <span class="badge badge-indicator badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+        @endif
+        </i>
+    </a> -->    
+    <div class="dropdown-menu pop-notification">
+        <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
+            <p class="text-dark font-weight-semibold m-b-0">
+                <i class="anticon anticon-bell"></i>
+                <span class="m-l-10">Notifications</span>
+            </p>
+           <!--  <a class="btn-sm btn-default btn" href="javascript:void(0);">
+                <small>View All</small>
+            </a> -->
+        </div>
+        <div class="relative">
+            <div class="overflow-y-auto relative scrollable" style="max-height: 300px">
+                @forelse(auth()->user()->unreadNotifications as $notification)
+                    <div class="dropdown-item d-block p-15 border-bottom">
+                        <div class="d-flex " style=" ">
+                            <div class="avatar avatar-blue avatar-icon" style="  ">
+                                <i class="anticon anticon-bell"></i>
+                            </div>
+                            <div class="m-l-15">
+                                <p class="m-b-0 text-dark" style="font-size: 12px">{{ $notification->data['message'] }}</p>
+                                <p class="m-b-0"><small>{{ $notification->created_at->diffForHumans() }}</small>
+                                 <button class="badge badge-pill badge-green  mark-as-read" data-notification-id="{{ $notification->id }}">Mark as Read</button>   
+                                </p>
+                            </div>
+                        </div>
+                            <!-- <div class="ml-auto">
+                                
+                            </div> -->
+                        
+                    </div>
+                @empty
+                    <div class="dropdown-item d-block p-15 border-bottom">
+                        <div class="d-flex " style=" ">
+                            <div class="avatar avatar-blue avatar-icon" style="  ">
+                                <i class="anticon anticon-bell"></i>
+                            </div>
+                            <div class="m-l-15">
+                                <p class="m-b-0 text-dark" >No new notifications </p>
+                                <p class="m-b-0">
+                            </div>
+                        </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</li>
+
+
             <li class="scale-left admin-name" >
                 <div class="m-l-10">
                     <p class="m-b-0 text-dark font-weight-semibold">{{ Auth::user()->name }}</p>

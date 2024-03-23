@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Fundraiser;
 use App\Models\ProfileRequest;
+
+use App\Notifications\ProfileUpdateRequestNotification;
+use App\Notifications\ProfileUpdateRequestCompletedNotification;
 class ProfileRequestController extends Controller
 {
     /**
@@ -47,6 +50,15 @@ class ProfileRequestController extends Controller
         // dd($request->all());
         // Create a new profile request
         $profileRequest = ProfileRequest::create($validatedData + ['user_id' => auth()->id()]);
+        // Notify user ////////////////////
+        $admin = User::where('role', 'admin')->first();
+
+        $usercustomData = [
+            'name' => $admin->name,
+            'message' => 'A new profile request has been received',
+         ];
+        $admin->notify(new ProfileUpdateRequestNotification($usercustomData));
+        /////////////////////////////
 
         return redirect()->back()->with('success', 'Profile request sent successfully.');
     }
@@ -133,6 +145,14 @@ class ProfileRequestController extends Controller
             'status' =>'Completed',
            
          ]);  
+
+        $usercustomData = [
+            'name' => $user->name,
+            'message' => 'Your profile has been updated successfully',
+         ];
+        $user->notify(new ProfileUpdateRequestCompletedNotification($usercustomData));
+        /////////////////////////////
+
         }
         // dd($fundraiser);
         return redirect()->back()->with('success', 'Profile updated successfully!');

@@ -6,10 +6,10 @@ Side Nav START -->
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>
     </div>
-    <div class="side-nav-inner">
-        <ul class="side-nav-menu scrollable">
+    <div class="side-nav-inner "  >
+        <ul class="side-nav-menu scrollable"  >
             <li class="nav-item">
-                <a class="dropdown-toggle  " href="{{route('admin.dashboard')}}">
+                <a class="" href="{{route('admin.dashboard')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-appstore"></i>
                     </span>
@@ -17,13 +17,13 @@ Side Nav START -->
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="{{route('admin.donations')}}">
+                <a class="" href="{{route('admin.donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
                     <span class="title">Donations</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown"  >
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
 						<i class="fab fa-keycdn"></i>
@@ -43,7 +43,7 @@ Side Nav START -->
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" >
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="anticon anticon-hdd"></i>
@@ -83,11 +83,11 @@ Side Nav START -->
             <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('profile.request.index')}}">
                     <span class="icon-holder">
-                        <i class="far fa-user"></i>
+                        <i class="fas fa-users-cog"></i>
                     </span>
                     <span class="title">Profile Requests</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown"  >
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="fab fa-keycdn"></i>
@@ -110,7 +110,7 @@ Side Nav START -->
             <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('transactions.index')}}">
                     <span class="icon-holder">
-                        <i class="far fa-user"></i>
+                        <i class="far fa-money-bill-alt"></i>
                     </span>
                     <span class="title">Transactions</span></a>
             </li>

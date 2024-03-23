@@ -12,6 +12,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileRequestController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboar
 // })->middleware(['auth', 'verified'])->name('setting');
 
 Route::middleware('auth')->group(function () {
-
+    Route::post('/mark-as-read/{id}',  [NotificationController::class, 'markAsRead'])->name('mark-as-read');
 	//Profile edit routes
 	Route::get('/admin/profile', [ProfileController::class, 'adminEdit'])->name('admin.profile.edit');
 
@@ -258,6 +259,7 @@ Route::get('admin/view/donor', function () {
 
 
 
+
 //Fundraiser
 // Route::get('/fundraiser/donations', function () {
 //     return view('fundraiser.donations.index');
@@ -274,8 +276,8 @@ Route::get('fundraiser/chat', function () {
 
 
 //Test Routs
-Route::get('/test', function () {
-    return view('test');
+Route::get('/customer/email', function () {
+    return view('emails.donation');
 });
 
 require __DIR__.'/auth.php';

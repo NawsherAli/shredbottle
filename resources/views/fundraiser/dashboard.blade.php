@@ -33,9 +33,9 @@
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                        <span class="text-dark">Location: </span> 
+                                        <span class="text-dark">Contact: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                    <p class="col font-weight-semibold text-black">+{{ Auth::user()->contact }}</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
@@ -120,7 +120,7 @@
                         <h2 class="title-responsive">Quick Actions</h2>
                      </div> 
                     <div class="p-5 d-flex justify-content-center align-items-center">
-                        @if($fundraiser->current_balance >= 30)
+                        @if($fundraiser->current_balance >= 5)
                         <a href="#" onclick="fundraiserClaimBalance({{ $fundraiser->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
                         @else
                         <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>

@@ -7,6 +7,10 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
+use App\Notifications\ClaimBalanceRequestNotification;
+
 class AccountsController extends Controller
 {
      //Customer Accounts Index
@@ -86,16 +90,28 @@ class AccountsController extends Controller
     {
     	
         // dd($request->all());
-        // $role = Auth::user()->role;
-
-        // if($role == 'customer' OR $role == 'fundraiser'){
-
-        // }
-
-    	$user = User::find($request->user_id);
-
+        $role = Auth::user()->role;
         $date= date('d-m-y');
-    	$uuid = Str::uuid();
+        $uuid = Str::uuid();
+
+        $user = User::find($request->user_id);
+
+        if($role == 'customer' OR $role == 'fundraiser'){
+            // Notify user ////////////////////
+            $admin = User::where('role', 'admin')->first();
+
+            $usercustomData = [
+                'name' => $admin->name,
+                'user_name'=> $user->name,
+                'message' => 'New claim balance request received!',
+                'request_id' => $uuid,
+                'contact' => $user->contact,
+                'e_transfer_no'=> $user->e_transfer_no,
+            ];
+            $admin->notify(new ClaimBalanceRequestNotification($usercustomData));
+            /////////////////////////////
+        }
+
     	// dd($user);
         if($user->role == 'customer'){
            $customer_create_balance_request = Transaction::create([

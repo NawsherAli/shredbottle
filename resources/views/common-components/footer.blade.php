@@ -27,7 +27,7 @@
             }, 4000);
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 
 <script>
     $(document).ready(function () {
@@ -41,6 +41,31 @@
                 // Add the 'active' class to the parent <li> element
                 $(this).closest('li').addClass('active');
             }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.mark-as-read').click(function() {
+
+            var notificationId = $(this).data('notification-id');
+             // alert(notificationId);
+            $.ajax({
+                url: '/mark-as-read/' + notificationId,
+                method: 'POST',
+                // dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // alert(response);
+                    // Refresh the page or update the UI as needed
+                    location.reload(); // Example: Reload the page to reflect changes
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
     });
 </script>

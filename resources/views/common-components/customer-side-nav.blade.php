@@ -51,7 +51,7 @@
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="{{route('customer.transactions.index')}}">
                     <span class="icon-holder">
-                        <i class="fab fa-keycdn"></i>
+                        <i class="far fa-money-bill-alt"></i>
                     </span>
                     <span class="title">Transactions</span>
                 </a>
