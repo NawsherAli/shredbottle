@@ -36,6 +36,7 @@
                             <th scope="col" class="text-white">Company Name</th>
                             <th scope="col" class="text-white">Email</th>
                             <th scope="col" class="text-white">Contact</th>
+                            <th scope="col" class="text-white">Status</th>
                             <th scope="col" class="text-white">Actions</th>
                         </tr>
                     </thead>
@@ -48,6 +49,13 @@
                                 <td>{{$request->company_name}}</td>
                                 <td>{{$request->email}}</td>
                                 <td>{{$request->contact}}</td>
+                                <td>
+                                    @if($request->status == 'Completed')
+                                    <span class="badge badge-pill badge-success mr-3">Completed</span>
+                                    @else
+                                    <span class="badge badge-pill badge-pending mr-3">Pending</span>
+                                    @endif
+                                </td>
                                 <td>
                                 <a href='{{route("profile.request.view",["id"=>$request->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a></td>
                             </tr>
@@ -76,7 +84,11 @@
      <div class="d-flex justify-content-between" >
          <p class="text-black"><i class="anticon anticon-phone text-primary"></i>{{$request->contact}}</p>
          <div class="" >
-            
+            @if($request->status == 'Completed')
+                <span class="badge badge-pill badge-success mr-3">Completed</span>
+            @else
+                <span class="badge badge-pill badge-pending mr-3">Pending</span>
+            @endif 
           <a href='{{route("profile.request.view",["id"=>$request->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
          </div>
      </div>

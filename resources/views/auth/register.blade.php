@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ShredTheBottle - Personal SignUp</title>
+    <title>ShredTheBottle - SignUp</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{asset('assets/images/logo/logo.png')}}">
@@ -49,13 +49,13 @@
     </div>
 @endif
 @if($errors->any())
-    <div class="alert alert-danger">
+   <!--  <div class="alert alert-danger">
         <ul>
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
-    </div>
+    </div> -->
 @endif
                                 <div class="d-flex align-items-center justify-content-center mb-3">
                                     <h1>Sign Up</h1>
@@ -203,6 +203,11 @@
                                             <div class="form-group">
                                                 <div class="d-flex align-items-center justify-content-center">
                                                     <button type="submit" class="btn btn-primary">Sign Up</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a href="{{ route('login') }}" class="text-primary" >Already have an account</a>
                                                 </div>
                                             </div>
                                         </form>

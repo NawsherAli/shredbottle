@@ -33,6 +33,7 @@
                             <tr>
                                 <th scope="row"> {{$loop->iteration}}</th>
                                 <td>{{$donate->donor->user->name}}</td>
+                                
                                 <td>{{$donate->amount}}</td>
                                 <td>{{$donate->charity_type}}</td>
                                 <td>{{$donate->charity->company_name}}</td>
@@ -66,6 +67,7 @@
                          </div>
                          <div class="d-flex justify-content-between" >
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
+                             
                              <h3 class="text-primary">${{$donate->amount}}</h3>
                          </div>
                          <div class="d-flex justify-content-between" >

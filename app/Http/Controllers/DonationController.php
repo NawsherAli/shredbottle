@@ -17,8 +17,8 @@ class DonationController extends Controller
 	//Show Donations on admin side
 	public function adminIndex(){
 		
-	        $donations = Donation::with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(10);
-	     
+	        // $donations = Donation::with('donor.user','charity')->orderBy('created_at', 'desc')->paginate(10);
+	     $donations = Donation::with('donor.user','charity','pickup.items.itemDetails')->paginate(10);
     	return view('admin.donations.index', compact('donations'));
     }
 
@@ -74,9 +74,8 @@ class DonationController extends Controller
     //Search Donation for customer
 	public function customerDonationSearch(Request $request){
 		$search = $request->input('search');
-		// dd($search);
-		$user = Auth::user();
-	    $user_name = $user->name;
+		 
+        $user = Auth::user();
 	    $customer = Customer::where('user_id',$user->id)->first();
 
 		$donations = Donation::with('donor.user', 'charity')
@@ -84,7 +83,7 @@ class DonationController extends Controller
 	        $query->where('company_name', 'like', '%' . $search . '%');
 	    })
 	    ->where('donor_id', '=', $customer->id)
-	    ->paginate(2);
+	    ->paginate(10);
 
 		// dd($pickups->all());
 		return view('customer.donations.index', compact('donations'));
@@ -116,14 +115,14 @@ class DonationController extends Controller
 	//Filter Donations for admin
 	 public function adminSortByLatest()
     {
-        $donations = Donation::orderBy('created_at', 'desc')->paginate(2);
+        $donations = Donation::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.donations.index', compact('donations'));
     }
 
     public function adminSortByHighest()
     {
-        $donations = Donation::orderBy('amount', 'desc')->paginate(2);
+        $donations = Donation::orderBy('amount', 'desc')->paginate(10);
 
         return view('admin.donations.index', compact('donations'));
     }
@@ -131,16 +130,23 @@ class DonationController extends Controller
     //Filter Donations for Customer
 	 public function customerSortByLatest()
     {
-        $donations = Donation::orderBy('created_at', 'desc')->paginate(2);
+        $user = Auth::user();
+        $customer = Customer::where('user_id',$user->id)->first();
+        $donations = Donation::orderBy('created_at', 'desc')
+        ->where('donor_id', '=', $customer->id)->paginate(10);
 
         return view('customer.donations.index', compact('donations'));
     }
 
     public function customerSortByHighest()
     {
-        $donations = Donation::orderBy('amount', 'desc')->paginate(2);
+        $user = Auth::user();
+        $customer = Customer::where('user_id',$user->id)->first();
 
-        return view('customer.donations.index', compact('donations'));
+        $donations = Donation::orderBy('amount', 'desc')
+        ->where('donor_id', '=', $customer->id)->paginate(10);
+        
+         return view('customer.donations.index', compact('donations'));
     }
 
      //Filter Donations for fundraiser
@@ -177,5 +183,53 @@ class DonationController extends Controller
     {
         $fundraisers  = Fundraiser::all();
         return view('customer.fundraiser.donate-now',compact('fundraisers'));
+    }
+
+    //Donate Money
+    //customer money donation
+    public function donateMoney(Request $request)
+    {
+        // dd($request->all());
+        $user = Auth::user();
+        $customer = Customer::where('user_id',$user->id)->first();
+
+        if($customer->current_balance >= $request->amount){
+
+            // Validate the form data
+            $validatedData = $request->validate([
+                'charity_type' => 'required',
+                'charity_name' => 'required',
+                'amount' => 'required|numeric|min:0',
+            ]);
+
+            // Create a new Donation instance
+            $donation = new Donation();
+            $donation->donor_id = $customer->id;
+            $donation->charity_type = $validatedData['charity_type'];
+            $donation->charity_id = $validatedData['charity_name'];
+            $donation->amount = $validatedData['amount'];
+            $donation->status = 'Completed';
+            // Save the Donation instance
+            // $donation->save();
+            if($donation->save()){
+                $customer->current_balance = $customer->current_balance - $donation->amount;
+
+                if($customer->save()){
+
+                    $fundraiser = Fundraiser::findOrFail($validatedData['charity_name']);
+
+                    $fundraiser->total_balance = $fundraiser->total_balance + $donation->amount;
+                    $fundraiser->current_balance = $fundraiser->current_balance + $donation->amount;
+
+                    if($fundraiser->save()){
+                        return redirect()->route('customer.donations')->with('success', 'Donation submitted successfully!');
+                    }
+                }
+            }
+        }else{
+            return redirect()->route('donate.now')->with('error', 'You have not enough money to  donate');
+        }
+        // $fundraisers  = Fundraiser::all();
+        
     }
 }

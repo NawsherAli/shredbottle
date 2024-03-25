@@ -8,7 +8,7 @@
     <div class="col-md-4 order-sm-2 order-3 ">
        <form id="searchForm" method="GET" action='{{ route("$role.donation.search") }}'>
             <div class="input-affix m-b-10">
-                <input type="text" class="form-control" placeholder="Search By Donor Name" name="search">
+                <input type="text" class="form-control" placeholder="Search by {{ $role== 'customer' ? 'Charity Name ' : 'Donar Name' }}" name="search">
                 <i class="suffix-icon anticon anticon-search" id="searchIcon"></i>
             </div>
         </form>

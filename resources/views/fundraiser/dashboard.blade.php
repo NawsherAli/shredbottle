@@ -33,9 +33,9 @@
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                        <span class="text-dark">Location: </span> 
+                                        <span class="text-dark">Contact: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                    <p class="col font-weight-semibold text-black">+{{ Auth::user()->contact }}</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
@@ -73,7 +73,7 @@
                     <h2 class="m-b-0 text-primary">
                         <span>${{$fundraiser->goal}} </span>
                     </h2>
-                    <p class="text-primary" style="font-size: 10px">${{$fundraiser->current_balance}}</p>
+                    <p class="text-primary" style="font-size: 10px">${{$user_cashout_amount}} cashout</p>
                 </div>    
             </div>
         </div>
@@ -85,12 +85,12 @@
                     <div class="bg-primary p-5 d-flex justify-content-center align-items-center br-tl-br-20 icon-box">
                         <img src="../assets/icons/donate.png">
                     </div>
-                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donation</p>
+                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donations</p>
                 
                     <h2 class="m-b-0 text-primary">
                         <span>${{$pending_donations}} </span>
                     </h2>
-                    <p class="text-primary" style="font-size: 10px">+10$ this week</p>
+                    <p class="text-primary" style="font-size: 10px">+{{$thisweekpendingdonation}}$ this week</p>
                 </div>    
             </div>
         </div>
@@ -120,12 +120,18 @@
                         <h2 class="title-responsive">Quick Actions</h2>
                      </div> 
                     <div class="p-5 d-flex justify-content-center align-items-center">
-                        <button class="btn btn-primary btn-responsive-text">Claim Balance </button>
+                        @if($fundraiser->current_balance >= 5)
+                        <a href="#" onclick="fundraiserClaimBalance({{ $fundraiser->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                        @else
+                        <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>
+                        @endif
+
                      </div> 
-                    <div class="p-5 d-flex justify-content-center align-items-center">
+                     <p>You can claim your balance when your amount is 150 dollers</p>
+                    <!-- <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
                      </div> 
-                     <p></p>
+                     <p></p> -->
                 </div>    
             </div>
         </div>
@@ -224,5 +230,17 @@
     </div>
     
 </div>
+<form id="claim-balace-form-{{ $fundraiser->id }}" action="{{ route('admin.claim.balance.request', ['id' => $fundraiser->id]) }}" method="post" style="display: none;">
+    @csrf
+    @method('POST')
+    <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
+</form>
 
+<script>
+    function fundraiserClaimBalance(customerId) {
+        if (confirm('Are you sure to submit claim balance request!')) {
+            document.getElementById('claim-balace-form-' + customerId).submit();
+        }
+    }
+</script>
 @endsection

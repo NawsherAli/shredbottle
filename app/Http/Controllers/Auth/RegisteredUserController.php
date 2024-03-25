@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'contact' => ['nullable','numeric','digits:11'],
+            'contact' => ['required','nullable','numeric','digits:11'],
             'e_transfer_no' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],

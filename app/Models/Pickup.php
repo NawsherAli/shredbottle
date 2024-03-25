@@ -25,6 +25,11 @@ class Pickup extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    
+    public function donation()
+    {
+        return $this->belongsTo(Donation::class);
+    }
 
     public function fundraiser()
     {

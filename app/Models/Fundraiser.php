@@ -24,4 +24,9 @@ class Fundraiser extends Model
     {
         return $this->hasMany(Pickup::class);
     }
+
+     public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction', 'fundraiser_id');
+    }
 }

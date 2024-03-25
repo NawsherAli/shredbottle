@@ -10,7 +10,7 @@ class CustomerController extends Controller
     public function index()
     {
     	// $drivers = Driver::all();
-         $customers = User::where('role', '=', 'customer')->with('customer')->paginate(1);
+         $customers = User::where('role', '=', 'customer')->with('customer')->paginate(10);
         return view('admin.drivers.customers',compact('customers'));
     }
 

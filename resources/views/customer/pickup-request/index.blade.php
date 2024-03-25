@@ -6,6 +6,7 @@
 
     }
 </style>
+
 <div class="row mb-3 bg-primary br-10" style="border-bottom: 2px solid #219653">
     <div class="col-md-12 order-sm-1 order-1 col-8 ">
         <h1 class="text-white title-responsive">Pickup Request</h1>
@@ -174,13 +175,13 @@
    </div>
 </div>
 <div class="form-row">
-    <div class="form-group col-md-3 ">
+    <div class="form-group col-md-3 col-6">
         <div class="radio">
             <input id="radio4" name="payment_option" type="radio" checked="" value="Cashout">
             <label for="radio4">Cashout</label>
          </div>
     </div>
-    <div class="form-group col-md-3 ">
+    <div class="form-group col-md-3 col-6">
         <div class="radio">
             <input id="radio5" name="payment_option" type="radio" value="Donate" >
             <label for="radio5">Donate</label>

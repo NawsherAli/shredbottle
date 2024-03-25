@@ -5,7 +5,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PickupItem extends Model
-{
+{   
+    protected $table = 'pickup_items';
+    protected $guarded = [];
+
     protected $fillable = [
         'pickup_id',
         'items_type',
@@ -19,5 +22,10 @@ class PickupItem extends Model
     public function pickup()
     {
         return $this->belongsTo(Pickup::class);
+    }
+
+    public function itemDetails()
+    {
+        return $this->hasMany(ItemDetail::class);
     }
 }

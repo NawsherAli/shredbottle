@@ -28,7 +28,8 @@ class FundraiserController extends Controller
     public function adminFundraiserView($id)
     {
         $user = User::with('fundraiser')->findOrFail($id);
-       $donations = Donation::with('donor.user','charity')->where('charity_id','=',$user->fundraiser->id)->orderBy('created_at', 'desc')->paginate(10);
+       $donations = Donation::with('donor.user','charity','pickup.items.itemDetails')->where('charity_id','=',$user->fundraiser->id)->orderBy('created_at', 'desc')->paginate(10);
+
         return view('admin.fundraiser-donation.view-charity', ['user' => $user,'donations'=> $donations]);
     }
 
@@ -99,7 +100,7 @@ class FundraiserController extends Controller
         ->orWhereHas('donor.user', function ($query) use ($search) {
             $query->where('name', 'like', '%' . $search . '%');
         })
-        ->paginate(2);
+        ->paginate(10);
 
         // dd($pickups->all());
         return view('admin.fundraiser-donation.index', compact('donations'));
@@ -110,14 +111,14 @@ class FundraiserController extends Controller
     //Filter fundraiser Donations for admin
      public function adminSortByLatest()
     {
-        $donations = Donation::orderBy('created_at', 'desc')->paginate(2);
+        $donations = Donation::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.fundraiser-donation.index', compact('donations'));
     }
 
     public function adminSortByHighest()
     {
-        $donations = Donation::orderBy('amount', 'desc')->paginate(2);
+        $donations = Donation::orderBy('amount', 'desc')->paginate(10);
 
         return view('admin.fundraiser-donation.index', compact('donations'));
     }

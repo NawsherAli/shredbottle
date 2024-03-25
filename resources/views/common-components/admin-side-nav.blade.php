@@ -1,4 +1,4 @@
-<!-- Side Nav START -->
+Side Nav START -->
 <div class="side-nav">
      <div class="logo logo-dark">
         <a href="{{route('admin.dashboard')}}" class="d-flex justify-content-center">
@@ -6,10 +6,10 @@
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>
     </div>
-    <div class="side-nav-inner">
-        <ul class="side-nav-menu scrollable">
+    <div class="side-nav-inner "  >
+        <ul class="side-nav-menu scrollable"  >
             <li class="nav-item">
-                <a class="dropdown-toggle  " href="{{route('admin.dashboard')}}">
+                <a class="" href="{{route('admin.dashboard')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-appstore"></i>
                     </span>
@@ -17,13 +17,13 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="dropdown-toggle" href="{{route('admin.donations')}}">
+                <a class="" href="{{route('admin.donations')}}">
                     <span class="icon-holder">
                         <i class="fas fa-hand-holding-usd"></i>
                     </span>
                     <span class="title">Donations</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown"  >
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
 						<i class="fab fa-keycdn"></i>
@@ -43,7 +43,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" >
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="anticon anticon-hdd"></i>
@@ -83,19 +83,46 @@
             <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('profile.request.index')}}">
                     <span class="icon-holder">
-                        <i class="far fa-user"></i>
+                        <i class="fas fa-users-cog"></i>
                     </span>
                     <span class="title">Profile Requests</span></a>
             </li>
+            <li class="nav-item dropdown"  >
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fab fa-keycdn"></i>
+                    </span>
+                    <span class="title">Accounts</span>
+                    <span class="arrow">
+                        <!-- <i class="arrow-icon"></i> -->
+                        <i class="anticon anticon-down"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="">
+                        <a href="{{route('admin.accounts.customer.index')}}">Customers</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.accounts.fundraiser.index')}}">Fundraisers</a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item  ">
+                <a class="dropdown-toggle" href="{{route('transactions.index')}}">
+                    <span class="icon-holder">
+                        <i class="far fa-money-bill-alt"></i>
+                    </span>
+                    <span class="title">Transactions</span></a>
+            </li>
+            <!-- <li class="nav-item  ">
                 <a class="dropdown-toggle" href="{{route('admin.profile.edit')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-setting"></i>
                     </span>
                     <span class="title">Settings</span></a> 
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>
-<!-- Side Nav END -->
+<!-- Side Nav END
