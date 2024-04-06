@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FundraiserApiController;
 use App\Http\Controllers\Api\ContainersController;
-use App\Http\Controllers\API\NewsletterSubscriptionController;
+use App\Http\Controllers\Api\NewsletterSubscriptionController;
+use App\Http\Controllers\Api\TotalUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ use App\Http\Controllers\API\NewsletterSubscriptionController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/subscribe', [NewsletterSubscriptionController::class, 'subscribe']);
+Route::get('/total/users', [TotalUsersController::class, 'countTotalUsers']);
+Route::post('/newsletter/subscribe', [NewsletterSubscriptionController::class, 'subscribe']);
 
 Route::get('fundraisers/list', [FundraiserApiController::class, 'fundraisersList']);
 Route::get('total/containers', [ContainersController::class, 'containers']);
