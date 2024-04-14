@@ -2,7 +2,7 @@
     $role = Auth::user()->role;
 @endphp
 <div class="row mb-3 bg-primary pt-2 br-5 " style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
+    <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1 class="text-white">Donations</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
@@ -13,7 +13,7 @@
             </div>
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5 ">
         <div class="dropdown dropdown-animated scale-left">
             <button type="button" class="btn btn-default" data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
@@ -75,35 +75,43 @@
 
 </div>
 <div class="">
-                    @if(count($donations) > 0)
-                    @foreach($donations as $donate)
-                    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
-                         <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>ID:</b> {{$donate->id}}</p>
-                             <p class="text-black"><i class="far fa-calendar-alt"></i> {{$donate->created_at}}</p>
-                         </div>
-                         <div class="d-flex justify-content-between" >
-                             <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
-                             <h3 class="text-primary">${{$donate->amount}}</h3>
-                         </div>
-                         <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
-                             <p class="text-black"><b>Charity Name:</b> {{$donate->charity->company_name}}</p>
-                         </div>
-                         <div class="" >
-                                @if($donate->status == 'Completed')
-                                <span class="badge badge-pill badge-success mr-3">Completed</span>
-                                @else
-                                <span class="badge badge-pill badge-pending mr-3">Pending</span>
-                                @endif
-                              <a href="#" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
-                        </div>
-                    </div>
-                    @endforeach
-                    {{ $donations->links('vendor.pagination.default') }}
-                    @endif
+    @if(count($donations) > 0)
+    @foreach($donations as $donate)
+    <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
+         <div class="d-flex justify-content-between" >
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+             <p class="text-black"><b>No of Items</b>
+             <!-- <i class="far fa-calendar-alt"></i>  -->{{$donate->no_of_items}}
+             </p>
+         </div>
+         <div class="d-flex justify-content-between" >
+             <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
+             <h3 class="text-primary">${{$donate->amount}}</h3>
+         </div>
+         <div class="d-flex justify-content-between" >
+             <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
+             <p class="text-black"><b>Charity Name:</b> {{$donate->charity->company_name}}</p>
+         </div>
+         <div class="d-flex justify-content-end" >
+                @if($donate->status == 'Completed')
+                <span class="badge badge-pill badge-success mr-3">Completed</span>
+                @else
+                <span class="badge badge-pill badge-pending mr-3">Pending</span>
+                @endif
+                @if($role == 'admin')
+                <a href='{{route("$role.donations.donor.view",["id"=>$donate->donor->user->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
+              @endif
+        </div>
+    </div>
+    @endforeach
+    {{ $donations->links('vendor.pagination.default') }}
+    @else
+        <tr>
+            <td>No Record Found</td>
+        </tr>
+    @endif 
                      
-                </div>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Get the search form and search icon elements

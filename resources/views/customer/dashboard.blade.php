@@ -117,8 +117,9 @@
                             <h2 class="title-responsive">Quick Actions</h2>
                          </div> 
                         <div class="p-5 d-flex justify-content-center align-items-center">
-                            @if($customer->current_balance >= 3)
-                                <a href="#" onclick="customerClaimBalance({{ $customer->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                            @if($customer->current_balance >=150)
+                            <a href="#" data-toggle="modal" data-target="#customerClaimBalance" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                                <!-- <a href="#" onclick="customerClaimBalance({{ $customer->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a> -->
                                 @else
                                 <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>
                             @endif
@@ -133,12 +134,35 @@
         </div>                      
     </div>
 <!-- Latest Pickups and donations -->
+
+<!-- Modal -->
+<div class="modal fade" id="customerClaimBalance">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <form id="claim-balace-form-{{ $customer->id }}" action="{{ route('admin.claim.balance.request', ['id' => $customer->id]) }}" method="post" style="">
+        @csrf
+        @method('POST')
+        <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Confirmation!</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="anticon anticon-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to submit claim balance request!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
 @include('common-components.latest-pickup-donations')
-<form id="claim-balace-form-{{ $customer->id }}" action="{{ route('admin.claim.balance.request', ['id' => $customer->id]) }}" method="post" style="display: none;">
-    @csrf
-    @method('POST')
-    <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
-</form>
+
 
 <script>
     function customerClaimBalance(customerId) {

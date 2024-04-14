@@ -4,15 +4,15 @@
     <div class="col-md-9 order-sm-1 order-1 col-12 ">
         <h3 class="title-responsive"> <a href="#" onclick="goBack()"> <i class="anticon anticon-left text-primary "></i> </a> Fundraiser Transaction Details </h3>
     </div>
-    <div class="col-md-3 order-sm-3 order-2 col-6 ">
+    <div class="col-md-3 order-sm-3 order-2 col-12 ">
         <div class="dropdown dropdown-animated scale-left">
             @if($transaction->status == 'Completed')
             <span type="button" class=" badge-success br-50 px-4 py-2" data-toggle="dropdown">
-                <span>Status: Completed</span>
+                <span> Completed</span>
             </span>
             @else
             <span type="button" class=" badge-pending br-50 px-4 py-2" data-toggle="dropdown">
-                <span>Status: Pending</span>
+                <span> Pending</span>
             </span>
             @endif
         </div>

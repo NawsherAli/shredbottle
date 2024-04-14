@@ -33,42 +33,16 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
-Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
-//Fundraiser dashboard route
-Route::get('/fundraiser/dashboard', [DashboardController::class, 'fundraiserDashboard'])->middleware(['auth', 'verified'])->name('fundraiser.dashboard');
+///////////////////////// Admin Routes Start //////////////////////////////////
+Route::middleware('admin','auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
-
-//Customer dashboard route
-Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboard'])->middleware(['auth', 'verified'])->name('customer.dashboard');
-
-
-//Customer setting route
-
-// Route::get('/customer/setting', function () {
-//     return view('customer.setting.index');
-// })->middleware(['auth', 'verified'])->name('setting');
-
-Route::middleware('auth')->group(function () {
-    Route::post('/mark-as-read/{id}',  [NotificationController::class, 'markAsRead'])->name('mark-as-read');
-	//Profile edit routes
-	Route::get('/admin/profile', [ProfileController::class, 'adminEdit'])->name('admin.profile.edit');
-
-    Route::get('/customer/profile', [ProfileController::class, 'customerEdit'])->name('customer.profile.edit');
-    Route::get('/fundraiser/profile', [ProfileController::class, 'fundraiseredit'])->name('fundraiser.profile.edit');
-
+    //Profile edit routes
+    Route::get('/admin/profile', [ProfileController::class, 'adminEdit'])->name('admin.profile.edit');
     //Profile update routes
     Route::patch('/admin/profile', [ProfileController::class, 'adminUpdate'])->name('admin.profile.update');
-    Route::patch('/customer/profile', [ProfileController::class, 'customerUpdate'])->name('customer.profile.update');
 
-    //Fundraiser profile image update
-    Route::post('/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
-
-
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-//////////////////////// Admin Routes ////////////////////////////////////
     Route::get('/admin/pickup-request', [PickupController::class, 'adminPickupIndex'])->name('admin.pickup');
     Route::get('admin/pickup-request/search', [PickupController::class, 'pickupSearch'])->name('pickup.search');
     Route::get('/pickup-request/filter', [PickupController::class, 'pickupFilter'])->name('pickups.filter');
@@ -143,8 +117,48 @@ Route::middleware('auth')->group(function () {
     //admin transaction update
     Route::put('admin/transaction/update/{id}', [TransactionController::class, 'transactionUpdate'])->name('admin.transaction.update');
 
-//////////////////////// Customer Routes /////////////////////////////////
-    // customer create pickup request route
+    //Admin Driver Routes 
+    Route::get('/drivers', [DriverController::class, 'index'])->name('drivers.index');
+    Route::get('/drivers/create', [DriverController::class, 'create'])->name('drivers.create');
+    Route::post('/drivers', [DriverController::class, 'store'])->name('drivers.store');
+    Route::get('/drivers/{id}/edit', [DriverController::class, 'edit'])->name('drivers.edit');
+    Route::put('/drivers/{id}', [DriverController::class, 'update'])->name('drivers.update');
+    Route::delete('/drivers/{id}',[DriverController::class, 'destroy'])->name('drivers.destroy');
+
+    //View single Driver
+    Route::get('/view-driver/{id}',[DriverController::class, 'viewDriver'])->name('view.driver');
+    //search driver
+    Route::get('/drivers/search', [DriverController::class, 'search'])->name('drivers.search');
+
+    //Admin customer routes
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::get('/view-customer/{id}',[CustomerController::class, 'viewCustomer'])->name('view.customer');
+    Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    //search driver
+    Route::get('/customer/search', [CustomerController::class, 'search'])->name('customer.search');
+
+    //Admin charities/fundraisers routes
+    Route::get('/admin/fundraisers', [FundraiserController::class, 'adminIndex'])->name('admin.fundraiser.index');
+    //Admin view charity
+    Route::get('/admin/fundraisers/view/{id}', [FundraiserController::class, 'adminFundraiserView'])->name('admin.fundraiser.view');
+    //admin search fundraiser
+    Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
+
+});
+
+///////////////////////// Admin Routes End   //////////////////////////////////
+
+///////////////////////// Customers Routes Start /////////////////////////////
+Route::middleware('customer','auth','userStatus')->group(function () {
+    //Customer dashboard route
+    Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboard'])->middleware(['auth', 'verified'])->name('customer.dashboard');
+
+    Route::get('/customer/profile', [ProfileController::class, 'customerEdit'])->name('customer.profile.edit');
+    Route::patch('/customer/profile', [ProfileController::class, 'customerUpdate'])->name('customer.profile.update');
+
+     // customer create pickup request route
     Route::get('/customer/create/pickup-request', [PickupController::class, 'create'])->name('pickup.create');
 
     //customer store pickup request route
@@ -185,45 +199,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/customer/transactions/filter', [TransactionController::class, 'customerTransactionFilter'])->name('customer.transaction.filter');
 
 
-Route::get('customer/view/donor', function () {
-    return view('customer.donations.donar-details');
-})->name('customer.donor-view');
+    Route::get('customer/view/donor', function () {
+        return view('customer.donations.donar-details');
+    })->name('customer.donor-view');
 
-////////////////////////////////////Admin Routes//////////////////////////////
-//Admin Driver Routes 
-Route::get('/drivers', [DriverController::class, 'index'])->name('drivers.index');
-Route::get('/drivers/create', [DriverController::class, 'create'])->name('drivers.create');
-Route::post('/drivers', [DriverController::class, 'store'])->name('drivers.store');
-Route::get('/drivers/{id}/edit', [DriverController::class, 'edit'])->name('drivers.edit');
-Route::put('/drivers/{id}', [DriverController::class, 'update'])->name('drivers.update');
-Route::delete('/drivers/{id}',[DriverController::class, 'destroy'])->name('drivers.destroy');
+});
 
-//View single Driver
-Route::get('/view-driver/{id}',[DriverController::class, 'viewDriver'])->name('view.driver');
-//search driver
-Route::get('/drivers/search', [DriverController::class, 'search'])->name('drivers.search');
+///////////////////////// Customers Routes End //////////////////////////////
 
-//Admin customer routes
-Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
-Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
-Route::get('/view-customer/{id}',[CustomerController::class, 'viewCustomer'])->name('view.customer');
-Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
-//search driver
-Route::get('/customer/search', [CustomerController::class, 'search'])->name('customer.search');
+/////////////////////////// Fundraiser Routes Start //////////////////////////
+Route::middleware('fundraiser')->group(function () {
+    //Fundraiser dashboard route
+    Route::get('/fundraiser/dashboard', [DashboardController::class, 'fundraiserDashboard'])->middleware(['auth', 'verified'])->name('fundraiser.dashboard');
 
-//Admin charities/fundraisers routes
-Route::get('/admin/fundraisers', [FundraiserController::class, 'adminIndex'])->name('admin.fundraiser.index');
-//Admin view charity
-Route::get('/admin/fundraisers/view/{id}', [FundraiserController::class, 'adminFundraiserView'])->name('admin.fundraiser.view');
-//admin search fundraiser
-Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
+    Route::get('/fundraiser/profile', [ProfileController::class, 'fundraiseredit'])->name('fundraiser.profile.edit');
+    
+    //Fundraiser profile image update
+    Route::post('/update-profile-picture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
 
-
-
-
-////////////////////////////////// Fundraiser Routes /////////////////////////////////////
-    //fundraiser all donations route
+        //fundraiser all donations route
     Route::get('/fundraiser/donations', [DonationController::class, 'fundraiserIndex'])->name('fundraiser.donations');
     //search donation
     Route::get('fundraiser/donations/search', [DonationController::class, 'fundraiserDonationSearch'])->name('fundraiser.donation.search');
@@ -232,6 +226,8 @@ Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundra
     Route::get('fundraiser/donations/sort/latest', [DonationController::class, 'fundraiserSortByLatest'])->name('fundraiser.donations.sort.latest');
     Route::get('fundraiser/donations/sort/highest', [DonationController::class, 'fundraiserSortByHighest'])->name('fundraiser.donations.sort.highest');
 
+    //View Donationation Donor
+    // Route::get('admin/donations/donor/view/{id}', [DonationController::class, 'adminDonorView'])->name('fundraiser.donations.donor.view');
 
     //Fundraiser profile request
     Route::post('/profile/requests/store', [ProfileRequestController::class, 'store'])->name('store.profile.request');
@@ -244,6 +240,21 @@ Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundra
 
     //Fundraiser Filters Transactions
     Route::get('/fundraiser/transactions/filter', [TransactionController::class, 'fundraiserTransactionFilter'])->name('fundraiser.transaction.filter');
+
+});
+/////////////////////////// Fundraiser Routes End ////////////////////////////
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('/mark-as-read/{id}',  [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+	
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+
+////////////////////////////////// Fundraiser Routes /////////////////////////////////////
+
 
 
 

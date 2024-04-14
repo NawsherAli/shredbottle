@@ -1,16 +1,16 @@
 @extends('admin.layouts.layout')
 @section('contents')
  <div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-9 order-sm-1 order-1 col-6 ">
+    <div class="col-md-9 order-sm-1 order-1 col-12 ">
         <h3 class="title-responsive"> <a href="#" onclick="goBack()"> <i class="anticon anticon-left text-primary "></i> </a> Donor Details </h3>
     </div>
-    <div class="col-md-3 order-sm-3 order-2 col-6 ">
+    <!-- <div class="col-md-3 order-sm-3 order-2 col-6 ">
         <div class="dropdown dropdown-animated scale-left">
-            <!-- <button type="button" class="btn badge-pending br-50" data-toggle="dropdown">
+            <button type="button" class="btn badge-pending br-50" data-toggle="dropdown">
              <span>Status: Pending</span>
-            </button> -->
+            </button>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="row">
     <div class="col-12">
@@ -34,7 +34,7 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class=" d-md-block d-none    col-1" style="border-left:1px solid #219653;"></div>
-                        <div class="col-12 d-sm-none" style="border-top:1px solid #219653;"></div>
+                        <div class="col-12 d-sm-none mt-3" style="border-top:1px solid #219653;"></div>
 
                         <div class="col">
                             <ul class="list-unstyled m-t-10">

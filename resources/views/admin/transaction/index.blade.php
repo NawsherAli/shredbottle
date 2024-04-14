@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout')
 @section('contents')
-<div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
+<div class="row mb-3 pb-2" style="border-bottom: 2px solid #219653">
+    <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1>Transactions</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
@@ -13,7 +13,7 @@
             <!-- <button type="submit" class="btn btn-primary">Search</button> -->
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5 d-flex justify-content-end">
         <div class="dropdown dropdown-animated scale-left">
             <button type="button" class="btn btn-primary" data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
@@ -93,7 +93,7 @@
     @foreach($transactions as $transaction)
         <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$transaction->id}}</p>
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
              
          </div>
          <div class="d-flex justify-content-between" >
@@ -101,11 +101,16 @@
               <h3 class="text-primary">{{$transaction->customer->user->name}}</h3>
              @else
               <h3 class="text-primary">{{$transaction->fundraiser->user->name}}</h3>
+              <h4 class="text-primary">{{$transaction->fundraiser->company_name}}</h4>
              @endif
          </div>
+         <div class="d-colums justify-content-between" >
+             <p class="text-black"><b>REQ ID:</b> {{$transaction->request_id}}</p>
+             <p class="text-black"><b>REQ Date:</b>{{$transaction->request_date}}</p>
+         </div>
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  {{$transaction->request_id}}</p>
-             <p class="text-black"><b>Email:</b>{{$transaction->email}}</p>
+             <p class="text-black"><b>TRX ID:</b> {{$transaction->transaction_no}}</p>
+             <p class="text-black"><b>TRX Date:</b> {{$transaction->transaction_date}}</p>
          </div>
          <div class="d-flex justify-content-end align-items-center" >
             @if($transaction->status == 'Completed')
@@ -114,7 +119,7 @@
             @if($transaction->status == 'Pending')
              <span class="badge badge-pill badge-pending mr-3">{{$transaction->status}}</span>
             @endif
-               
+             <a href="{{ route('admin.transaction.view', ['id' => $transaction->id]) }}" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>  
          </div>
         </div>
     @endforeach

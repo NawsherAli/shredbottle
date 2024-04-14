@@ -1,7 +1,7 @@
 <!-- Side Nav START -->
 <div class="side-nav">
      <div class="logo logo-dark">
-        <a href="index.html" class="d-flex justify-content-center">
+        <a href="{{route('fundraiser.dashboard')}}" class="d-flex justify-content-center">
             <img src="{{asset('assets/images/logo/logo.png')}}" alt="Logo" width="70%" height="75%">
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>

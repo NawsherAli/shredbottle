@@ -1,7 +1,7 @@
 @extends('customer.layouts.layout')
 @section('contents')
-<div class="col-12">
-    <div class=" ">
+<div class="row">
+    <div class="col-12">
     <div class="card-body">
         <div class="row align-items-center">
             <div class="col-md-7">
@@ -14,7 +14,7 @@
                     <div class="text-center text-sm-left m-v-15 p-l-30">
                         <h2 class="m-b-5 title-responsive">Hello,{{$user->name}} </h2>
                         <p class="text-dark m-b-20">{{$user->role}}</p>
-                        <label for="image" class="btn btn-primary">Upload Profile Picture</label>
+                        <label for="image" class="btn btn-primary">Upload Image</label>
 
                     </div>
                 </div>
@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 <!-- Row 3 -->

@@ -1,8 +1,7 @@
 @extends('admin.layouts.layout')
 @section('contents')
-<div class="col-12">
-        <div class=" ">
-            <div class="row align-items-center">
+<!-- <div class="col-12"> -->
+    <div class="row align-items-center">
                 <div class="col-md-7">
                     <div class="d-flex align-items-center">
                         <div class="text-center text-sm-left ">
@@ -13,7 +12,7 @@
                         <div class="text-center text-sm-left m-v-15 p-l-30">
                             <h2 class="m-b-5 title-responsive">Hello,{{$driver->driver_name}} </h2>
                             <p class="text-dark m-b-20">{{$driver->driver_email}}</p>
-                            <label for="driver_picture" class="btn btn-primary">Upload Profile Picture</label>
+                            <label for="driver_picture" class="btn btn-primary">Upload Picture</label>
 
                         </div>
                     </div>
@@ -45,8 +44,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+    
+<!-- </div> -->
     <form method="POST" action="{{route('drivers.update', ['id' => $driver->id])}}"  enctype="multipart/form-data">
          @csrf
          @method('PUT')

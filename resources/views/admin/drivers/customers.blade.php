@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout')
 @section('contents')
-<div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
+<div class="row mb-3 pb-2" style="border-bottom: 2px solid #219653">
+    <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1>Customers</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
@@ -13,9 +13,9 @@
             <!-- <button type="submit" class="btn btn-primary">Search</button> -->
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5 d-flex justify-content-end ">
         <div class="dropdown dropdown-animated scale-left">
-            <button type="button" class="btn btn-primary" data-toggle="dropdown">
+            <button type="button" class="btn btn-primary " data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
             <!-- <img src="assets/icons/filter-icon.png"> -->
             <span>Filter</span>
@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="row flex-column d-none d-sm-block">
+<div class="row flex-column d-none d-sm-block ">
     <div class="table-responsive">
         <table class="table table-sm text-center">
                     <thead>
@@ -46,7 +46,7 @@
                         @foreach($customers as $customer)
 
                         <tr>
-                            <th scope="row">{{$customer->id}}</th>
+                            <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$customer->name}}</td>
                             <td>+{{$customer->contact}}</td>
                             <td>{{$customer->email}}</td>
@@ -75,15 +75,15 @@
 </div>
 <div class="">
     @foreach($customers as $customer)
-        <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
+        <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3 ">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$customer->id}}</p>
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
              
          </div>
          <div class="d-flex justify-content-between" >
              <h3 class="text-primary">{{$customer->name}}</h3>
          </div>
-         <div class="d-flex justify-content-between" >
+         <div class="d-column justify-content-between" >
              <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
              <p class="text-black"><b>Email:</b>{{$customer->email}}</p>
          </div>
