@@ -17,7 +17,7 @@
                             <p class="text-dark m-b-20">{{$user->role}}</p>
                             <form id="profilePictureForm" action="{{ route('update.profile.picture') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <label for="image" class="btn btn-primary">Upload Profile Picture</label>
+                                <label for="image" class="btn btn-primary  ">Upload Image</label>
                                 <input type="file" name="image" id="image" style="display: none;" onchange="submitForm()">
                             </form>
                         </div>
@@ -160,7 +160,7 @@
     <div class="form-row">
         <div class="form-group col-md-9  "></div>
         <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
-            <button type="submit" class="btn  btn-primary showbtn"  style="width: 200px;">Change Password</button>
+            <button type="submit" class="btn  btn-primary  "  style="width: 200px;">Change Password</button>
         </div>
     </div>
 </form>

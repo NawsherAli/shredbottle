@@ -81,18 +81,23 @@
     @foreach($transactions as $transaction)
         <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$transaction->id}}</p>
+             <p class="text-black"><b>ID:</b> {{$transaction->request_id}}</p>
              
          </div>
          <div class="d-flex justify-content-between" >
               <h3 class="text-primary">{{$transaction->fundraiser->user->name}}</h3>
+              <h3 class="text-primary">${{$transaction->amount}}</h3>
          </div>
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  {{$transaction->request_id}}</p>
-             <p class="text-black"><b>Email:</b>{{$transaction->email}}</p>
+             <p class="text-black">
+             <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
+             <b>Req Date</b>  {{$transaction->request_date}}</p>
+             <p class="text-black"><b>TRX Date:</b> {{$transaction->transaction_date}}</p>
          </div>
-         <div class="d-flex justify-content-end align-items-center" >
-            @if($transaction->status == 'Completed')
+         <div class="d-flex justify-content-between align-items-center" >
+            <p class="text-black">
+             <b>TRX No</b>  {{$transaction->transaction_no}}</p>
+              @if($transaction->status == 'Completed')
              <span class="badge badge-pill badge-success mr-3">{{$transaction->status}}</span>
             @endif
             @if($transaction->status == 'Pending')

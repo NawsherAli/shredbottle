@@ -1,8 +1,8 @@
 @extends('admin.layouts.layout')
 @section('contents')
-<div class="row mb-3" style="border-bottom: 2px solid #219653">
+<div class="row mb-3 pb-2" style="border-bottom: 2px solid #219653">
     <div class="col-md-6 order-sm-1 order-1 col-8">
-        <h1>Customers Accounts Details</h1>
+        <h1 class="title-responsive">Customers Accounts Details</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
         <form id="searchForm" method="GET" action="{{ route('accounts.customer.search') }}">
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="row flex-column d-none d-sm-block">
+<div class="row flex-column d-none d-sm-block ">
     <div class="table-responsive">
         <table class="table table-sm text-center">
                     <thead>
@@ -80,14 +80,15 @@
     @foreach($customers as $customer)
         <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$customer->id}}</p>
-             
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+             <p class="text-black"><b>Email:</b>{{$customer->email}}</p>
          </div>
          <div class="d-flex justify-content-between" >
              <h3 class="text-primary">{{$customer->name}}</h3>
          </div>
-         <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
+         <div class="d-column justify-content-between" >
+             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +{{$customer->contact}}</p>
+             <p class="text-black"><b>E Transfer No:</b>{{$customer->e_transfer_no}}</p>
              <p class="text-black"><b>Email:</b>{{$customer->email}}</p>
          </div>
          <div class="d-flex justify-content-end align-items-center" >

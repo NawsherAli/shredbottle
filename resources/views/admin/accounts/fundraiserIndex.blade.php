@@ -1,8 +1,8 @@
 @extends('admin.layouts.layout')
 @section('contents')
-<div class="row mb-3" style="border-bottom: 2px solid #219653">
+<div class="row mb-3 pb-2" style="border-bottom: 2px solid #219653">
     <div class="col-md-6 order-sm-1 order-1 col-8">
-        <h1>Fundraisers Accounts Details</h1>
+        <h1 class="title-responsive">Fundraisers Accounts Details</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
         <form id="searchForm" method="GET" action="{{ route('accounts.fundraiser.search') }}">
@@ -80,26 +80,33 @@
     @foreach($fundraisers as $fundraiser)
         <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$fundraiser->id}}</p>
-             
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+             <p class="text-black"><i class="text-primary anticon anticon-mail"></i> {{$fundraiser->email}}</p>
          </div>
          <div class="d-flex justify-content-between" >
              <h3 class="text-primary">{{$fundraiser->name}}</h3>
+             <h4 class="text-primary">{{$fundraiser->fundraiser->company_name}}</h4>
          </div>
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +123 456 789</p>
-             <p class="text-black"><b>Email:</b>{{$fundraiser->email}}</p>
+             <p class="text-black"><b>Amount:</b> {{$fundraiser->fundraiser->current_balance}}</p>
+             <p class="text-black"><i class="m-r-10 text-primary anticon anticon-phone"></i>  +{{$fundraiser->contact}}</p>
+         </div>
+         <div class="d-column justify-content-between" >
+             <p class="text-black"><b>E Transfer No:</b>{{$fundraiser->e_transfer_no}}</p>
+             
          </div>
          <div class="d-flex justify-content-end align-items-center" >
-            @if($fundraiser->status == 'active')
-             <span class="badge badge-pill badge-success mr-3">{{$fundraiser->status}}</span>
-            @endif
-            @if($fundraiser->status == 'in-active')
-             <span class="badge badge-pill badge-pending mr-3">{{$fundraiser->status}}</span>
-            @endif
-               <a href="{{ route('customer.edit', ['id' => $fundraiser->id]) }}" class="badge badge-pill badge-blue"><i class="fas fa-edit    br-100"></i></a>
-               <a href="#" onclick="deleteCustomer({{ $fundraiser->id }})" class="badge badge-pill badge-red"><i class="fas fa-trash-alt   br-100"></i></a>
-               <a href="{{ route('view.customer', ['id' => $fundraiser->id]) }}" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
+            
+                @if($fundraiser->fundraiser->current_balance > 0)
+                <a href="#" onclick="customerClaimBalance({{ $fundraiser->fundraiser->id }})"  class="badge badge-pill badge-green"> Claim Balance</a>
+                @endif
+                @if(isset($fundraiser->id))
+                <form id="claim-balace-form-{{ $fundraiser->fundraiser->id }}" action="{{ route('admin.claim.balance.request', ['id' => $fundraiser->fundraiser->id]) }}" method="post" style="display: none;">
+                    @csrf
+                    @method('POST')
+                    <input type="text" hidden name="user_id" value="{{$fundraiser->id}}">
+                </form>
+                @endif
          </div>
         </div>
     @endforeach

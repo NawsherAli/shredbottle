@@ -14,6 +14,7 @@
     <!-- Core css -->
     <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -35,6 +36,11 @@
                                 <div class="d-flex align-items-center justify-content-center mb-3">
                                      <img src="assets/images/logo/logo.png" alt="">
                                  </div>
+@if(session('error'))
+    <div class="alert alert-danger">
+        <p class="text-red-700">{{ session('error') }}</p>
+    </div>
+@endif
                                  <div class="d-flex align-items-center justify-content-center mb-3">
                                      <h1>Login</h1>
                                  </div>

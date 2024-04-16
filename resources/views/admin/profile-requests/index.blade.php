@@ -1,8 +1,8 @@
 @extends('admin.layouts.layout')
 @section('contents')
  <div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
-        <h1>Profile Requests</h1>
+    <div class="col-md-6 order-sm-1 order-1 col-7">
+        <h1 class="title-responsive">Profile Requests</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
         <form id="searchForm" method="GET" action="{{ route('profile.request.search') }}">
@@ -12,7 +12,7 @@
             </div>
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5  ">
         <div class="dropdown dropdown-animated scale-left">
             <button type="button" class="btn btn-primary" data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
@@ -74,8 +74,8 @@
 <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
 
      <div class="d-flex justify-content-between" >
-         <p class="text-black"><b>ID: </b>{{$request->id}}</p>
-         <p class="text-black"><i class="far fa-envalope"></i> {{$request->user->email}}</p>
+         <p class="text-black"><b>ID: </b>{{$loop->iteration}}</p>
+         <p class="text-black"><i class="far fa-envelope"></i> {{$request->user->email}}</p>
      </div>
      <div class="d-flex justify-content-between" >
          <h5 class="text-primary">{{$request->user->name}}</h5>

@@ -2,7 +2,7 @@
     $role = Auth::user()->role;
 @endphp
 <div class="row mb-3 bg-primary pt-2 br-5 " style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
+    <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1 class="text-white">Fundraisers</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
@@ -14,7 +14,7 @@
             <!-- <button type="submit" class="btn btn-primary">Search</button> -->
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5 ">
         <div class="dropdown dropdown-animated scale-left">
             <button type="button" class="btn btn-default" data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
@@ -30,7 +30,7 @@
 </div>
 <div class="row " id="card-view">
     @foreach($fundraisers as $fundraiser)
-    <div class="col-md-4 col-6">
+    <div class="col-md-4 col-12">
         <div class="card bg-primary-light">
             <div class="card-body">
                 <div class="m-t-20 text-center">
