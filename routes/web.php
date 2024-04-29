@@ -13,6 +13,10 @@ use App\Http\Controllers\ProfileRequestController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\CharityController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ServicesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +150,46 @@ Route::middleware('admin','auth')->group(function () {
     //admin search fundraiser
     Route::get('admin/fundraiser/search', [FundraiserController::class, 'adminFundraiserSearch'])->name('admin.fundraiser.search');
 
+
+    //Admin charities Routes 
+    Route::get('/charities', [CharityController::class, 'index'])->name('charities.index');
+    Route::get('/charities/create', [CharityController::class, 'create'])->name('charities.create');
+    Route::post('/charities/store', [CharityController::class, 'store'])->name('charities.store');
+    Route::get('/charities/{id}/edit', [CharityController::class, 'edit'])->name('charities.edit');
+    Route::put('/charities/{id}', [CharityController::class, 'update'])->name('charities.update');
+    Route::post('/charities/{id}',[CharityController::class, 'destroy'])->name('charities.destroy');
+    Route::get('/charities/search', [CharityController::class, 'search'])->name('charities.search');
+    Route::post('/charities/image/upload', [BlogController::class, 'uploadImage'])->name('ckeditor.upload.charity');
+
+    //Admin materials Routes 
+    Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
+    Route::get('/materials/create', [MaterialController::class, 'create'])->name('materials.create');
+    Route::post('/materials/store', [MaterialController::class, 'store'])->name('materials.store');
+    Route::get('/materials/{id}/edit', [MaterialController::class, 'edit'])->name('materials.edit');
+    Route::put('/materials/{id}', [MaterialController::class, 'update'])->name('materials.update');
+    Route::post('/materials/{id}',[MaterialController::class, 'destroy'])->name('materials.destroy');
+    Route::get('/materials/search', [MaterialController::class, 'search'])->name('materials.search');
+    Route::post('/materials/image/upload', [BlogController::class, 'uploadImage'])->name('ckeditor.upload.material');
+
+    //Admin services Routes 
+    Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServicesController::class, 'create'])->name('services.create');
+    Route::post('/services/store', [ServicesController::class, 'store'])->name('services.store');
+    Route::get('/services/{id}/edit', [ServicesController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{id}', [ServicesController::class, 'update'])->name('services.update');
+    Route::post('/services/{id}',[ServicesController::class, 'destroy'])->name('services.destroy');
+    Route::get('/services/search', [ServicesController::class, 'search'])->name('services.search');
+    Route::post('/services/image/upload', [BlogController::class, 'uploadImage'])->name('ckeditor.upload.service');
+
+    //Admin blogs Routes 
+    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+    Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+    Route::post('/blogs/store', [BlogController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('blogs.update');
+    Route::post('/blogs/{id}',[BlogController::class, 'destroy'])->name('blogs.destroy');
+    Route::get('/blogs/search', [BlogController::class, 'search'])->name('blogs.search');
+    Route::post('/blogs/image/upload', [BlogController::class, 'uploadImage'])->name('ckeditor.upload');
 });
 
 ///////////////////////// Admin Routes End   //////////////////////////////////
