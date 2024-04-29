@@ -4,7 +4,7 @@
 @endphp 
 @section('contents')
 <div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-6 order-sm-1 order-1 col-8">
+    <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1>Pickup List</h1>
     </div>
     <div class="col-md-4 order-sm-2 order-3 ">
@@ -15,7 +15,7 @@
             </div>
         </form>
     </div>
-    <div class="col-md-2 order-sm-3 order-2 col-4 ">
+    <div class="col-md-2 order-sm-3 order-2 col-5 ">
         <div class="dropdown dropdown-animated scale-left">
             <button type="button" class="btn btn-primary" data-toggle="dropdown">
                 <i class="fas fa-sliders-h"></i>
@@ -76,7 +76,7 @@
 @foreach($pickups as $pickup)
 <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
      <div class="d-flex justify-content-between" >
-         <p class="text-black"><b>ID: </b>{{$pickup->id}}</p>
+         <p class="text-black"><b>ID: </b>{{$loop->iteration}}</p>
          <p class="text-black"><i class="far fa-calendar-alt"></i> {{$pickup->pickup_date}}</p>
      </div>
      <div class="d-flex justify-content-between" >
@@ -91,7 +91,7 @@
             @else
             <span class="badge badge-pill badge-pending mr-3">Pending</span>
             @endif
-          <a href="#" class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
+          <a href='{{route("$role.pickup.view",["id"=>$pickup->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a></td>
          </div>
      </div>
 </div>

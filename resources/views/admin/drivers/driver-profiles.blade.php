@@ -5,7 +5,7 @@
     <div class="col-md-4 order-sm-1 order-1 col-6 mt-2" >
         <h1 class="title-responsive">Driver Profiles</h1>
     </div>
-    <div class="col-md-5 order-sm-2 order-3 d-flex justify-content-end align-items-center mt-2" >
+    <div class="col-md-5 order-sm-2 order-3 d-flex justify-content-end align-items-center mt-2 " >
         <!-- <div class="input-affix  ">
             <input type="text" class="form-control" placeholder="Search" name="search">
             <i class="suffix-icon anticon anticon-search"></i>
@@ -56,7 +56,7 @@
                 @if(count($drivers) > 0)
                 @foreach($drivers as $driver)
                 <tr>
-                    <th scope="row">{{$driver->id}}</th>
+                    <th scope="row">{{$loop->iteration}}</th>
                     <td>{{$driver->driver_name}}</td>
                     <td>{{$driver->driver_email}}</td>
                     <td>{{$driver->driver_address}}</td>
@@ -84,16 +84,19 @@
      @foreach($drivers as $driver)
     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>ID:</b> {{$driver->id}}</p>
-             <p class="text-black"><i class="far fa-calendar-alt"></i> {{$driver->driver_email}}</p>
+             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+             <p class="text-black"><i class="far fa-envelope"></i> {{$driver->driver_email}}</p>
          </div>
          <div class="d-flex justify-content-between" >
              <h3 class="text-primary">{{$driver->driver_name}}</h3>
              <h3 class="text-primary">{{$driver->driver_phone}}</h3>
          </div>
          <div class="d-flex justify-content-between" >
-             <p class="text-black"><b>Driver Vehical:</b>{{$driver->driver_vehical}}</p>
+             <p class="text-black"><b>Vehical:</b>{{$driver->driver_vehical}}</p>
              <p class="text-black"><b>Driver Number:</b> {{$driver->vehical_number_plate}}</p>
+         </div>
+         <div>
+             <p class="text-black"><b>Address:</b>{{$driver->driver_address}}</p>
          </div>
          <div class="d-flex justify-content-end align-items-center" >
                 <a href="{{ route('drivers.edit', ['id' => $driver->id]) }}" class="badge badge-pill badge-blue"><i class="fas fa-edit    br-100"></i></a>

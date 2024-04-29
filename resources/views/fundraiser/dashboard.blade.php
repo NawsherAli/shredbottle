@@ -12,7 +12,7 @@
                 <div class="col-md-7">
                     <div class="d-flex align-items-center">
                         <div class="text-center text-sm-left ">
-                            <div class="avatar avatar-image" style="width: 150px; height:150px">
+                            <div class="avatar avatar-image " style="width:160px; height:160px;" >
                                 <img src='{{asset("assets/images/avatars/$image")}}' alt="">
                             </div>
                         </div>
@@ -35,14 +35,14 @@
                                         <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
                                         <span class="text-dark">Contact: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black">+{{ Auth::user()->contact }}</p>
+                                    <p class="col-9 font-weight-semibold text-black">+{{ Auth::user()->contact }}</p>
                                 </li>
                                 <li class="row">
                                     <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                         <span class="text-dark">User ID: </span> 
                                     </p>
-                                    <p class="col font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
+                                    <p class="col-9 font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
@@ -64,9 +64,9 @@
     <div class="col-md-6 col-lg-2 col-6">
         <div class="card bg-primary-light br-tl-br-50">
             <div class="card-body flex-column align-items-center justify-content-center">
-                <div class="">
+                <!-- <div class=""> -->
                     <div class="bg-primary p-5 d-flex justify-content-center align-items-center br-tl-br-20 icon-box">
-                        <img src="../assets/icons/star.png">
+                        <img src="../assets/icons/star.png"  >
                     </div>
                     <p class="m-b-0 text-primary" style="font-size: 10px">Goal</p>
                 
@@ -74,7 +74,7 @@
                         <span>${{$fundraiser->goal}} </span>
                     </h2>
                     <p class="text-primary" style="font-size: 10px">${{$user_cashout_amount}} cashout</p>
-                </div>    
+                <!-- </div>     -->
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
                     <div class="bg-primary p-5 d-flex justify-content-center align-items-center br-tl-br-20 icon-box">
                         <img src="../assets/icons/donate.png">
                     </div>
-                    <p class="m-b-0 text-primary" style="font-size: 10px">Pending Donations</p>
+                    <p class="m-b-0 text-primary" style="font-size: 10px;">Pending Donations</p>
                 
                     <h2 class="m-b-0 text-primary">
                         <span>${{$pending_donations}} </span>
@@ -120,14 +120,15 @@
                         <h2 class="title-responsive">Quick Actions</h2>
                      </div> 
                     <div class="p-5 d-flex justify-content-center align-items-center">
-                        @if($fundraiser->current_balance >= 5)
-                        <a href="#" onclick="fundraiserClaimBalance({{ $fundraiser->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                        @if($fundraiser->current_balance >= 150)
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary btn-responsive-text">Claim Balance </a>
+                        <!-- <a href="#" onclick="fundraiserClaimBalance({{ $fundraiser->id }})" class="btn btn-primary btn-responsive-text">Claim Balance </a> -->
                         @else
                         <a href="#" class="btn btn-responsive-text badge-pending">Claim Balance </a>
                         @endif
 
                      </div> 
-                     <p>You can claim your balance when your amount is 150 dollers</p>
+                     <p  class="d-none d-md-block">You can claim your balance when your amount is 150 dollers</p>
                     <!-- <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
                      </div> 
@@ -198,8 +199,10 @@
                     @foreach($donations as $donate)
                     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
                          <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>ID:</b> {{$donate->id}}</p>
-                             <p class="text-black"><i class="far fa-calendar-alt"></i> {{$donate->created_at}}</p>
+                             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+                             <p class="text-black"><b>No of Items</b>
+                             <!-- <i class="far fa-calendar-alt"></i>  -->{{$donate->no_of_items}}
+                             </p>
                          </div>
                          <div class="d-flex justify-content-between" >
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
@@ -230,11 +233,37 @@
     </div>
     
 </div>
-<form id="claim-balace-form-{{ $fundraiser->id }}" action="{{ route('admin.claim.balance.request', ['id' => $fundraiser->id]) }}" method="post" style="display: none;">
-    @csrf
-    @method('POST')
-    <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
-</form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <form id="claim-balace-form-{{ $fundraiser->id }}" action="{{ route('admin.claim.balance.request', ['id' => $fundraiser->id]) }}" method="post" style=" ">
+        @csrf
+        @method('POST')
+        <input type="text" hidden name="user_id" value="{{Auth::user()->id}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Confirmation!</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="anticon anticon-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to submit claim balance request!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script>
     function fundraiserClaimBalance(customerId) {

@@ -6,7 +6,7 @@
  		--white:#ffffff;
  		--black:#1D1D1D;
 
- 		--blue: #007bff;
+ 		/*--blue: #007bff;*/
  		--indigo: #6610f2;
  		--purple: #6f42c1;
  		--pink: #e83e8c;
@@ -146,6 +146,10 @@
   	 	position: absolute;
   		top: 40%;
  		left:;
+	}
+
+	.modal{ 
+		
 	}
 }
 @media only screen and (min-width: 992px) and (max-width: 1440px){
@@ -496,3 +500,40 @@
     .page-container,.card{
     	background-color: #F1FFFA;
     }
+
+
+/*Fundraiser Dashboard custome CSS*/
+/*Cards Responsives*/
+@media only screen and (max-width: 992px){
+		/*.card{
+			padding:0px !important;
+			background-color: blue;
+		}
+		.card .card-body div{
+			background-color: red;
+			padding: 0px;
+			display: flex-column;
+			justify-content: center !important;
+			align-items: center; 
+			text-align: center;
+			margin: 0px;
+
+		}
+		.card .card-body div div{
+			border: 2px solid white;
+			width: 80px;
+			height: 80px;
+			display: flex-column;
+			justify-content: center !important;
+			align-items: center; 
+			margin-left: 8px;
+			margin-bottom: 0px;
+		}*/
+		/*.icon-box{	
+			width: 80px;
+			height: 80px !important;
+			display: flex-column;
+			justify-content: center;
+			align-items: center;
+		}*/
+	}

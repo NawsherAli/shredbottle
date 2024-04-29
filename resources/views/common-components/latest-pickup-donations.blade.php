@@ -60,7 +60,7 @@
                     @foreach($pickups as $pickup)
                     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
                          <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>ID: </b>{{$pickup->id}}</p>
+                             <p class="text-black"><b>ID: </b>{{$loop->iteration}}</p>
                              <p class="text-black"><i class="far fa-calendar-alt"></i> {{$pickup->pickup_date}}</p>
                          </div>
                          <div class="d-flex justify-content-between" >
@@ -132,19 +132,19 @@
                     @foreach($donations as $donate)
                     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
                          <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>ID:</b> {{$donate->id}}</p>
-                             <p class="text-black"><i class="far fa-calendar-alt"></i> {{$donate->created_at}}</p>
+                             <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
+                             <p class="text-black"><b>No of Items:</b> {{$donate->no_of_items}}</p>
                          </div>
                          <div class="d-flex justify-content-between" >
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
                              
                              <h3 class="text-primary">${{$donate->amount}}</h3>
                          </div>
-                         <div class="d-flex justify-content-between" >
+                         <div class="d-column justify-content-between" >
                              <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
                              <p class="text-black"><b>Charity Name:</b> {{$donate->charity->company_name}}</p>
                          </div>
-                         <div class="" >
+                         <div class="d-flex justify-content-end" >
                                 @if($donate->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
                                 @else

@@ -1,8 +1,7 @@
 @extends('admin.layouts.layout')
 @section('contents')
 <div class="col-12">
-    <div class=" ">
-    <div class="card-body">
+    <!-- <div class="card-body"> -->
         <div class="row align-items-center">
             <div class="col-md-7">
                 <div class="d-flex align-items-center">
@@ -14,7 +13,7 @@
                     <div class="text-center text-sm-left m-v-15 p-l-30">
                         <h2 class="m-b-5 title-responsive">Hello,{{$user->name}} </h2>
                         <p class="text-dark m-b-20">{{$user->role}}</p>
-                        <label for="image" class="btn btn-primary">Upload Profile Picture</label>
+                        <label for="image" class="btn btn-primary  ">Upload Picture</label>
 
                     </div>
                 </div>
@@ -31,28 +30,28 @@
                                     <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
                                     <span class="text-primary">Location: </span> 
                                 </p>
-                                <p class="col font-weight-semibold text-black">Northwest Area</p>
+                                <p class="col-9 font-weight-semibold text-black">Northwest Area</p>
                             </li>
                             <li class="row">
                                 <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                     <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                     <span class="text-primary">User ID: </span> 
                                 </p>
-                                <p class="col font-weight-semibold text-black">{{$user->id}}</p>
+                                <p class="col-9 font-weight-semibold text-black">{{$user->id}}</p>
                             </li>
                             <li class="row">
                                 <p class="col-3 font-weight-semibold text-dark m-b-5">
                                     <!-- <i class="m-r-10 text-primary anticon anticon-compass"></i> -->
                                     <span class="text-primary">Address: </span> 
                                 </p>
-                                <p class="col-6 font-weight-semibold text-black"> {{ optional($user->customer)->address ?? 'Enter Address' }}</p>
+                                <p class="col-9 font-weight-semibold text-black"> {{ optional($user->customer)->address ?? 'Enter Address' }}</p>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
 
 

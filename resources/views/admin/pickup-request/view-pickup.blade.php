@@ -1,32 +1,31 @@
 @extends('admin.layouts.layout')
 @section('contents')
 <div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-9 order-sm-1 order-1 col-6 ">
+    <div class="col-md-9 order-sm-1 order-1 col-7 ">
         <h3 class="title-responsive"><a href="#" onclick="goBack()"> <i class="anticon anticon-left text-primary "></i> </a> Pickup Details </h3>
     </div>
-    <div class="col-md-3 order-sm-3 order-2 col-6 ">
+    <div class="col-md-3 order-sm-3 order-2 col-5 ">
         <div class="dropdown dropdown-animated scale-left">
             @if($pickup->status == 'Completed')
             <span type="button" class=" badge-success br-50 px-4 py-2" data-toggle="dropdown">
-                <span>Status: Completed</span>
+                <span> Completed</span>
             </span>
             @else
             <span type="button" class=" badge-pending br-50 px-4 py-2" data-toggle="dropdown">
-                <span>Status: Pending</span>
+                <span>  Pending</span>
             </span>
             @endif
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <div class=" ">
-        <div class="card-body">
+<!-- <div class="row"> -->
+    <!-- <div class="col-12"> -->
+        <!-- <div class="card-body"> -->
             <div class="row align-items-center">
                 <div class="col-md-7">
                     <div class="d-flex align-items-center">
                         <div class="text-center text-sm-left ">
-                            <div class="avatar avatar-image" style="width: 150px; height:150px">
+                            <div class="avatar avatar-image" style="width:100%;  height: 17vh">
                                 <img src="{{asset('assets/images/avatars/'.$pickup->customer->user->profile_image)}}" alt="">
                             </div>
                         </div>
@@ -76,11 +75,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    
-</div>
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </div> -->
 @if($pickup->status == 'Pending')
 <form id="pickupStatusForm" method="POST" action="{{ route('pickup.status.update', ['id' => $pickup->id]) }}" enctype="multipart/form-data" class="mt-5">
     <div class="row mb-3" style="border-bottom: 2px solid #219653">
@@ -101,7 +98,7 @@
 </form>
 @endif
 <div class="row mb-3" style="border-bottom: 2px solid #219653">
-    <div class="col-md-9 order-sm-1 order-1 col-6 ">
+    <div class="col-md-9 order-sm-1 order-1 col-12 ">
         <h4 class="title-responsive"> Complete Pickup Details </h4>
     </div>
 </div>
@@ -327,6 +324,7 @@
         itemQuantityInput.className = 'form-control'; // Add class form-control
         itemQuantityInput.type = 'number';
         itemQuantityInput.name = 'item_quantity[]';
+        itemQuantityInput.placeholder = 'Quantity';
         itemQuantityInput.addEventListener('input', calculateAmount);
         itemQuantityCell.appendChild(itemQuantityInput);
 
@@ -336,6 +334,7 @@
         itemAmountInput.className = 'form-control'; // Add class form-control
         itemAmountInput.type = 'text';
         itemAmountInput.name = 'item_amount[]';
+        itemAmountInput.placeholder = 'Amount';
         itemAmountCell.appendChild(itemAmountInput);
 
         // Show the save button

@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Fundraiser;
 use App\Models\Customer;
+use App\Models\Charity;
 
 class RegisteredUserController extends Controller
 {
@@ -22,7 +23,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $charities = Charity::all();
+        return view('auth.register',compact('charities'));
     }
 
     /**
