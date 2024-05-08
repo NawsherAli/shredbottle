@@ -3,8 +3,10 @@
 <style>
     .radio input[type=radio]:checked+label:before{color:red;border-color:red)}
     .radio input[type=radio]:checked+label:after{background-color:red)}
-
+    .pickuprequest-css{
+        padding-top: 20px;
     }
+    
 </style>
 
 <div class="row mb-3 bg-primary br-10" style="border-bottom: 2px solid #219653">
@@ -204,8 +206,9 @@
         <label for="charity_type" class="text-primary">Charity Type</label>
         <select id="charity_type" class="form-control" name="charity_type">
             <option selected disabled value="">Select Charity Type</option>
-            <option>Abc</option>
-            <option>Xyz</option>
+            @foreach($charities as $charity)
+                <option value="{{$charity->name}}">{{$charity->name}}</option>
+            @endforeach
         </select>
     </div>
     <div class="form-group col-md-6">

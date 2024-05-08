@@ -104,10 +104,10 @@
             </li> -->
            <li class="dropdown dropdown-animated scale-left">
     <a href="javascript:void(0);" data-toggle="dropdown">
-        <div class="avatar avatar-text avatar-badge  " style="background-color: white; padding: 0px">
-           <i class="anticon anticon-bell text-dark" style="font-size: 20px"></i>
+        <div class="avatar avatar-text avatar-badge  pickuprequest-css" style="background-color: white; ">
+           <i class="anticon anticon-bell text-dark" style="font-size: 20px; "></i>
            @if(auth()->user()->unreadNotifications->count() > 0)
-            <span class="badge badge-indicator badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+            <span class="badge badge-indicator badge-danger" style="">{{ auth()->user()->unreadNotifications->count() }}</span>
            @endif
         </div>
     </a>
@@ -129,7 +129,7 @@
             </a> -->
         </div>
         <div class="relative">
-            <div class="overflow-y-auto relative scrollable" style="max-height: 300px">
+            <div class="overflow-y-auto relative scrollable" style="max-height: 300px; ">
                 @forelse(auth()->user()->unreadNotifications as $notification)
                     <div class="dropdown-item d-block p-15 border-bottom">
                         <div class="d-flex " style=" ">

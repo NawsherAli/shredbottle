@@ -11,6 +11,7 @@ use App\Models\PickupItem;
 use App\Models\Fundraiser;
 use App\Models\Donation;
 use App\Models\ItemDetail;
+use App\Models\Charity;
 
 use App\Notifications\PickupRequestReceivedNotification;
 use App\Notifications\PickupRequestNotification;
@@ -24,7 +25,8 @@ class PickupController extends Controller
 	Public function create()
     {
     	$fundraisers =Fundraiser::all(); 
-    	return view('customer.pickup-request.index',compact('fundraisers'));
+        $charities = Charity::all(); 
+    	return view('customer.pickup-request.index',compact('fundraisers','charities'));
     }
 
 

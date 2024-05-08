@@ -324,6 +324,7 @@
         itemQuantityInput.className = 'form-control'; // Add class form-control
         itemQuantityInput.type = 'number';
         itemQuantityInput.name = 'item_quantity[]';
+        itemQuantityInput.placeholder = 'Quantity';
         itemQuantityInput.addEventListener('input', calculateAmount);
         itemQuantityCell.appendChild(itemQuantityInput);
 
@@ -333,6 +334,7 @@
         itemAmountInput.className = 'form-control'; // Add class form-control
         itemAmountInput.type = 'text';
         itemAmountInput.name = 'item_amount[]';
+        itemAmountInput.placeholder = 'Amount';
         itemAmountCell.appendChild(itemAmountInput);
 
         // Show the save button

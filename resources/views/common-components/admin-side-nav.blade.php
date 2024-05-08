@@ -6,7 +6,7 @@ Side Nav START -->
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>
     </div>
-    <div class="side-nav-inner "  >
+    <div class="side-nav-inner  "   >
         <ul class="side-nav-menu scrollable"  >
             <li class="nav-item">
                 <a class="" href="{{route('admin.dashboard')}}">
@@ -122,6 +122,82 @@ Side Nav START -->
                     <span class="title">Settings</span></a> 
                 </ul>
             </li> -->
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </span>
+                    <span class="title">Charties</span>
+                    <span class="arrow">
+                        <i class="anticon anticon-down"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{route('charities.index')}}">Charities</a>
+                    </li>
+                    <li>
+                        <a href="{{route('charities.create')}}">Create New</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-ordered-list"></i>
+                    </span>
+                    <span class="title">Materials</span>
+                    <span class="arrow">
+                        <i class="anticon anticon-down"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{route('materials.index')}}">All Materials</a>
+                    </li>
+                    <li>
+                        <a href="{{route('materials.create')}}">Add New</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fab fa-servicestack"></i>
+                    </span>
+                    <span class="title">Services</span>
+                    <span class="arrow">
+                        <i class="anticon anticon-down"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{route('services.index')}}">All Services</a>
+                    </li>
+                    <li>
+                        <a href="{{route('services.create')}}">Add New</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fab fa-blogger-b"></i>
+                    </span>
+                    <span class="title">Blogs</span>
+                    <span class="arrow">
+                        <i class="anticon anticon-down"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{route('blogs.index')}}">All Blogs</a>
+                    </li>
+                    <li>
+                        <a href="{{route('blogs.create')}}">Add New</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

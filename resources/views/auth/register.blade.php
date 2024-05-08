@@ -177,9 +177,9 @@
                                             <div class="form-group">
                                                 <select class="form-control" name="charity_type" class="">
                                                     <option  selected="" disabled>Charity Type</option>
-                                                    <option value="NL">Nails</option>
-                                                    <option value="BN">Bananas</option>
-                                                    <option value="HL">Helicopters</option>
+                                                    @foreach($charities as $charity)
+                                                    <option value="{{$charity->name}}">{{$charity->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
