@@ -16,7 +16,8 @@ class CustomerMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()->role !== 'customer') {
-            abort(403, 'Unauthorized action.');
+            // abort(403, 'Unauthorized action.');
+            return redirect()->route('error-403');
         }
 
         return $next($request);
