@@ -2,7 +2,7 @@
 @section('contents')
 <div class="row mb-3 bg-primary pt-2 br-5 " style="border-bottom: 2px solid #219653">
     <div class="col-md-10 order-sm-1 order-1 col-10">
-        <h1 class="text-white title-responsive"><a href="#" onclick="goBack()"> <i class="fas fa-arrow-alt-circle-left mr-3"></i> </a>School Charity</h1>
+        <h1 class="text-white title-responsive"><a href="#" onclick="goBack()"> <i class="fas fa-arrow-alt-circle-left mr-3"></i> </a>Donate Now</h1>
     </div>
 </div>
 
@@ -19,8 +19,9 @@
     <div class="form-group col-md-6">
         <label for="charity_type" class="text-primary">Charity Type</label>
         <select id="charity_type" class="form-control" name="charity_type">
-            <option value="Abc">Abc</option>
-            <option value="Xyz">Xyz</option>
+             @foreach($charities as $charity)
+            <option value="{{$charity->id}}">{{$charity->name}}</option>
+            @endforeach
         </select>
     </div>
     <div class="form-group col-md-6">

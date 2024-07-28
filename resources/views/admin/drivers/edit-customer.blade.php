@@ -25,13 +25,13 @@
 
                     <div class="col">
                         <ul class="list-unstyled m-t-10">
-                            <li class="row">
-                                <p class=" col-3 font-weight-semibold text-dark m-b-5">
+                            <!--<li class="row">-->
+                            <!--    <p class=" col-3 font-weight-semibold text-dark m-b-5">-->
                                     <!-- <i class="m-r-10 text-primary anticon anticon-mail"></i> -->
-                                    <span class="text-primary">Location: </span> 
-                                </p>
-                                <p class="col-9 font-weight-semibold text-black">Northwest Area</p>
-                            </li>
+                            <!--        <span class="text-primary">Location: </span> -->
+                            <!--    </p>-->
+                            <!--    <p class="col-9 font-weight-semibold text-black">Northwest Area</p>-->
+                            <!--</li>-->
                             <li class="row">
                                 <p class=" col-3 font-weight-semibold text-dark m-b-5">
                                     <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
@@ -89,7 +89,7 @@
 </div>
 </div>
 <div class="form-row">
-<div class="form-group col-md-6">
+<div class="form-group col-md-12">
     <label for="driver_vehical" class="text-primary">Account Status</label>
     <select id="driver_vehical" class="form-control" name="status">
         <option selected>Choose...</option>
@@ -97,14 +97,8 @@
         <option {{ 'in-active' == $user->status ? 'selected' : '' }} value="in-active">In-Active</option>
     </select>
 </div>
-<div class="form-group col-md-6">
-    <label for="driver_vehical" class="text-primary">Account Status</label>
-    <select id="driver_vehical" class="form-control" name="role">
-        <option selected>Choose...</option>
-        <option {{ 'customer' == $user->role ? 'selected' : '' }} value="customer">Customer</option>
-        <option {{ 'fundraiser' == $user->role ? 'selected' : '' }} value="fundraiser">Fundraiser</option>
-    </select>
-</div>
+<input type="hidden" name="role" hidden id="image" value="{{$user->role}}">
+
 </div>            
 <div class="form-row">
 <!-- <div class="form-group col-md-6  ">

@@ -21,8 +21,8 @@
             <span>Filter</span>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href='{{ route("accounts.customer.sort.higestbalance") }}'>Sort By Higest Balance</a>
-                <a class="dropdown-item" href='{{ route("accounts.customer.sort.lowestbalance") }}'>Sort By Lowest Balance</a>
+                <a class="dropdown-item" href='{{ route("accounts.fundraiser.sort.higestbalance") }}'>Sort By Higest Balance</a>
+                <a class="dropdown-item" href='{{ route("accounts.fundraiser.sort.lowestbalance") }}'>Sort By Lowest Balance</a>
             </div>
         </div>
     </div>

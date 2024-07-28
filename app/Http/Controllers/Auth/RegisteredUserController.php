@@ -16,6 +16,7 @@ use App\Models\Fundraiser;
 use App\Models\Customer;
 use App\Models\Charity;
 
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -23,6 +24,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+       
         $charities = Charity::all();
         return view('auth.register',compact('charities'));
     }

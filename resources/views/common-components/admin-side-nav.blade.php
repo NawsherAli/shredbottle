@@ -6,8 +6,8 @@ Side Nav START -->
             <!-- <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo"> -->
         </a>
     </div>
-    <div class="side-nav-inner  "   >
-        <ul class="side-nav-menu scrollable"  >
+    <div class="side-nav-inner  "   style=" ">
+        <ul class="side-nav-menu scrollable"  style="  height:80vh">
             <li class="nav-item">
                 <a class="" href="{{route('admin.dashboard')}}">
                     <span class="icon-holder">
@@ -197,6 +197,12 @@ Side Nav START -->
                         <a href="{{route('blogs.create')}}">Add New</a>
                     </li>
                 </ul>
+            </li>
+             <li class="nav-item dropdown" >
+                 &nbsp
+            </li>
+             <li class="nav-item dropdown" >
+                &nbsp
             </li>
         </ul>
     </div>

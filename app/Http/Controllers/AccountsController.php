@@ -64,25 +64,75 @@ class AccountsController extends Controller
 				    // ->with('customer')
 				    // ->orderByDesc('customer.current_balance')
 				    // ->paginate(10);
-    	$customers = User::with('customer')
-				    ->where('role', '=', 'customer') // 'customer' instead of 'customers'
-				    ->whereHas('customer') // Ensure users have associated customers
-				    ->orderByDesc('customers.current_balance') // Order by current balance of associated customers
-				    ->paginate(10);
-	    dd($customers->all());
+    // 	$customers = User::with('customer')
+				//     ->where('role', '=', 'customer') // 'customer' instead of 'customers'
+				//     ->whereHas('customer') // Ensure users have associated customers
+				//     ->orderByDesc('customer.current_balance') // Order by current balance of associated customers
+				//     ->paginate(10);
+		
+		$customers = User::where('role', 'customer')
+                    ->whereHas('customer', function($query) {
+                        $query->orderBy('current_balance', 'desc');
+                    })
+                    ->with(['customer' => function($query) {
+                        $query->orderBy('current_balance', 'desc');
+                    }])
+                    ->paginate(10);
+	   // dd($customers->all());
         return view('admin.accounts.customerIndex', compact('customers'));
     }
 
     public function customerAccountsSortByLowest()
     {
+        // $customers = User::where('role', 'customer')
+				    // ->with('customer')
+				    // ->join('customers', 'users.id', '=', 'customers.user_id')
+				    // ->orderBy('customers.current_balance', 'asc')
+				    // ->paginate(10);
+
+// 		dd($customers);
         $customers = User::where('role', 'customer')
-				    ->with('customer')
-				    ->join('customers', 'users.id', '=', 'customers.user_id')
-				    ->orderBy('customers.current_balance', 'asc')
-				    ->paginate(10);
-		// dd($customers);
+                    ->whereHas('customer', function($query) {
+                        $query->orderBy('current_balance', 'asc');
+                    })
+                    ->with(['customer' => function($query) {
+                        $query->orderBy('current_balance', 'asc');
+                    }])
+                    ->paginate(10);
+        // dd($customers->all());
         return view('admin.accounts.customerIndex', compact('customers'));
     }
+
+    //Fundraiser Accounts Filters
+    public function fundraiserAccountsSortByHighest()
+    {
+		
+		$fundraisers = User::where('role', 'fundraiser')
+                    ->whereHas('fundraiser', function($query) {
+                        $query->orderBy('current_balance', 'desc');
+                    })
+                    ->with(['fundraiser' => function($query) {
+                        $query->orderBy('current_balance', 'desc');
+                    }])
+                    ->paginate(10);
+	   // dd($customers->all());
+        return view('admin.accounts.fundraiserIndex', compact('fundraisers'));
+    }
+
+    public function fundraiserAccountsSortByLowest()
+    {
+        $fundraisers = User::where('role', 'fundraiser')
+                    ->whereHas('fundraiser', function($query) {
+                        $query->orderBy('current_balance', 'asc');
+                    })
+                    ->with(['fundraiser' => function($query) {
+                        $query->orderBy('current_balance', 'asc');
+                    }])
+                    ->paginate(10);
+        // dd($customers->all());
+        return view('admin.accounts.fundraiserIndex', compact('fundraisers'));
+    }
+
 
 
     //Admin Customer Claim Balance Request

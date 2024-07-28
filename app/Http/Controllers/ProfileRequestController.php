@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Fundraiser;
 use App\Models\ProfileRequest;
-
+use App\Models\Charity;
 use App\Notifications\ProfileUpdateRequestNotification;
 use App\Notifications\ProfileUpdateRequestCompletedNotification;
 class ProfileRequestController extends Controller
@@ -110,10 +110,11 @@ class ProfileRequestController extends Controller
 
         $request_data = ProfileRequest::findOrFail($id);
         $request_data->update(['is_read' => 'yes']);
+        $charities = Charity::all();
         $old_data = User::with('fundraiser')->findOrFail($request_data->user_id);
 
         // dd($request_data);
-        return view('admin.profile-requests.view-request',compact('request_data','old_data'));
+        return view('admin.profile-requests.view-request',compact('request_data','old_data','charities'));
     }
 
     //Update Profile Request 

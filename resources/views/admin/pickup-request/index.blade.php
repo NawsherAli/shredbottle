@@ -3,6 +3,13 @@
    $role = Auth::user()->role;
 @endphp 
 @section('contents')
+<style>
+
+    .pickuprequest-css{
+        padding-top: 20px;
+    }
+    
+</style>
 <div class="row mb-3" style="border-bottom: 2px solid #219653">
     <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1>Pickup List</h1>
@@ -71,7 +78,7 @@
             </div>
     </div>
 </div>
-<div class="">
+<div class="d-sm-none">
 @if(count($pickups) > 0)
 @foreach($pickups as $pickup)
 <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
@@ -98,7 +105,7 @@
 @endforeach
 {{ $pickups->links('vendor.pagination.default') }}
 @else
- <p>No record found</p>
+ <p>No record founds</p>
 @endif
 </div>
 @endsection

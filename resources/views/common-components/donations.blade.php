@@ -74,7 +74,7 @@
     </div>
 
 </div>
-<div class="">
+<div class="d-sm-none">
     @if(count($donations) > 0)
     @foreach($donations as $donate)
     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">

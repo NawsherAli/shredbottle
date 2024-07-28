@@ -8,13 +8,13 @@
                 <div class="d-flex align-items-center">
                     <div class="text-center text-sm-left ">
                         <div class="avatar avatar-image" style="width: 150px; height:150px">
-                            <img src="{{asset('assets/images/avatars/'.$user->profile_image)}}" alt="">
+                            <img id="image-preview" src="{{asset('assets/images/avatars/'.$user->profile_image)}}" alt="">
                         </div>
                     </div>
                     <div class="text-center text-sm-left m-v-15 p-l-30">
                         <h2 class="m-b-5 title-responsive">Hello,{{$user->name}} </h2>
                         <p class="text-dark m-b-20">{{$user->role}}</p>
-                        <label for="image" class="btn btn-primary">Upload Image</label>
+                        <button class="btn btn-primary" type="button" onclick="document.getElementById('image').click();">Upload Image</button>
 
                     </div>
                 </div>
@@ -85,7 +85,7 @@
 <div class="form-group col-md-6  ">
     <label for="e_transfer_no" class="text-primary">E Transfer Number</label>
     <input type="text" class="form-control" id="e_transfer_no"  name="e_transfer_no" value="{{$user->e_transfer_no}}">
-    <input type="file" name="image" hidden id="image">
+    <input type="file" name="image" hidden id="image"  accept="image/*" onchange="previewImage(event)">
 </div>
 </div>
 <div class="form-row">
@@ -162,5 +162,22 @@
          $(".showbtn").toggle();
       });
    });
+</script>
+<!--Profile Image Preview-->
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const preview = document.getElementById('image-preview');
+            preview.src = reader.result;
+            preview.style.display = 'block'; // Show the preview
+        }
+
+        if (input.files && input.files[0]) {
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 @endsection

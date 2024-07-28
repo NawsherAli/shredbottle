@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class FundraiserMiddleware
 {
@@ -16,7 +17,15 @@ class FundraiserMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()->role !== 'fundraiser') {
-            abort(403, 'Unauthorized action.');
+            // abort(403, 'Unauthorized action.');
+            // return redirect()->route('error-403');
+            if (Auth::user()->role == 'admin') {
+            return redirect()->route('admin.dashboard');
+            }
+            
+            if (Auth::user()->role == 'customer') {
+            return redirect()->route('customer.dashboard');
+            }
         }
 
         return $next($request);

@@ -111,9 +111,9 @@
                             <th>Charity Type</th>
                             <td>{{$old_data->fundraiser->charity_type}}</td>
                             <td><select id="charity_type" class="form-control" name="charity_type">
-                                <option value="NL" {{ $request_data->charity_type == 'NL' ? 'selected' : '' }}>Nails</option>
-                                <option value="BN" {{ $request_data->charity_type == 'BN' ? 'selected' : '' }}>Bananas</option>
-                                <option value="HL" {{ $request_data->charity_type == 'HL' ? 'selected' : '' }}>Helicopters</option>
+                               @foreach($charities as $charity)
+                                     <option value="{{$charity->id}}" {{ $request_data->charity_type == $charity->name ? 'selected' : '' }}>{{$charity->name}}</option>
+                                @endforeach
                             </select></td>
                         </tr>
                         <tr>

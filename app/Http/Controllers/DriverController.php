@@ -28,19 +28,26 @@ class DriverController extends Controller
             'driver_name' => 'required',
             'driver_email' => 'required|email',
             'driver_address' => 'required',
-            'driver_phone' => 'required|numeric',
+            'driver_phone' => 'required|numeric|digits:11',
             'driver_vehical' => 'required',
             'vehical_number_plate' => 'required',
             'driver_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Handle file upload if a picture is provided
+        // if ($request->hasFile('driver_picture')) {
+        //     // Upload the file and store the path in the database
+        //     $path = $request->file('driver_picture')->store('driver_pictures','public');
+        //     $validatedData['driver_picture'] = $path;
+        // }
+        
         if ($request->hasFile('driver_picture')) {
-            // Upload the file and store the path in the database
-            $path = $request->file('driver_picture')->store('driver_pictures','public');
-            $validatedData['driver_picture'] = $path;
+            $image = $request->file('driver_picture');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/drivers'), $imageName);
+            $validatedData['driver_picture'] = $imageName;
         }
-
+        
         Driver::create($validatedData);
 
         return redirect()->route('drivers.create')->with('success', 'Driver added successfully');
@@ -59,7 +66,7 @@ class DriverController extends Controller
             'driver_name' => 'required|string|max:255',
             'driver_email' => 'required|email|max:255',
             'driver_address' => 'required|string|max:255',
-            'driver_phone' => 'required|numeric',
+            'driver_phone' => 'required|numeric|digits:11',
             'driver_vehical' => 'required|in:Van,Truck',
             'vehical_number_plate' => 'required|string|max:20',
             'driver_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -78,11 +85,19 @@ class DriverController extends Controller
             'vehical_number_plate' => $validatedData['vehical_number_plate'],
         ]);
 
+        // if ($request->hasFile('driver_picture')) {
+        //     $imagePath = $request->file('driver_picture')->store('driver_pictures', 'public');
+        //     Storage::disk('public')->delete($driver->driver_picture);
+        //      $driver->update(['driver_picture' => $imagePath]);
+        // }
+        
         if ($request->hasFile('driver_picture')) {
-            $imagePath = $request->file('driver_picture')->store('driver_pictures', 'public');
-            Storage::disk('public')->delete($driver->driver_picture);
-             $driver->update(['driver_picture' => $imagePath]);
+            $image = $request->file('driver_picture');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/drivers'), $imageName);
+            $driver->update(['driver_picture' => $imageName]);
         }
+        
         // Redirect to the driver details page or any other appropriate page
         return redirect()->route('drivers.index', ['id' => $driver->id])->with('success', 'Driver details updated successfully');
     }

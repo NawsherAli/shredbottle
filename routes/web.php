@@ -39,8 +39,8 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 ///////////////////////// Admin Routes Start //////////////////////////////////
-Route::middleware('admin','auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->middleware(['auth', 'verified'])->name('admin.dashboard');
+Route::middleware('auth','verified','admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
     //Profile edit routes
     Route::get('/admin/profile', [ProfileController::class, 'adminEdit'])->name('admin.profile.edit');
@@ -102,7 +102,11 @@ Route::middleware('admin','auth')->group(function () {
     //accounts filters
     Route::get('/customer/accounts/sort/highest', [AccountsController::class, 'customerAccountsSortByHighest'])->name('accounts.customer.sort.higestbalance');
     Route::get('/customer/accounts/sort/lowest', [AccountsController::class, 'customerAccountsSortByLowest'])->name('accounts.customer.sort.lowestbalance');
-
+    
+    //accounts filters
+    Route::get('/fundraiser/accounts/sort/highest', [AccountsController::class, 'fundraiserAccountsSortByHighest'])->name('accounts.fundraiser.sort.higestbalance');
+    Route::get('/fundraiser/accounts/sort/lowest', [AccountsController::class, 'fundraiserAccountsSortByLowest'])->name('accounts.fundraiser.sort.lowestbalance');
+    
     //admin create claim balance request
     Route::post('admin/claim/balance/request/{id}', [AccountsController::class, 'adminClaimBalance'])->name('admin.claim.balance.request');
 
@@ -195,9 +199,9 @@ Route::middleware('admin','auth')->group(function () {
 ///////////////////////// Admin Routes End   //////////////////////////////////
 
 ///////////////////////// Customers Routes Start /////////////////////////////
-Route::middleware('customer','auth','userStatus')->group(function () {
+Route::middleware('auth','verified','userStatus','customer')->group(function () {
     //Customer dashboard route
-    Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboard'])->middleware(['auth', 'verified'])->name('customer.dashboard');
+    Route::get('/customer/dashboard', [DashboardController::class, 'customerDashboard'])->name('customer.dashboard');
 
     Route::get('/customer/profile', [ProfileController::class, 'customerEdit'])->name('customer.profile.edit');
     Route::patch('/customer/profile', [ProfileController::class, 'customerUpdate'])->name('customer.profile.update');
@@ -252,7 +256,7 @@ Route::middleware('customer','auth','userStatus')->group(function () {
 ///////////////////////// Customers Routes End //////////////////////////////
 
 /////////////////////////// Fundraiser Routes Start //////////////////////////
-Route::middleware('fundraiser')->group(function () {
+Route::middleware('auth','verified','userStatus','fundraiser')->group(function () {
     //Fundraiser dashboard route
     Route::get('/fundraiser/dashboard', [DashboardController::class, 'fundraiserDashboard'])->middleware(['auth', 'verified'])->name('fundraiser.dashboard');
 
@@ -284,6 +288,8 @@ Route::middleware('fundraiser')->group(function () {
 
     //Fundraiser Filters Transactions
     Route::get('/fundraiser/transactions/filter', [TransactionController::class, 'fundraiserTransactionFilter'])->name('fundraiser.transaction.filter');
+    
+    Route::post('admin/claim/balance/request/{id}', [AccountsController::class, 'adminClaimBalance'])->name('admin.claim.balance.request');
 
 });
 /////////////////////////// Fundraiser Routes End ////////////////////////////

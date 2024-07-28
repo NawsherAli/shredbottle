@@ -27,7 +27,7 @@ class ServicesController extends Controller
             'name' => 'required',
             'short_desc' => 'required',
             'long_desc' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
         ]);
 
         

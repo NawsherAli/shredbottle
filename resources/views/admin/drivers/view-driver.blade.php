@@ -21,7 +21,7 @@
                                         <div class="row">
                                             <div class="text-center text-sm-left col-12 col-sm-3  flex-column align-items-center">
                                                 <div class="avatar avatar-image flex-column align-items-center" style="width: 150px; height:150px">
-                                                    <img src="{{ asset('storage/' . $driver->driver_picture) }}" alt="">
+                                                    <img src="{{asset('assets/images/drivers/'. $driver->driver_picture)}}" alt="">
                                                 </div>
                                             </div>
                                             <div class="  text-sm-left m-v-15 p-l-30 col-12 col-sm-8 flex-column">

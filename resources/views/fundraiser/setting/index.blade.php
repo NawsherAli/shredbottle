@@ -94,9 +94,10 @@
         <div class="form-group col-md-4">
             <label for="charity_type" class="text-primary">Charity Type</label>
             <select id="charity_type" class="form-control" name="charity_type">
-                <option value="NL" {{ $user->fundraiser->charity_type == 'NL' ? 'selected' : '' }}>Nails</option>
-                <option value="BN" {{ $user->fundraiser->charity_type == 'BN' ? 'selected' : '' }}>Bananas</option>
-                <option value="HL" {{ $user->fundraiser->charity_type == 'HL' ? 'selected' : '' }}>Helicopters</option>
+                @foreach($charities as $charity)
+                     <option value="{{$charity->id}}" {{ $user->fundraiser->charity_type == $charity->name ? 'selected' : '' }}>{{$charity->name}}</option>
+                @endforeach
+               
             </select>
         </div>
         <div class="form-group col-md-4">

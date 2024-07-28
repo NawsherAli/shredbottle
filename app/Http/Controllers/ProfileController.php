@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Customer;
 use App\Models\User;
+use App\Models\Charity;
 
 class ProfileController extends Controller
 {
@@ -41,8 +42,10 @@ class ProfileController extends Controller
     {   
 
         $userWithFundraiser = User::with('fundraiser')->find(auth()->id());
+        $charities = Charity::all();
         return view('fundraiser.setting.index', [
             'user' => $userWithFundraiser,
+            'charities' => $charities,
         ]);
     }
     /**

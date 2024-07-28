@@ -28,16 +28,34 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        $role = Auth::user()->role;
-
-        if($role == 'admin'){
+        
+        if($request->user()->role === 'admin'){
+            
             return redirect()->intended(RouteServiceProvider::HOME);
-        }elseif($role == 'fundraiser'){
-            return redirect()->intended(RouteServiceProvider::FUNDRAISERHOME);
-        }else{
-            return redirect()->intended(RouteServiceProvider::CUSTOMERHOME);
         }
+        
+        if($request->user()->role === 'fundraiser'){
+            
+            // return redirect()->intended(RouteServiceProvider::FUNDRAISERHOME);
+            //  dd($request->user()->role);
+            return redirect()->route('fundraiser.dashboard');
+        }
+        
+        if($request->user()->role === 'customer'){
+            
+            // return redirect()->intended(RouteServiceProvider::CUSTOMERHOME);
+            return redirect()->route('customer.dashboard');
+        }
+        
+        // $role = Auth::user()->role;
+
+        // if($role == 'admin'){
+        //     return redirect()->intended(RouteServiceProvider::HOME);
+        // }elseif($role == 'fundraiser'){
+        //     return redirect()->intended(RouteServiceProvider::FUNDRAISERHOME);
+        // }else{
+        //     return redirect()->intended(RouteServiceProvider::CUSTOMERHOME);
+        // }
 
         // return redirect()->intended(RouteServiceProvider::HOME);
     }

@@ -51,7 +51,7 @@
                             <td>+{{$customer->contact}}</td>
                             <td>{{$customer->email}}</td>
                             <td>{{$customer->e_transfer_no}}</td>
-                            <td>{{$customer->customer->current_balance}}</td>
+                            <td>{{ optional($customer->customer)->current_balance }}</td>
                             <td>
                                 <!-- <a href="{{ route('customer.edit', ['id' => $customer->id]) }}" class="badge badge-pill badge-blue"><i class="fas fa-edit    br-100"></i></a>
                                 <a href="#" onclick="customerClaimBalance({{ $customer->id }})" class="badge badge-pill badge-red"><i class="fas fa-trash-alt   br-100"></i></a> -->

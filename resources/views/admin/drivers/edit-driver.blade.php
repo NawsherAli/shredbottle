@@ -1,18 +1,25 @@
 @extends('admin.layouts.layout')
 @section('contents')
+<style>
+ 
+    .pickuprequest-css{
+        padding-top: 20px;
+    }
+    
+</style>
 <!-- <div class="col-12"> -->
     <div class="row align-items-center">
                 <div class="col-md-7">
                     <div class="d-flex align-items-center">
                         <div class="text-center text-sm-left ">
                             <div class="avatar avatar-image" style="width: 150px; height:150px">
-                                <img src="{{ asset('storage/' . $driver->driver_picture) }}" alt="">
+                                <img src="{{ asset('assets/images/drivers/' . $driver->driver_picture) }}" alt="" id="image-preview">
                             </div>
                         </div>
                         <div class="text-center text-sm-left m-v-15 p-l-30">
                             <h2 class="m-b-5 title-responsive">Hello,{{$driver->driver_name}} </h2>
                             <p class="text-dark m-b-20">{{$driver->driver_email}}</p>
-                            <label for="driver_picture" class="btn btn-primary">Upload Picture</label>
+                            <button type="button" onclick="document.getElementById('image').click();" class="btn btn-primary">Upload Picture</button>
 
                         </div>
                     </div>
@@ -86,10 +93,27 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <!-- <label for="driver_picture" class="text-primary">Driver Picture</label> -->
-                <input type="file" hidden class="form-control" id="driver_picture" name="driver_picture">
+                <input type="file" hidden class="form-control" id="image" name="driver_picture" accept="image/*" onchange="previewImage(event)">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
 @endsection
+<!--Image Preview-->
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const preview = document.getElementById('image-preview');
+                preview.src = reader.result;
+                preview.style.display = 'block'; // Show the preview
+            }
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>

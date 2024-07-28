@@ -12,7 +12,7 @@ class FundraiserController extends Controller
     public function adminIndex()
     {
     	// $drivers = Driver::all();
-         $fundraisers = User::where('role', '=', 'fundraiser')->with('fundraiser')->paginate(1);
+         $fundraisers = User::where('role', '=', 'fundraiser')->with('fundraiser')->get();
         return view('admin.fundraiser-donation.charities',compact('fundraisers'));
     }
 
@@ -20,7 +20,7 @@ class FundraiserController extends Controller
     public function customerIndex()
     {
     	// $drivers = Driver::all();
-         $fundraisers = User::where('role', '=', 'fundraiser')->with('fundraiser')->paginate(1);
+         $fundraisers = User::where('role', '=', 'fundraiser')->with('fundraiser')->get();
         return view('customer.fundraiser.index',compact('fundraisers'));
     }
 

@@ -1,5 +1,12 @@
 @extends('admin.layouts.layout')
 @section('contents')
+<style>
+ 
+    .pickuprequest-css{
+        padding-top: 20px;
+    }
+    
+</style>
  <div class="row mb-3" style="border-bottom: 2px solid #219653">
     <div class="col-md-6 order-sm-1 order-1 col-7">
         <h1 class="title-responsive">Profile Requests</h1>

@@ -10,6 +10,7 @@ use App\Models\Pickup;
 use App\Models\PickupItem;
 use App\Models\Fundraiser;
 use App\Models\Donation;
+use App\Models\Charity;
 
 class DonationController extends Controller
 {
@@ -182,7 +183,8 @@ class DonationController extends Controller
     public function donateNow()
     {
         $fundraisers  = Fundraiser::all();
-        return view('customer.fundraiser.donate-now',compact('fundraisers'));
+        $charities = Charity::all();
+        return view('customer.fundraiser.donate-now',compact('fundraisers','charities'));
     }
 
     //Donate Money

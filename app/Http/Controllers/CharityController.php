@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Charity;
+
 class CharityController extends Controller
 {
     public function index()
@@ -26,7 +27,7 @@ class CharityController extends Controller
             'name' => 'required',
             'short_desc' => 'required',
             'long_desc' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
         ]);
 
         
