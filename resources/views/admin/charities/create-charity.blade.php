@@ -16,7 +16,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="image" class="text-primary">Picture</label>
-                <input type="file" class="form-control" id="image" name="image">
+                <input type="file" class="form-control" id="image" name="image" required="">
             </div>
         </div>
 

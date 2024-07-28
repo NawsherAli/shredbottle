@@ -331,8 +331,8 @@ Route::get('fundraiser/chat', function () {
 
 
 //Test Routs
-Route::get('/customer/email', function () {
-    return view('emails.donation');
-});
+Route::get('/error/403', function () {
+    return view('errors.403');
+})->name('error-403');
 
 require __DIR__.'/auth.php';
