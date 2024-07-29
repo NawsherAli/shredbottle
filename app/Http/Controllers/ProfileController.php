@@ -85,6 +85,7 @@ class ProfileController extends Controller
      */
     public function customerUpdate(ProfileUpdateRequest $request): RedirectResponse
     {
+        // dd($request->all());
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules
             'name' => 'required|string',
@@ -114,9 +115,29 @@ class ProfileController extends Controller
         $user->save();
 
         $customer =Customer::where('user_id','=',$user->id);
-       
+        
+        $unitNumber = $request->input('unit-number');
+        $streetAddress = $request->input('street-address');
+        $city = $request->input('city');
+        $province = $request->input('province');
+        $postalCode = $request->input('postal-code');
+
+        $address = '';
+
+        if (!empty($unitNumber)) {
+            $address .= $unitNumber . ' ';
+        }
+
+        $address .= $streetAddress . ', ' . $city . ', ' . $province . ' ' . $postalCode;
+        // dd($address);
+
         $customer->update([
-        'address' =>$request->input('address'),
+        'address' =>$address,
+        'street_address' =>$request->input('street-address'),
+        'unit_number' =>$request->input('unit-number'),
+        'city' =>$request->input('city'),
+        'province' =>$request->input('province'),
+        'postal_code' =>$request->input('postal-code'),
          ]);
 
 

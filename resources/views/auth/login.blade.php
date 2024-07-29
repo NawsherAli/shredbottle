@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <div class="input-affix">
                                             <i class="prefix-icon anticon anticon-user"></i>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email')}}">
                                             
                                         </div>
                                         <span style="color: red">{{ $errors->first('email') }}</span>
