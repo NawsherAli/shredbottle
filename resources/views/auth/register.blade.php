@@ -170,7 +170,7 @@
                                             <div class="form-group">
                                                 <div class="input-affix">
                                                     <!-- <i class="prefix-icon anticon anticon-user"></i> -->
-                                                    <input type="text" class="form-control" name="e_transfer_no" id="e-transfer-number" placeholder="E-Transfer Number"  value="{{old('e_transfer_no')}}">
+                                                    <input type="text" class="form-control" name="e_transfer_no" id="e-transfer-number" placeholder="Email or Phone number"  value="{{old('e_transfer_no')}}">
                                                 </div>
                                                  <span style="color: red">{{ $errors->first('e_transfer_no') }}</span>
                                             </div>

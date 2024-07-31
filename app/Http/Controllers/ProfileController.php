@@ -128,7 +128,7 @@ class ProfileController extends Controller
             $address .= $unitNumber . ' ';
         }
 
-        $address .= $streetAddress . ', ' . $city . ', ' . $province . ' ' . $postalCode;
+        $address .= $streetAddress . ', ' . $city . ', ' . $province;
         // dd($address);
 
         $customer->update([

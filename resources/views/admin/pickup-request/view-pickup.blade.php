@@ -115,6 +115,10 @@
                             <th scope="col" class="text-primary">Pickup Location</th>
                             <td scope="col" class="">{{$pickup->pickup_location}}</td>
                         </tr>
+                         <tr class="">
+                            <th scope="col" class="text-primary">Postal Code</th>
+                            <td scope="col" class="">{{$pickup->postal_code}}</td>
+                        </tr>
                         <tr class="">
                             <th scope="col" class="text-primary">Pickup Date</th>
                             <td scope="col" class="">{{$pickup->pickup_date}}</td>
@@ -126,6 +130,10 @@
                         <tr class="">
                             <th scope="col" class="text-primary">Pickup Service</th>
                             <td scope="col" class="">{{$pickup->pickup_service}}</td>
+                        </tr>
+                        <tr class="">
+                            <th scope="col" class="text-primary">Special Instruction</th>
+                            <td scope="col" class="">{{$pickup->special_instructions}}</td>
                         </tr>
                         <tr class="">
                             <th scope="col" class="text-primary">Payment Option</th>
@@ -141,6 +149,14 @@
                             <td scope="col" class="">{{optional($pickup->fundraiser)->company_name}}</td>
                         </tr>
                         @endif
+                        <tr class="">
+                            <th scope="col" class="text-primary">Show Your Info</th>
+                            <td scope="col" class="">{{$pickup->show_info}}</td>
+                        </tr>
+                         <tr class="">
+                            <th scope="col" class="text-primary">Tax Slip Request</th>
+                            <td scope="col" class="">{{$pickup->tax_slip_confirmation}}</td>
+                        </tr>
                         <tr class="">
                             <th scope="col" class="text-primary">Total Items</th>
                             <td scope="col" class="">{{$pickup->total_items}}</td>

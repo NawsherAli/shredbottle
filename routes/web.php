@@ -231,7 +231,7 @@ Route::middleware('auth','verified','userStatus','customer')->group(function () 
     Route::get('customer/fundraiser/search', [FundraiserController::class, 'customerFundraiserSearch'])->name('customer.fundraiser.search');
 
     //Customer Donation 
-    Route::get('/customer/donate/now', [DonationController::class, 'donateNow'])->name('donate.now');
+    Route::get('/customer/donate/now/{id}', [DonationController::class, 'donateNow'])->name('donate.now');
 
     //Store donated money
     Route::post('/customer/donate/money', [DonationController::class, 'donateMoney'])->name('donate.money');

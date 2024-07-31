@@ -35,6 +35,7 @@ class ProfileRequestController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate the request data
         $validatedData = $request->validate([
             'company_name' => 'required|string',
@@ -43,13 +44,38 @@ class ProfileRequestController extends Controller
             'contact' => 'required|string',
             'charity_type' => 'required|string',
             'e_transfer_no' => 'required|string',
-            'address' => 'required|string',
+            // 'address' => 'required|string',
             'vission_mission' => 'nullable|string',
             'goal' => 'nullable',
         ]);
-        // dd($request->all());
+
+        $unitNumber = $request->input('unit-number');
+        $streetAddress = $request->input('street-address');
+        $city = $request->input('city');
+        $province = $request->input('province');
+        $postalCode = $request->input('postal-code');
+
+        $address = '';
+
+        if (!empty($unitNumber)) {
+            $address .= $unitNumber . ' ';
+        }
+
+        $address .= $streetAddress . ', ' . $city . ', ' . $province;
         // Create a new profile request
-        $profileRequest = ProfileRequest::create($validatedData + ['user_id' => auth()->id()]);
+        $profileRequest = ProfileRequest::create($validatedData + [
+
+            'user_id' => auth()->id(),
+            'tax_slip_confirmation' => $request->input('tax_slip_confirmation'),
+            'vision' => $request->input('vission'),
+            'unit_number' => $request->input('unit-number'),
+            'street_address' => $request->input('street-address'),
+            'city' => $request->input('city'),
+            'province' => $request->input('province'),
+            'postal_code' => $request->input('postal-code'), 
+            'address' => $address
+
+            ]);
         // Notify user ////////////////////
         $admin = User::where('role', 'admin')->first();
 
@@ -131,14 +157,33 @@ class ProfileRequestController extends Controller
         'e_transfer_no'=>$request->e_transfer_no,
          ]);
 
+        $unitNumber = $request->input('unit_number');
+        $streetAddress = $request->input('street_address');
+        $city = $request->input('city');
+        $province = $request->input('province');
+        
+        $address = '';
+
+        if (!empty($unitNumber)) {
+            $address .= $unitNumber . ' ';
+        }
+
+        $address .= $streetAddress . ', ' . $city . ', ' . $province;
 
         $fundraiser =Fundraiser::where('user_id','=',$user->id)->first();
         $fundraiser->update([
-        'company_name' =>$request->company_name,
-        'vision_mission'=>$request->vission_mission,
-        'charity_type'=>$request->charity_type,
-        'address'=>$request->address,
-        'goal'=>$request->goal,
+            'company_name' =>$request->company_name,
+            'vision_mission'=>$request->vission_mission,
+            'charity_type'=>$request->charity_type,
+            'address'=>$address,
+            'goal'=>$request->goal,
+            'vision'=>$request->vision,
+            'tax_slip'=>$request->tax_slip_confirmation,
+            'unit_number'=>$request->unit_number,
+            'street_address'=>$request->street_address,
+            'city'=>$request->city,
+            'province'=>$request->province,
+            'postal_code'=>$request->postal_code
          ]);
 
         if($user && $fundraiser){

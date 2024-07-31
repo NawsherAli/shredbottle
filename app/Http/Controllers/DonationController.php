@@ -48,11 +48,12 @@ class DonationController extends Controller
          
         // Ensure the user is authenticated and the customer is found
         if ($user && $fundraiser) {
-            $donations = Donation::with('donor.user','charity')->where('charity_id','=',$fundraiser->id)->paginate(10);
+            $donations = Donation::with('donor.user','charity','pickup')->where('charity_id','=',$fundraiser->id)->paginate(10);
             // dd($donations->all());
         }else{
             $donations = [];
         }
+        
         return view('fundraiser.donations.index', compact('donations'));
     }
     //Search Donations
@@ -180,11 +181,13 @@ class DonationController extends Controller
     }
 
     //customer money donation
-    public function donateNow()
+    public function donateNow($id)
     {
-        $fundraisers  = Fundraiser::all();
-        $charities = Charity::all();
-        return view('customer.fundraiser.donate-now',compact('fundraisers','charities'));
+        
+        $fundraiser  = Fundraiser::find($id);
+        // dd($fundraisers);
+        // $charities = Charity::all();
+        return view('customer.fundraiser.donate-now',compact('fundraiser'));
     }
 
     //Donate Money
@@ -229,7 +232,8 @@ class DonationController extends Controller
                 }
             }
         }else{
-            return redirect()->route('donate.now')->with('error', 'You have not enough money to  donate');
+            return redirect()->route('donate.now', ['id' => $request->charity_name])->with('error', 'You do not have enough money to donate.');
+
         }
         // $fundraisers  = Fundraiser::all();
         

@@ -34,11 +34,11 @@ class PickupController extends Controller
     public function store(Request $request)
 	{
 
-
+        // dd($request->all());
 	    // Validate the form data
 	    $request->validate([
-	        'pickup_location' => 'required|string',
-	        'pickup_date' => 'required|date',
+	        // 'pickup_location' => 'required|string',
+	        'pickup_date' => 'required|date|after_or_equal:today',
 	        'pickup_contact' => 'required|numeric',
 	        'pickup_items.*.items_type' => 'required|string',
 	        'pickup_items.*.no_of_bags' => 'required|numeric',
@@ -52,18 +52,37 @@ class PickupController extends Controller
 		if (!$userWithCustomer->customer->address) {
 		   return redirect()->route('pickup.create')->with('error', 'Please complete your profile!');
 		}  
-	    
+	    $unitNumber = $request->input('unit-number');
+        $streetAddress = $request->input('street-address');
+        $city = $request->input('city');
+        $province = $request->input('province');
+        $postalCode = $request->input('postal-code');
+
+        $location = '';
+
+        if (!empty($unitNumber)) {
+            $location .= $unitNumber . ' ';
+        }
+        $location .= $streetAddress . ', ' . $city . ', ' . $province ;
 	   	// dd($pickup);
 	    // Create Pickup
 	    $pickup = Pickup::create([
 	    	'customer_id'=>$userWithCustomer->customer->id,
-	        'pickup_location' => $request->input('pickup_location'),
+	        'pickup_location' => $location,
 	        'pickup_date' => $request->input('pickup_date'),
 	        'pickup_contact' => $request->input('pickup_contact'),
 	        'pickup_service' => $request->input('pickup_service'),
 	        'payment_option' => $request->input('payment_option'),
 	        'charity_type' => $request->input('charity_type'),
 	        'charity_organization' => $request->input('charity_organization'),
+            'unit_number' => $request->input('unit-number'),
+            'street_address' => $request->input('street-address'),
+            'city' => $request->input('city'),
+            'province' => $request->input('province'),
+            'postal_code' => $request->input('postal-code'),
+            'special_instructions' => $request->input('special_instruction'),
+            'show_info' => $request->input('info_confirmation'),
+            'tax_slip_confirmation' => $request->input('info_confirmation'),
 	     ]);
 
 	        $totalBags = 0;
@@ -99,6 +118,8 @@ class PickupController extends Controller
 		            'donor_id' => $userWithCustomer->customer->id,
 		            'charity_type' => $request->input('charity_type'),
 		            'charity_id' => $request->input('charity_organization'),
+                    'tax_slip_confirmation' => $request->input('tax_slip_confirmation'),
+                    'show_info' => $request->input('info_confirmation'),
 		            'pickup_id' => $pickup->id,
 		        ]);
 
@@ -111,7 +132,7 @@ class PickupController extends Controller
                 'name' => $admin->name,
             ];
 
-            $admin->notify(new PickupRequestReceivedNotification($admincustomData));
+            // $admin->notify(new PickupRequestReceivedNotification($admincustomData));
 
             // Notify user
             $user = Auth::user(); // Assuming the user is authenticated

@@ -35,11 +35,20 @@
             <thead>
                 <tr class="bg-primary">
                     <th scope="col" class="text-white">ID</th>
+                    @if($role=='admin' || $role=='fundraiser')
                     <th scope="col" class="text-white">Donor Name</th>
-                    <th scope="col" class="text-white">Donation Amount</th>
-                    <th scope="col" class="text-white">Charity Type</th>
+                    @endif
+
+                    @if($role=='admin' || $role=='customer')
                     <th scope="col" class="text-white">Charity Name</th>
+                    <th scope="col" class="text-white">Charity Type</th>
+                    @endif
+
+                    <th scope="col" class="text-white">Donation Amount</th>
                     <th scope="col" class="text-white">Number of Items Donated</th>
+                    <th scope="col" class="text-white">Type of Items</th>
+                    <th scope="col" class="text-white">Date</th>
+                    <th scope="col" class="text-white">Tax Slip Request</th>
                     <th scope="col" class="text-white">Status</th>
                 </tr>
             </thead>
@@ -48,11 +57,25 @@
                 @foreach($donations as $donate)
                 <tr>
                     <th scope="row"> {{$loop->iteration}}</th>
-                    <td>{{$donate->donor->user->name}}</td>
-                    <td>{{$donate->amount}}</td>
-                    <td>{{$donate->charity_type}}</td>
+                    @if($role =='admin' || $role=='fundraiser')
+                        @if($donate->show_info == 'Yes')
+                            <td>{{$donate->donor->user->name}}</td>
+                        @else
+                            <td></td>
+                        @endif
+                    @endif
+
+                    @if($role=='admin' || $role=='customer')
                     <td>{{$donate->charity->company_name}}</td>
+                    <td>{{$donate->charity_type}}</td>
+                    @endif
+                    <td>{{$donate->amount}}</td>
+                    
+                    
                     <td>{{$donate->no_of_items}}</td>
+                    <td>Refundable Beverages</td>
+                    <td>{{ $donate->created_at->format('d-m-Y') }}</td>
+                    <td>{{$donate->tax_slip_confirmation}}</td>
                     <td>
                     @if($donate->status == 'Completed')
                     <span class="badge badge-pill badge-success mr-3">Completed</span>

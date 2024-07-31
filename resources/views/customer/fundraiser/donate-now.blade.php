@@ -18,25 +18,26 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="charity_type" class="text-primary">Charity Type</label>
-        <select id="charity_type" class="form-control" name="charity_type">
-             @foreach($charities as $charity)
-            <option value="{{$charity->id}}">{{$charity->name}}</option>
-            @endforeach
-        </select>
-    </div>
+        <input type="text" name="charity_type" class="form-control" value="{{$fundraiser->charity_type}}" readonly>
+   </div>
     <div class="form-group col-md-6">
         <label for="charity_name" class="text-primary">Organization Name</label>
-        <select id="charity_name" class="form-control" name="charity_name">
-            @foreach($fundraisers as $fundraiser)
-            <option value="{{$fundraiser->id}}">{{$fundraiser->company_name}}</option>
-            @endforeach
-        </select>
+        <input type="text" name="charity_name" class="form-control" value="{{$fundraiser->id}}" readonly >
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-6  ">
         <label for="amount" class="text-primary">Enter Amount</label>
-        <input type="number" class="form-control" id="amount" placeholder="$10.00" name="amount" required="required">
+        <!-- <input type="number" class="form-control" id="amount" placeholder="$10.00" name="amount" required="required" max="{{Auth::user()->customer->current_balance;}}" value=""> -->
+        <div class="input-group  form-control " style="padding: 0px">
+            <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+            </div>
+            <input type="number" class="form-control" id="amount" placeholder="$10.00" name="amount" required="required" max="{{Auth::user()->customer->current_balance;}}" value="" aria-label="Amount (to the nearest dollar)" style="border: none;" min="1">
+            <!-- <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+            </div> -->
+        </div>
     </div>
     <div class="form-group col-md-3 col-6  d-flex align-items-end justify-content-end">
         <button class="btn  border-primary1" style="width: 200px">Cancel</button>
@@ -45,6 +46,7 @@
         <button type="submit" class="btn  btn-primary"  style="width: 200px">Send</button>
     </div>
 </div>
+<span class="text-primary">Your current balance is {{Auth::user()->customer->current_balance;}}$</span>
 </form>
 
 @endsection

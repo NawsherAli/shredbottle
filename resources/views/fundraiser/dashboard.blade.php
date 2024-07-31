@@ -42,7 +42,7 @@
                                         <!-- <i class="m-r-10 text-primary anticon anticon-phone"></i> -->
                                         <span class="text-dark">User ID: </span> 
                                     </p>
-                                    <p class="col-9 font-weight-semibold text-black"> STB00{{ Auth::user()->id }}</p>
+                                    <p class="col-9 font-weight-semibold text-black"> STBFD00{{ Auth::user()->id }}</p>
                                 </li>
                                 <li class="row">
                                     <p class="col-3 font-weight-semibold text-dark m-b-5">
@@ -128,7 +128,7 @@
                         @endif
 
                      </div> 
-                     <p  class="d-none d-md-block">You can claim your balance when your amount is 150 dollers</p>
+                        <p  class="d-none d-md-block text-center">You can claim your balance when it reaches $150</p>
                     <!-- <div class="p-5 d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary btn-responsive-text">View Fundraisers</button>
                      </div> 
@@ -157,11 +157,19 @@
                         <thead>
                             <tr class="bg-primary">
                                 <th scope="col" class="text-white">ID</th>
+                                @if($role=='admin' || $role=='fundraiser')
                                 <th scope="col" class="text-white">Donor Name</th>
-                                <th scope="col" class="text-white">Donation Amount</th>
-                                <th scope="col" class="text-white">Charity Type</th>
+                                @endif
+
+                                @if($role=='admin' || $role=='customer')
                                 <th scope="col" class="text-white">Charity Name</th>
+                                <th scope="col" class="text-white">Charity Type</th>
+                                @endif
+                                <th scope="col" class="text-white">Donation Amount</th>
                                 <th scope="col" class="text-white">Number of Items Donated</th>
+                                <th scope="col" class="text-white">Type of Items</th>
+                                <th scope="col" class="text-white">Date</th>
+                                <th scope="col" class="text-white">Tax Slip Request</th>
                                 <th scope="col" class="text-white">Status</th>
                             </tr>
                         </thead>
@@ -170,11 +178,23 @@
                             @foreach($donations as $donate)
                             <tr>
                                 <th scope="row"> {{$loop->iteration}}</th>
-                                <td>{{$donate->donor->user->name}}</td>
-                                <td>{{$donate->amount}}</td>
-                                <td>{{$donate->charity_type}}</td>
+                                @if($role =='admin' || $role=='fundraiser')
+                                    @if($donate->show_info == 'Yes')
+                                        <td>{{$donate->donor->user->name}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                @endif
+
+                                @if($role=='admin' || $role=='customer')
                                 <td>{{$donate->charity->company_name}}</td>
+                                <td>{{$donate->charity_type}}</td>
+                                @endif
+                                <td>{{$donate->amount}}</td>
                                 <td>{{$donate->no_of_items}}</td>
+                                <td>Refundable Beverages</td>
+                                <td>{{ $donate->created_at->format('d-m-Y') }}</td>
+                                <td>{{$donate->tax_slip_confirmation}}</td>
                                 <td>
                                 @if($donate->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -200,17 +220,25 @@
                     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
                          <div class="d-flex justify-content-between" >
                              <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
-                             <p class="text-black"><b>No of Items</b>
-                             <!-- <i class="far fa-calendar-alt"></i>  -->{{$donate->no_of_items}}
+                             <p class="text-black"><b><i class="far fa-calendar-alt"></i></b> {{ $donate->created_at->format('d-m-Y') }}
                              </p>
                          </div>
                          <div class="d-flex justify-content-between" >
+                         @if($role =='admin' || $role=='fundraiser')
+                            @if($donate->show_info == 'Yes')
                              <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
+                            @endif
+                         @endif
                              <h3 class="text-primary">${{$donate->amount}}</h3>
                          </div>
                          <div class="d-flex justify-content-between" >
-                             <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
-                             <p class="text-black"><b>Charity Name:</b> {{$donate->charity->company_name}}</p>
+                             <p class="text-black"><b>No of Items:</b> {{$donate->no_of_items
+                            }}</p>
+                             <p class="text-black"><b>Type:</b> Refundable Beverage</p>
+                         </div>
+                         <div class="d-flex justify-content-between" >
+                             <p class="text-black"><b>Tax Slip Requested:</b> {{$donate->tax_slip_confirmation
+                            }}</p>
                          </div>
                          <div class="" >
                                 @if($donate->status == 'Completed')

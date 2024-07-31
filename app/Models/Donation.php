@@ -14,6 +14,8 @@ class Donation extends Model
         'no_of_items',
         'status',
         'pickup_id',
+        'tax_slip_confirmation',
+        'show_info'
     ];
 
     public function donor()

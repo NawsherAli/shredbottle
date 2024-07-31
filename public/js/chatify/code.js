@@ -853,7 +853,7 @@ function checkInternet(state, selector) {
 let contactsPage = 1;
 let contactsLoading = false;
 let noMoreContacts = false;
-function setContactsLoading(loading = false) {
+function setContactsLoading(loading = true) {
   if (!loading) {
     $(".listOfContacts").find(".loading-contacts").remove();
   } else {
@@ -892,7 +892,11 @@ function getContacts() {
     });
   }
 }
-
+$(document).ready(function() {
+  // Your code here
+  console.log("Document is ready with jQuery!");
+  // getContacts();
+});
 /**
  *-------------------------------------------------------------
  * Update contact item
@@ -1250,7 +1254,7 @@ function setActiveStatus(status) {
  * On DOM ready
  *-------------------------------------------------------------
  */
-$(document).ready(function () {
+$(document).ready(function () {\
   // get contacts list
   getContacts();
 

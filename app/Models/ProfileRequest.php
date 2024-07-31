@@ -24,6 +24,13 @@ class ProfileRequest extends Model
         'is_read',
         'goal',
         'status',
+        'street_address',
+        'unit_number',
+        'city',
+        'province',
+        'postal_code',
+        'tax_slip_confirmation',
+        'vision'
     ];
 
     public function user()

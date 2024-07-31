@@ -127,12 +127,63 @@
                             <td><input type="text" name="goal" value="{{$request_data->goal}}" class="form-control"></td>
                         </tr>
                         <tr>
-                            <th>Address</th>
-                            <td>{{$old_data->fundraiser->address}}</td>
-                            <td><input type="text" name="address" value="{{$request_data->address}}" class="form-control"></td>
+                            <th>Tax Slip Confirmation</th>
+                            <td>{{$old_data->fundraiser->tax_slip}}</td>
+                            <td>
+                            
+                            <select id="tax_slip_confirmation" class="form-control" name="tax_slip_confirmation">
+                               <option value="Yes" {{ $request_data->tax_slip_confirmation == 'Yes' ? 'selected' : '' }}>Yes</option>
+                               <option value="No" {{ $request_data->tax_slip_confirmation == 'No' ? 'selected' : '' }}>No</option>
+                            </select>
+                            </td>
                         </tr>
                         <tr>
-                            <th>Vision & Mission</th>
+                            <th>Unit Number</th>
+                            <td>{{$old_data->fundraiser->unit_number}}</td>
+                            <td><input type="text" name="unit_number" value="{{$request_data->unit_number}}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>Street Address</th>
+                            <td>{{$old_data->fundraiser->street_address}}</td>
+                            <td><input type="text" name="street_address" value="{{$request_data->street_address}}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td>{{$old_data->fundraiser->city}}</td>
+                            <td><input type="text" name="city" value="{{$request_data->city}}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>Province</th>
+                            <td>{{$old_data->fundraiser->province}}</td>
+                            <td><select id="province" name="province" required class="form-control">
+                                <option value="">Select Province</option>
+                                <option value="Alberta" {{ optional($request_data)->province == 'Alberta' ? 'selected' : '' }}>Alberta</option>
+                                <option value="British Columbia" {{ optional($request_data)->province == 'British Columbia' ? 'selected' : '' }}>British Columbia</option>
+                                <option value="Manitoba" {{ optional($request_data)->province == 'Manitoba' ? 'selected' : '' }}>Manitoba</option>
+                                <option value="New Brunswick" {{ optional($request_data)->province == 'New Brunswick' ? 'selected' : '' }}>New Brunswick</option>
+                                <option value="Newfoundland and Labrador" {{ optional($request_data)->province == 'Newfoundland and Labrador' ? 'selected' : '' }}>Newfoundland and Labrador</option>
+                                <option value="Nova Scotia" {{ optional($request_data)->province == 'Nova Scotia' ? 'selected' : '' }}>Nova Scotia</option>
+                                <option value="Ontario" {{ optional($request_data)->province == 'Ontario' ? 'selected' : '' }}>Ontario</option>
+                                <option value="Prince Edward Island" {{ optional($request_data)->province == 'Prince Edward Island' ? 'selected' : '' }}>Prince Edward Island</option>
+                                <option value="Quebec" {{ optional($request_data)->province == 'Quebec' ? 'selected' : '' }}>Quebec</option>
+                                <option value="Saskatchewan" {{ optional($request_data)->province == 'Saskatchewan' ? 'selected' : '' }}>Saskatchewan</option>
+                                <option value="Northwest Territories" {{ optional($request_data)->province == 'Northwest Territories' ? 'selected' : '' }}>Northwest Territories</option>
+                                <option value="Nunavut" {{ optional($request_data)->province == 'Nunavut' ? 'selected' : '' }}>Nunavut</option>
+                                <option value="Yukon" {{ optional($request_data)->province == 'Yukon' ? 'selected' : '' }}>Yukon</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <th>Postal Code</th>
+                            <td>{{$old_data->fundraiser->postal_code}}</td>
+                            <td><input type="text" name="postal_code" value="{{$request_data->postal_code}}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>Vision </th>
+                            <td>{{$old_data->fundraiser->vision}}</td>
+                            <td><input type="text" name="vision" value="{{$request_data->vision}}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <th>Mission</th>
                             <td>{{$old_data->fundraiser->vision_mission}}</td>
                             <td><input type="text" name="vission_mission" value="{{$request_data->vission_mission}}" class="form-control"></td>
                         </tr>

@@ -23,10 +23,13 @@
                         <thead>
                             <tr class="bg-primary">
                                 <th scope="col" class="text-white">ID</th>
+                                @if($role == 'admin')
                                 <th scope="col" class="text-white">Customer Name</th>
-                                <th scope="col" class="text-white">Phone Number</th>
-                                <th scope="col" class="text-white">Pickup Quantity</th>
+                                @endif
+                                <th scope="col" class="text-white">Location</th>
+                                <th scope="col" class="text-white">Pickup Quantity</th> 
                                 <th scope="col" class="text-white">Pickup Date</th>
+                                <th scope="col" class="text-white">Payment</th>
                                 <th scope="col" class="text-white">Status</th>
                             </tr>
                         </thead>
@@ -35,10 +38,13 @@
                             @foreach($pickups as $pickup)
                             <tr>
                                 <th scope="row"> {{$loop->iteration}}</th>
+                                @if($role == 'admin')
                                 <td>{{$pickup->customer->user->name}}</td>
-                                <td>{{$pickup->pickup_contact}}</td>
-                                <td>{{$pickup->total_items}}</td>
+                                @endif
+                                <td>{{$pickup->pickup_location}}</td>
+                                <td>{{$pickup->total_items}}</td> 
                                 <td>{{$pickup->pickup_date}}</td>
+                                <td>{{$pickup->payment_option}}</td>
                                 <td>
                                 @if($pickup->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -65,11 +71,18 @@
                              <p class="text-black"><i class="far fa-calendar-alt"></i> {{$pickup->pickup_date}}</p>
                          </div>
                          <div class="d-flex justify-content-between" >
+                            @if($role == 'admin')
                              <h5 class="text-primary">{{$pickup->customer->user->name}}</h5>
+                            @endif
                              <h5 class="text-primary">{{$pickup->total_items}}</h5>
                          </div>
                          <div class="d-flex justify-content-between" >
-                             <p class="text-black"><i class="anticon anticon-phone text-primary"></i>{{$pickup->pickup_contact}}</p>
+                             
+                             <p class="text-black"><i class="far fa-address-book"> </i> {{$pickup->pickup_location}}</p>
+                             
+                         </div>
+                         <div class="d-flex justify-content-between" >
+                             <p class="text-black"><b>Paymet: </b> {{$pickup->payment_option}} </p>
                              <div class="" >
                                 @if($pickup->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -79,6 +92,7 @@
                               <a href='{{route("$role.pickup.view",["id"=>$pickup->id])}}' class="badge badge-pill badge-green"><i class="fas fa-external-link-alt    br-100"></i></a>
                              </div>
                          </div>
+                         
                     </div>
                     @endforeach
                     {{ $pickups->links('vendor.pagination.default') }}
@@ -91,11 +105,19 @@
                         <thead>
                             <tr class="bg-primary">
                                 <th scope="col" class="text-white">ID</th>
+                                @if($role=='admin' || $role=='fundraiser')
                                 <th scope="col" class="text-white">Donor Name</th>
-                                <th scope="col" class="text-white">Donation Amount</th>
-                                <th scope="col" class="text-white">Charity Type</th>
+                                @endif
+
+                                @if($role=='admin' || $role=='customer')
                                 <th scope="col" class="text-white">Charity Name</th>
+                                <th scope="col" class="text-white">Charity Type</th>
+                                @endif
+                                <th scope="col" class="text-white">Donation Amount</th>
                                 <th scope="col" class="text-white">Number of Items Donated</th>
+                                <th scope="col" class="text-white">Type of Items</th>
+                                <th scope="col" class="text-white">Date</th>
+                                <th scope="col" class="text-white">Tax Slip Request</th>
                                 <th scope="col" class="text-white">Status</th>
                             </tr>
                         </thead>
@@ -104,11 +126,23 @@
                             @foreach($donations as $donate)
                             <tr>
                                 <th scope="row"> {{$loop->iteration}}</th>
-                                <td>{{$donate->donor->user->name}}</td>
-                                <td>{{$donate->amount}}</td>
-                                <td>{{$donate->charity_type}}</td>
+                                @if($role =='admin' || $role=='fundraiser')
+                                    @if($donate->show_info == 'Yes')
+                                        <td>{{$donate->donor->user->name}}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                @endif
+
+                                @if($role=='admin' || $role=='customer')
                                 <td>{{$donate->charity->company_name}}</td>
+                                <td>{{$donate->charity_type}}</td>
+                                @endif
+                                <td>{{$donate->amount}}</td>
                                 <td>{{$donate->no_of_items}} </td>
+                                <td>Refundable Beverages</td>
+                                <td>{{ $donate->created_at->format('d-m-Y') }}</td>
+                                <td>{{$donate->tax_slip_confirmation}}</td>
                                 <td>
                                 @if($donate->status == 'Completed')
                                 <span class="badge badge-pill badge-success mr-3">Completed</span>
@@ -134,16 +168,22 @@
                     <div class="col-12  br-10 border-primary1 pb-2 d-block d-sm-none mb-3">
                          <div class="d-flex justify-content-between" >
                              <p class="text-black"><b>ID:</b> {{$loop->iteration}}</p>
-                             <p class="text-black"><b>No of Items:</b> {{$donate->no_of_items}}</p>
+                             <p class="text-black"><b><i class="far fa-calendar-alt"></i></b> {{ $donate->created_at->format('d-m-Y') }}</p>
                          </div>
                          <div class="d-flex justify-content-between" >
-                             <h3 class="text-primary">{{$donate->donor->user->name}}</h3>
+                             <h3 class="text-primary">{{$donate->charity->company_name}} </h3>
                              
                              <h3 class="text-primary">${{$donate->amount}}</h3>
                          </div>
-                         <div class="d-column justify-content-between" >
+                         <div class="d-flex justify-content-between" >
                              <p class="text-black"><b>Charity Type:</b> {{$donate->charity_type}}</p>
-                             <p class="text-black"><b>Charity Name:</b> {{$donate->charity->company_name}}</p>
+                             @if($role == 'admin')
+                             <p class="text-black"><b>Donor Name:</b> {{$donate->donor->user->name}}</p>
+                             @endif
+                          </div>
+                          <div class="d-flex justify-content-between" >
+                             <p class="text-black"><b>No of Items:</b> {{$donate->no_of_items}}</p>
+                             <p class="text-black"><b>Type of Item:</b> Refundable Beverages</p>
                          </div>
                          <div class="d-flex justify-content-end" >
                                 @if($donate->status == 'Completed')

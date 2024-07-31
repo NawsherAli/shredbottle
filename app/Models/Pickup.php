@@ -19,6 +19,14 @@ class Pickup extends Model
         'status',
         'total_items',
         'amount',
+        'unit_number',
+        'street_address',
+        'city',
+        'province',
+        'postal_code',
+        'special_instructions',
+        'show_info',
+        'tax_slip_confirmation'
     ];
 
     public function customer()
